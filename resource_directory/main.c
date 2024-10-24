@@ -10,17 +10,18 @@
  
 #include "shell.h"
 #include "msg.h"
+#include "clist.h"
 
 
-
-typedef struct nodeelem{
+typedef struct list_node_t{
     char location[20];
     char name[50];
     int lt;
     char ressources[100];
-    Endpoint* next;
-} Endpoint;
+    clist_node_t* next;
+} clist_node_t;
 
+clist_node_t list;
 
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
@@ -74,7 +75,7 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printf("Lifetime: %s\n", lifetime);
     printf("Resources: %s\n", pdu->payload);
     puts("\n");
-    Endpoint ep; 
+    clist_node_t ep; 
 
     char location_str[20] = "";
     char location_str_1[6] = "/reg/";
@@ -100,9 +101,11 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printf("Lifetime: %d\n", ep.lt);
     printf("Resources: %s\n", ep.ressources);
 
+    clist_rpush(&list, &ep);
+
     puts("\n");
     puts("======= Registered Endpoints: ===========");
-
+    
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
 
     
