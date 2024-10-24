@@ -18,6 +18,7 @@ typedef struct nodeelem{
     char name[50];
     int lt;
     char ressources[100];
+    Endpoint* next;
 } Endpoint;
 
 static int number_registered_endpoints = 0;
