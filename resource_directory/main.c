@@ -21,10 +21,6 @@ typedef struct nodeelem{
     Endpoint* next;
 } Endpoint;
 
-static int number_registered_endpoints = 0;
-
-Endpoint registered_endpoints[100];
-
 /*
 // Define a node in the linked list
 typedef struct {
@@ -204,7 +200,7 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     char location_str_2[2] = "/";
     char number_str[6];
 
-    sprintf(number_str, "%d", number_registered_endpoints + 1);
+   // sprintf(number_str, "%d", number_registered_endpoints + 1);
 
     strcat(location_str, location_str_1);
     strcat(location_str, number_str);
@@ -223,20 +219,8 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printf("Lifetime: %d\n", ep.lt);
     printf("Resources: %s\n", ep.ressources);
 
-    registered_endpoints[number_registered_endpoints] = ep;
-    number_registered_endpoints++;
-
     puts("\n");
     puts("======= Registered Endpoints: ===========");
-    for (int i = 0; i < number_registered_endpoints; i++)
-    {
-        printf("Endpoint: %s\n", registered_endpoints[i].name);
-        printf("Lifetime: %d\n", registered_endpoints[i].lt);
-        printf("Resources: %s\n", registered_endpoints[i].ressources);
-        printf("Location: %s\n", registered_endpoints[i].location);
-        puts("--\n");
-    }
-
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
 
