@@ -21,34 +21,9 @@ typedef struct nodeelem{
     Endpoint* next;
 } Endpoint;
 
-/*
-// Define a node in the linked list
-typedef struct {
-    Endpoint endpoint;
-    struct Node* next;
-} Node;
-*/
-
-//Node* head = NULL;
-
-
 
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
-
-/*
-// Function to create a new node
-Node* create_node(Endpoint endpoint) {
-    Node* new_node = (Node*)malloc(sizeof(Node));
-    if (new_node == NULL) {
-        printf("Memory allocation failed!\n");
-        exit(1); 
-    }
-    new_node->endpoint = endpoint;
-    new_node->next = NULL;
-    return new_node;
-}
-*/
 static const coap_resource_t _resources[] = {
 
     { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST | COAP_MATCH_SUBTREE, _registration_handler, NULL },
@@ -62,98 +37,6 @@ static gcoap_listener_t _listener = {
     NULL,
     NULL
 };
-
-/*
-void append_node(Node** head, Endpoint endpoint) {
-    Node* new_node = create_node(endpoint);
-
-    // If the list is empty, set new_node as the head
-    if (*head == NULL) {
-        *head = new_node;
-        return;
-    }
-
-    // Traverse to the end of the list
-    Node* current = *head;
-    while (current->next != NULL) {
-        current = current->next;
-    }
-
-    // Append the new node
-    current->next = new_node;
-
-    puts("Registration finished!");
-}
-*/
-/*
-// Function to remove a node by ID from the list
-int remove_node(Node** head, int id) {
-    Node* current = *head;
-    Node* previous = NULL;
-
-    // Traverse the list to find the node with the given id
-    while (current != NULL && current->data.id != id) {
-        previous = current;
-        current = current->next;
-    }
-
-    // If the node wasn't found, return 0
-    if (current == NULL) {
-        return 0;  // Node with the given id not found
-    }
-
-    // If the node to be removed is the head node
-    if (previous == NULL) {
-        *head = current->next;  // Move the head to the next node
-    } else {
-        // Otherwise, bypass the node to be removed
-        previous->next = current->next;
-    }
-
-    free(current);  // Free memory of the removed node
-    return 1;  // Success
-}
-*/
-/*
-void append(Endpoint ep) {
-    // Allocate memory for the new node
-    Ptr newNode = (Ptr)malloc(sizeof(Endpoint));
-    if (newNode == NULL) {
-        perror("Failed to allocate memory");
-        return;
-    }
-    
-    // Copy data into the new node
-    strcpy(newNode->name, ep.name);
-    newNode->lt = ep.lt;
-    strcpy(newNode->ressources, ep.ressources);
-    newNode->next = NULL; // New node will point to NULL
-
-    // If the list is empty, set head to the new node
-    if (head == NULL) {
-        head = newNode;
-    } else {
-        // Traverse to the last node
-        Ptr current = head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        // Link the last node to the new node
-        current->next = newNode;
-    }
-}
-*/
-/*
-void print_list() {
-    
-    
-    Ptr current = head;
-    while (current != NULL) {
-        printf("Name: %s, LT: %d, Resources: %s\n", current->name, current->lt, current->ressources);
-        current = current->next;
-    }
-}
-*/
 
 
 void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
@@ -177,8 +60,6 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
     (void)ctx;
-
-    //char *query = (char*)coap_find_option(pdu, );
 
     unsigned char query_buffer[100];
 
