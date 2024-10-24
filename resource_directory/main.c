@@ -58,6 +58,8 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
     }
 }
 
+static int _print_node(clist_node_t *node) { printf("0x%08x ", (unsigned)node); return 0; }
+
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
     (void)ctx;
@@ -105,6 +107,8 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
 
     puts("\n");
     puts("======= Registered Endpoints: ===========");
+
+    clist_foreach(&list, _print_node);
     
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
 
