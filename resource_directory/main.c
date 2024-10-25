@@ -71,7 +71,7 @@ static void append(Endpoint *head, Endpoint *new_node)
     else
     {
         actual = head->next;
-        
+
         do
         {
             actual = actual->next;
@@ -81,6 +81,27 @@ static void append(Endpoint *head, Endpoint *new_node)
         new_node->previous = actual;
         
     }
+
+}
+
+static void print_list(Endpoint* head)
+{
+    if (head == NULL)
+    {
+        puts("There are no registered endpoints.");
+        return;
+    }
+
+    Endpoint* actual = head;
+    
+    do
+    {
+        printf("Endpoint: %s\n", actual->name);
+        printf("Lifetime: %d\n", actual->lt);
+        printf("Resources: %s\n", actual->ressources);
+        printf("Location: %s\n", actual->location);
+        
+    }while(actual->next != NULL);
 
 }
 
