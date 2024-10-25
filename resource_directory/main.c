@@ -22,6 +22,7 @@ typedef struct nodeelem{
     Endpoint* previous;
 } Endpoint;
 
+Endpoint* head = NULL;
 
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
@@ -57,6 +58,30 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
         
         token = strtok(NULL, " ");
     }
+}
+
+static void append(Endpoint *head, Endpoint *new_node)
+{
+    Endpoint* actual = NULL;
+
+    if(head == NULL)
+    {
+        head = new_node;
+    }
+    else
+    {
+        actual = head->next;
+        
+        do
+        {
+            actual = actual->next;
+        } while (actual->next != NULL);
+
+        actual->next = new_node;
+        new_node->previous = actual;
+        
+    }
+
 }
 
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
