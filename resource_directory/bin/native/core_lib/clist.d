@@ -1,20 +1,20 @@
-/home/vjorald/resource_dir/resource_directory/bin/native/core_lib/clist.o: \
- /home/vjorald/resource_dir/resource_directory/RIOT/core/lib/clist.c \
+/home/vjorald/cord_rd/resource_directory/bin/native/core_lib/clist.o: \
+ /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/clist.c \
  /usr/include/stdc-predef.h \
- /home/vjorald/resource_dir/resource_directory/bin/native/riotbuild/riotbuild.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/core/lib/include/clist.h \
+ /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/core/lib/include/list.h
+ /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h
 
 /usr/include/stdc-predef.h:
 
-/home/vjorald/resource_dir/resource_directory/bin/native/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/core/lib/include/clist.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h:

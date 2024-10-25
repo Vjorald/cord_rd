@@ -13,17 +13,21 @@
 #include "clist.h"
 
 
-typedef struct list_node_t{
+typedef struct {
     char location[20];
     char name[50];
     int lt;
     char ressources[100];
-    clist_node_t* next;
-} clist_node_t;
+    clist_node_t node;
+} Endpoint;
 
 clist_node_t list;
 
+static int last_location = 0;
+
+
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
 
 static const coap_resource_t _resources[] = {
 
@@ -58,7 +62,38 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
     }
 }
 
-static int _print_node(clist_node_t *node) { printf("0x%08x ", (unsigned)node); return 0; }
+void clist_traverse(clist_node_t *list) {
+   clist_node_t *node = list->next;
+    if (! node) {
+        puts("list empty");
+        return;
+    }
+
+    if (clist_more_than_one(list))
+    {
+        puts("More than one elements\n");
+    }
+    else if (clist_exactly_one(list))
+    {
+        puts("Only one element\n");
+    }
+    else if (clist_is_empty(list))
+    {
+        puts("Empty list!!!");
+    }
+
+    do {
+
+    Endpoint *ep = container_of(node, Endpoint, node);
+    printf("Endpoint: %s\n", ep->name);
+    printf("Lifetime: %d\n", ep->lt);
+    printf("Resources: %s\n", ep->ressources);
+    printf("Location: %s\n", ep->location);
+    puts("===\n"); 
+    node = node->next;
+    } while (node != list->next);  
+
+}
 
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
@@ -77,14 +112,16 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printf("Lifetime: %s\n", lifetime);
     printf("Resources: %s\n", pdu->payload);
     puts("\n");
-    clist_node_t ep; 
+    Endpoint ep; 
+
+    last_location++;
 
     char location_str[20] = "";
     char location_str_1[6] = "/reg/";
     char location_str_2[2] = "/";
     char number_str[6];
 
-   // sprintf(number_str, "%d", number_registered_endpoints + 1);
+   sprintf(number_str, "%d", last_location);
 
     strcat(location_str, location_str_1);
     strcat(location_str, number_str);
@@ -102,13 +139,14 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printf("Endpoint: %s\n", ep.name);
     printf("Lifetime: %d\n", ep.lt);
     printf("Resources: %s\n", ep.ressources);
-
-    clist_rpush(&list, &ep);
-
     puts("\n");
+
+    clist_rpush(&list, &ep.node);
+
+    
     puts("======= Registered Endpoints: ===========");
 
-    clist_foreach(&list, _print_node);
+    clist_traverse(&list);
     
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
 

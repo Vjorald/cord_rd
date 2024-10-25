@@ -1,7 +1,7 @@
-/home/vjorald/resource_dir/resource_directory/bin/native/ipv6_hdr/ipv6_hdr_print.o: \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/net/network_layer/ipv6/hdr/ipv6_hdr_print.c \
+/home/vjorald/cord_rd/resource_directory/bin/native/ipv6_hdr/ipv6_hdr_print.o: \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/net/network_layer/ipv6/hdr/ipv6_hdr_print.c \
  /usr/include/stdc-predef.h \
- /home/vjorald/resource_dir/resource_directory/bin/native/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
  /usr/include/stdio.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
@@ -18,20 +18,20 @@
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv6/hdr.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/byteorder.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv6/hdr.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/byteorder.h \
  /usr/include/string.h /usr/include/bits/types/locale_t.h \
  /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/endian.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/unaligned.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/inet_csum.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv6/addr.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/unaligned.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/inet_csum.h \
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv6/addr.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv4/addr.h
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv4/addr.h
 
 /usr/include/stdc-predef.h:
 
-/home/vjorald/resource_dir/resource_directory/bin/native/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h:
 
 /usr/include/stdio.h:
 
@@ -91,9 +91,9 @@
 
 /usr/include/bits/stdint-uintn.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv6/hdr.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv6/hdr.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/byteorder.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/byteorder.h:
 
 /usr/include/string.h:
 
@@ -103,14 +103,14 @@
 
 /usr/include/strings.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/unaligned.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/unaligned.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/inet_csum.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/inet_csum.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv6/addr.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv6/addr.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
-/home/vjorald/resource_dir/resource_directory/RIOT/sys/include/net/ipv4/addr.h:
+/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ipv4/addr.h:

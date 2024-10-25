@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "clist.h": "c"
+        "clist.h": "c",
+        "random": "c"
     }
 }
