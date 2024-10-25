@@ -19,6 +19,7 @@ typedef struct nodeelem{
     int lt;
     char ressources[100];
     Endpoint* next;
+    Endpoint* previous;
 } Endpoint;
 
 
