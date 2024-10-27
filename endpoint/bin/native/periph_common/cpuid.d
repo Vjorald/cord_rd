@@ -1,7 +1,7 @@
-/home/vjorald/resource_dir/endpoint/bin/native/periph_common/cpuid.o: \
- /home/vjorald/resource_dir/endpoint/RIOT/drivers/periph_common/cpuid.c \
+/home/vjorald/cord_rd/endpoint/bin/native/periph_common/cpuid.o: \
+ /home/vjorald/cord_rd/endpoint/RIOT/drivers/periph_common/cpuid.c \
  /usr/include/stdc-predef.h \
- /home/vjorald/resource_dir/endpoint/bin/native/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
@@ -13,10 +13,10 @@
  /usr/include/string.h /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/vjorald/resource_dir/endpoint/RIOT/drivers/include/periph/cpuid.h \
- /home/vjorald/resource_dir/endpoint/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/resource_dir/endpoint/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/macros/units.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/drivers/include/periph/cpuid.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/periph_cpu.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/macros/units.h \
  /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
  /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
  /usr/include/linux/types.h /usr/include/asm/types.h \
@@ -28,7 +28,7 @@
 
 /usr/include/stdc-predef.h:
 
-/home/vjorald/resource_dir/endpoint/bin/native/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -72,13 +72,13 @@
 
 /usr/include/strings.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/drivers/include/periph/cpuid.h:
+/home/vjorald/cord_rd/endpoint/RIOT/drivers/include/periph/cpuid.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/cpu/native/include/periph_cpu.h:
+/home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/macros/units.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/macros/units.h:
 
 /usr/include/linux/gpio.h:
 

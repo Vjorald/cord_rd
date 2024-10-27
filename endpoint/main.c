@@ -205,11 +205,5 @@ int main(void) {
     printf("%s, result: %d \n", endpoint_buffer, res);
 
 
-
-    //int res = cord_ep_update();
-
-    //int res = cord_ep_remove();
-    //printf("result: %d \n", res);
-
     return 0;
 }

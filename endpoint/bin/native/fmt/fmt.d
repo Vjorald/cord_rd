@@ -1,8 +1,8 @@
-/home/vjorald/resource_dir/endpoint/bin/native/fmt/fmt.o: \
- /home/vjorald/resource_dir/endpoint/RIOT/sys/fmt/fmt.c \
+/home/vjorald/cord_rd/endpoint/bin/native/fmt/fmt.o: \
+ /home/vjorald/cord_rd/endpoint/RIOT/sys/fmt/fmt.c \
  /usr/include/stdc-predef.h \
- /home/vjorald/resource_dir/endpoint/bin/native/riotbuild/riotbuild.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/assert.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/libc-header-start.h /usr/include/features.h \
  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
@@ -23,18 +23,18 @@
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
  /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/modules.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/container.h \
- /home/vjorald/resource_dir/endpoint/RIOT/sys/include/fmt.h
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/endpoint/RIOT/sys/include/fmt.h
 
 /usr/include/stdc-predef.h:
 
-/home/vjorald/resource_dir/endpoint/bin/native/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/assert.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -114,14 +114,14 @@
 
 /usr/include/bits/unistd_ext.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/container.h:
 
-/home/vjorald/resource_dir/endpoint/RIOT/sys/include/fmt.h:
+/home/vjorald/cord_rd/endpoint/RIOT/sys/include/fmt.h:

@@ -32,10 +32,9 @@ int number_registered_endpoints = 0;
 
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
-
 static const coap_resource_t _resources[] = {
 
-    { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST | COAP_MATCH_SUBTREE, _registration_handler, NULL },
+    { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST , _registration_handler, NULL },
 };
 
 static gcoap_listener_t _listener = {
@@ -199,26 +198,15 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     printList(&list[number_registered_endpoints - 1]);
 
 
+
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
 
+    coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
     
-    coap_opt_add_format(pdu, COAP_FORMAT_LINK);
+    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_NONE);
     
+    return resp_len + strlen(location_str);
    
-    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
-    
-    const char *response = location_str;
-    
-
-    if (pdu->payload_len >= strlen(response)) {
-        memcpy(pdu->payload, response, strlen(response));
-        return resp_len + strlen(response);
-    }
-    else {
-        
-        puts("gcoap_cli: msg buffer too small");
-        return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
-    }
 }
 
 
