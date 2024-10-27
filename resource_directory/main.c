@@ -16,6 +16,7 @@
 typedef struct nodeelement *Ptr;
 
 typedef struct nodeelement{
+    bool next_free_middle_position;
     char location[20];
     char name[50];
     int lt;
@@ -23,6 +24,9 @@ typedef struct nodeelement{
     Ptr next;
     Ptr previous;
 } Endpoint;
+
+
+bool free_positions_in_the_middle = false;
 
 Ptr head;
 
