@@ -21,6 +21,7 @@ typedef struct nodeelement{
     char name[50];
     int lt;
     char ressources[100];
+    int location_nr;
     Ptr next;
     Ptr previous;
 } Endpoint;
@@ -147,6 +148,41 @@ static int printList(Endpoint* endpoint)
 
 }
 
+static int find_next_empty(Endpoint* endpoint)
+{
+    (void) endpoint;
+
+    if (head == NULL)
+        {
+            puts("There are no registered endpoints.");
+            return 0;
+        }
+    else
+    {
+        Ptr actual = head;
+
+        if (actual->next_free_middle_position == true)
+        {return actual->location_nr;} 
+
+        do
+        {
+            if (actual->next != NULL)
+            {
+                actual = actual->next;
+
+                if(actual->next_free_middle_position == true)
+                {
+                    return actual->location_nr;
+                }
+            }
+            
+        } while (actual->next != NULL);
+    }
+
+        return 0;
+
+}
+
 
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
@@ -173,6 +209,8 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     char location_str_2[2] = "/";
     char number_str[6];
 
+    if (free_positions_in_the_middle == false)
+    {
     sprintf(number_str, "%d", number_registered_endpoints + 1);
 
     strcat(location_str, location_str_1);
@@ -186,15 +224,59 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     list[number_registered_endpoints].name[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
     strncpy((char*)list[number_registered_endpoints].location, location_str, sizeof(list[number_registered_endpoints].location) - 1);
     list[number_registered_endpoints].location[sizeof(list[number_registered_endpoints].location) - 1] = '\0';
+    list[number_registered_endpoints].location_nr = number_registered_endpoints + 1;
 
     puts("======= Registration record infos: =========\n");
     printf("Endpoint: %s\n", list[number_registered_endpoints].name);
     printf("Lifetime: %d\n", list[number_registered_endpoints].lt);
     printf("Resources: %s\n", list[number_registered_endpoints].ressources);
 
-    append(&list[number_registered_endpoints]);
+    
+        list[number_registered_endpoints].next_free_middle_position = false;
 
-    number_registered_endpoints++;
+        append(&list[number_registered_endpoints]);
+
+        number_registered_endpoints++;
+    }
+    else
+    {
+        int location = find_next_empty(&list[number_registered_endpoints]);
+
+        if (location > 0 && location < number_registered_endpoints)
+        {
+            sprintf(number_str, "%d", location + 1);
+
+            strcat(location_str, location_str_1);
+            strcat(location_str, number_str);
+            strcat(location_str, location_str_2);
+
+            list[location].lt = atoi(lifetime);
+            strncpy((char*)list[location].ressources, (char*)pdu->payload, sizeof(list[location].ressources) - 1);
+            list[location].ressources[sizeof(list[location].ressources) - 1] = '\0';
+            strncpy((char*)list[location].name, endpoint_name, sizeof(list[location].name) - 1);
+            list[location].name[sizeof(list[location].name) - 1] = '\0';
+            strncpy((char*)list[location].location, location_str, sizeof(list[location].location) - 1);
+            list[location].location[sizeof(list[location].location) - 1] = '\0';
+            list[location].location_nr = location + 1;
+
+            list[location].next = list[location - 1].next;
+            list[location].previous = &list[location - 1];
+            list[location - 1].next = &list[location];
+
+            if (list[location].next->location_nr > location + 1)
+            {
+                list[location].next_free_middle_position = true;
+            }
+            else
+            {
+                list[location].next_free_middle_position = false;
+            }
+
+            list[location - 1].next_free_middle_position = false;
+
+        }
+    }
+
 
     puts("\n");
     puts("======= Registered Endpoints: ===========");
