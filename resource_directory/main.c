@@ -37,9 +37,12 @@ int number_registered_endpoints = 0;
 
 static ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
+static ssize_t _update_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
 static const coap_resource_t _resources[] = {
 
     { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST , _registration_handler, NULL },
+    { "/reg/",  COAP_PUT | COAP_POST | COAP_DELETE | COAP_MATCH_SUBTREE , _update_handler, NULL },
 };
 
 static gcoap_listener_t _listener = {
@@ -293,6 +296,98 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     
     return resp_len + strlen(location_str);
    
+}
+
+int extract_number_from_location(char *path) {
+    int number = -1; 
+
+
+    const char *start = strstr(path, "/reg/");
+    if (start) {
+        start += 5;
+        
+
+        number = atoi(start);
+    }
+    
+    return number;
+}
+
+
+static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
+{
+    (void)ctx;
+
+    char uri[CONFIG_NANOCOAP_URI_MAX] = { 0 };
+
+    coap_get_uri_path(pdu, (uint8_t *)uri);
+
+    printf("Received: %s\n", uri);
+
+    unsigned method = coap_method2flag(coap_get_code_detail(pdu));
+
+
+
+    if (method == COAP_POST)
+    {
+        puts("Post Method!!\n");
+    }
+
+    if (method == COAP_DELETE)
+    {
+        int location_nr = extract_number_from_location(uri);
+
+        if (location_nr < number_registered_endpoints && location_nr > 1)
+        {
+            if (list[location_nr - 1].previous != NULL)
+            {
+                list[location_nr - 1].previous->next = list[location_nr - 1].next;
+                list[location_nr - 1].previous->next_free_middle_position = true;
+                free_positions_in_the_middle = true;
+                list[location_nr - 1].next->previous = list[location_nr - 1].previous;
+            }
+            else
+            {
+                head = list[location_nr - 1].next;
+                free_positions_in_the_middle = true;
+                list[location_nr - 1].next->previous = NULL;
+            }
+            
+        }
+        else if(location_nr == number_registered_endpoints)
+        {
+            list[location_nr - 1].previous->next = NULL;
+            number_registered_endpoints--;
+        }
+        else if(location_nr == 1)
+        {
+            if (number_registered_endpoints == 1)
+            {
+                head = NULL;
+                number_registered_endpoints--;
+            }
+            else
+            {
+                head = list[location_nr - 1].next;
+                list[location_nr - 1].next->previous = NULL;
+            }
+        }
+
+        Endpoint empty;
+
+        list[location_nr - 1] = empty;
+
+    }
+
+    gcoap_resp_init(pdu, buf, len, COAP_CODE_CHANGED);
+
+    
+    coap_opt_add_format(pdu, COAP_FORMAT_LINK);
+
+   
+    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_NONE);
+    
+    return resp_len;
 }
 
 
