@@ -409,16 +409,39 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
 
     unsigned method = coap_method2flag(coap_get_code_detail(pdu));
 
-
+    int location_nr = extract_number_from_location(uri);
 
     if (method == COAP_POST)
     {
-        puts("Post Method!!\n");
+        if (location_nr > 0 && location_nr < number_registered_endpoints)
+        {
+            char addr_str[IPV6_ADDR_MAX_STR_LEN];
+
+            sock_udp_ep_t* remote = ctx->remote;
+
+    
+            ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
+
+
+            char base_uri[50];
+            char* base_first = "coap://[";
+            char* ending = "]";
+
+            strcat(base_uri, base_first);
+            strcat(base_uri, addr_str);
+            strcat(base_uri, ending);
+
+            list[location_nr - 1].lt = 86400;
+
+            strncpy((char*)list[location_nr - 1].base, base_uri, sizeof(list[location_nr - 1].base) - 1);
+            list[location_nr - 1].base[sizeof(list[location_nr - 1].name) - 1] = '\0';
+
+        }
     }
 
     if (method == COAP_DELETE)
     {
-        int location_nr = extract_number_from_location(uri);
+        
 
         if (location_nr < number_registered_endpoints && location_nr > 1)
         {
