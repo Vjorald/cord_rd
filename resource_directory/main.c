@@ -17,6 +17,7 @@ typedef struct nodeelement *Ptr;
 
 typedef struct nodeelement{
     bool next_free_middle_position;
+    char base[50];
     char location[20];
     char name[50];
     int lt;
@@ -125,6 +126,7 @@ static int printList(Endpoint* endpoint)
     printf("Lifetime: %d\n", actual->lt);
     printf("Resources: %s\n", actual->ressources);
     printf("Location: %s\n", actual->location);
+    printf("Base URI: %s\n", actual->base);
     puts("===\n");
 
     do
@@ -136,6 +138,7 @@ static int printList(Endpoint* endpoint)
             printf("Lifetime: %d\n", actual->lt);
             printf("Resources: %s\n", actual->ressources);
             printf("Location: %s\n", actual->location);
+            printf("Base URI: %s\n", actual->base);
             puts("===\n"); 
         }
         else
@@ -194,9 +197,23 @@ static int find_next_empty(Endpoint* endpoint)
 
 static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
-    (void)ctx;
+
+    char addr_str[IPV6_ADDR_MAX_STR_LEN];
+
+    sock_udp_ep_t* remote = ctx->remote;
+
+    
+    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
 
+    char base_uri[50];
+    char* base_first = "coap://[";
+    char* ending = "]";
+
+    strcat(base_uri, base_first);
+    strcat(base_uri, addr_str);
+    strcat(base_uri, ending);
+   
     unsigned char query_buffer[100];
 
     int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, 100, ' ');
@@ -215,7 +232,7 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     char location_str[20] = "";
     char location_str_1[6] = "/reg/";
     char location_str_2[2] = "/";
-    char number_str[6];
+    char number_str[15];
 
     if (free_positions_in_the_middle == false)
     {
@@ -233,6 +250,8 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     strncpy((char*)list[number_registered_endpoints].location, location_str, sizeof(list[number_registered_endpoints].location) - 1);
     list[number_registered_endpoints].location[sizeof(list[number_registered_endpoints].location) - 1] = '\0';
     list[number_registered_endpoints].location_nr = number_registered_endpoints + 1;
+     strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
+    list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
 
     puts("======= Registration record infos: =========\n");
     printf("Endpoint: %s\n", list[number_registered_endpoints].name);
@@ -265,7 +284,9 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
             list[location - 1].name[sizeof(list[location - 1].name) - 1] = '\0';
             strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
             list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
-            list[location - 1].location_nr = location;
+            list[location - 1].location_nr = location;  
+            strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
+            list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
 
             list[location - 1].next = list[location - 2].next;
             list[location - 1].previous = &list[location - 2];
@@ -312,10 +333,12 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
             strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
             list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
             list[location - 1].location_nr = location;
+            strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
+            list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
 
             list[location - 1].previous = NULL;
             list[location - 1].next = head;
-            if (head->location > location + 1)
+            if (head->location_nr > location + 1)
             {
                 list[location - 1].next_free_middle_position = true;
                 free_positions_in_the_middle = true;
@@ -434,7 +457,7 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
             }
         }
 
-        Endpoint empty;
+        Endpoint empty = { 0 };
 
         list[location_nr - 1] = empty;
 
