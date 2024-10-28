@@ -164,8 +164,13 @@ static int find_next_empty(Endpoint* endpoint)
     {
         Ptr actual = head;
 
+        if(actual->location_nr > 1)
+        {
+            return 1; 
+        }
+
         if (actual->next_free_middle_position == true)
-        {return actual->location_nr;} 
+        {return actual->location_nr + 1;} 
 
         do
         {
@@ -175,7 +180,7 @@ static int find_next_empty(Endpoint* endpoint)
 
                 if(actual->next_free_middle_position == true)
                 {
-                    return actual->location_nr;
+                    return actual->location_nr + 1;
                 }
             }
             
@@ -245,37 +250,92 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     {
         int location = find_next_empty(&list[number_registered_endpoints]);
 
-        if (location > 0 && location < number_registered_endpoints)
+        if (location > 1 && location < number_registered_endpoints)
         {
-            sprintf(number_str, "%d", location + 1);
+            sprintf(number_str, "%d", location);
 
             strcat(location_str, location_str_1);
             strcat(location_str, number_str);
             strcat(location_str, location_str_2);
 
-            list[location].lt = atoi(lifetime);
-            strncpy((char*)list[location].ressources, (char*)pdu->payload, sizeof(list[location].ressources) - 1);
-            list[location].ressources[sizeof(list[location].ressources) - 1] = '\0';
-            strncpy((char*)list[location].name, endpoint_name, sizeof(list[location].name) - 1);
-            list[location].name[sizeof(list[location].name) - 1] = '\0';
-            strncpy((char*)list[location].location, location_str, sizeof(list[location].location) - 1);
-            list[location].location[sizeof(list[location].location) - 1] = '\0';
-            list[location].location_nr = location + 1;
+            list[location - 1].lt = atoi(lifetime);
+            strncpy((char*)list[location - 1].ressources, (char*)pdu->payload, sizeof(list[location - 1].ressources) - 1);
+            list[location - 1].ressources[sizeof(list[location - 1].ressources) - 1] = '\0';
+            strncpy((char*)list[location - 1].name, endpoint_name, sizeof(list[location - 1].name) - 1);
+            list[location - 1].name[sizeof(list[location - 1].name) - 1] = '\0';
+            strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
+            list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
+            list[location - 1].location_nr = location;
 
-            list[location].next = list[location - 1].next;
-            list[location].previous = &list[location - 1];
-            list[location - 1].next = &list[location];
+            list[location - 1].next = list[location - 2].next;
+            list[location - 1].previous = &list[location - 2];
+            list[location - 2].next = &list[location - 1];
 
-            if (list[location].next->location_nr > location + 1)
+            if (list[location - 1].next->location_nr > location + 1)
             {
-                list[location].next_free_middle_position = true;
+                list[location - 1].next_free_middle_position = true;
+                free_positions_in_the_middle = true;
             }
             else
             {
-                list[location].next_free_middle_position = false;
+                list[location - 1].next_free_middle_position = false;
+
+                if (find_next_empty(&list[location - 1]) > 0)
+                {
+                    free_positions_in_the_middle = true;
+                }
+                else 
+                {
+                    free_positions_in_the_middle = false;
+                }
+
             }
 
-            list[location - 1].next_free_middle_position = false;
+            list[location - 2].next_free_middle_position = false;
+
+        }
+        else if (location == 1)
+        {
+            head = &list[location - 1];
+
+            sprintf(number_str, "%d", location);
+
+            strcat(location_str, location_str_1);
+            strcat(location_str, number_str);
+            strcat(location_str, location_str_2);
+
+            list[location - 1].lt = atoi(lifetime);
+            strncpy((char*)list[location - 1].ressources, (char*)pdu->payload, sizeof(list[location - 1].ressources) - 1);
+            list[location - 1].ressources[sizeof(list[location - 1].ressources) - 1] = '\0';
+            strncpy((char*)list[location - 1].name, endpoint_name, sizeof(list[location - 1].name) - 1);
+            list[location - 1].name[sizeof(list[location - 1].name) - 1] = '\0';
+            strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
+            list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
+            list[location - 1].location_nr = location;
+
+            list[location - 1].previous = NULL;
+            list[location - 1].next = head;
+            if (head->location > location + 1)
+            {
+                list[location - 1].next_free_middle_position = true;
+                free_positions_in_the_middle = true;
+                
+            }
+            else 
+            {
+                list[location - 1].next_free_middle_position = false;
+
+                 if (find_next_empty(&list[location - 1]) > 0)
+                {
+                    free_positions_in_the_middle = true;
+                }
+                else 
+                {
+                    free_positions_in_the_middle = false;
+                }
+            }
+
+            head = &list[location - 1];
 
         }
     }
@@ -370,6 +430,7 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
             {
                 head = list[location_nr - 1].next;
                 list[location_nr - 1].next->previous = NULL;
+                free_positions_in_the_middle = true;
             }
         }
 
