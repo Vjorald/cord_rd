@@ -157,6 +157,12 @@
  /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/time_units.h \
  /usr/include/ctype.h \
  /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/cord/ep.h \
+ /usr/include/math.h /usr/include/bits/math-vector.h \
+ /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
  /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/shell.h \
  /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/pm.h \
  /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h \
@@ -558,6 +564,24 @@
 /usr/include/ctype.h:
 
 /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/cord/ep.h:
+
+/usr/include/math.h:
+
+/usr/include/bits/math-vector.h:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/bits/flt-eval-method.h:
+
+/usr/include/bits/fp-logb.h:
+
+/usr/include/bits/fp-fast.h:
+
+/usr/include/bits/mathcalls-helper-functions.h:
+
+/usr/include/bits/mathcalls.h:
+
+/usr/include/bits/mathinline.h:
 
 /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/shell.h:
 
