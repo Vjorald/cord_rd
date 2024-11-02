@@ -46,11 +46,14 @@ static ssize_t _update_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_r
 
 static ssize_t _endpoint_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
+static ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
 static const coap_resource_t _resources[] = {
 
     { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST , _registration_handler, NULL },
     { "/reg/",  COAP_PUT | COAP_POST | COAP_DELETE | COAP_MATCH_SUBTREE , _update_handler, NULL },
     { "/endpoint-lookup/",  COAP_GET | COAP_MATCH_SUBTREE , _endpoint_lookup_handler, NULL },
+    { "/resource-lookup/",  COAP_GET | COAP_MATCH_SUBTREE , _resource_lookup_handler, NULL}
 };
 
 static gcoap_listener_t _listener = {
@@ -633,6 +636,48 @@ static void build_result_string(char* lookup_result, char* first_bracket, char* 
 
 }
 
+static void build_resource_string(int number_sensors, char extracted_sensor_uris[10][100], char* lookup_result, Endpoint* endpoint)
+{
+
+    for (int i = 0; i < number_sensors; i++)
+    {
+        strcat(lookup_result, "<");
+        strcat(lookup_result, endpoint->base);
+        strcat(lookup_result, extracted_sensor_uris[i]);
+        strcat(lookup_result, ">");
+
+        if(i < number_sensors - 1)
+        {
+            strcat(lookup_result, ",");
+        }
+    }
+    
+}
+
+int extract_resource_uris(const char *input, char uris[10][100]) {
+    int uri_count = 0;
+    const char *start = input;
+    const char *end;
+
+    while ((start = strchr(start, '<')) != NULL && uri_count < 10) {
+        start++; 
+        end = strchr(start, '>');
+        if (end == NULL) break; 
+
+        int length = end - start;
+        if (length >= 100) length = 99;
+
+        
+        strncpy(uris[uri_count], start, length);
+        uris[uri_count][length] = '\0'; 
+
+        uri_count++;
+        start = end + 1; 
+    }
+
+    return uri_count;
+}
+
 static size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx, char* lookup_result)
 {
         (void) ctx;
@@ -672,6 +717,136 @@ static size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len,
         memcpy(pdu->payload, lookup_result + offset, chunk_len);
 
         return result + chunk_len;
+}
+
+static ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
+{
+    (void)ctx;
+
+    uint8_t uri_query[CONFIG_NANOCOAP_URI_MAX] = { 0 };
+
+    coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, uri_query, CONFIG_NANOCOAP_URI_MAX, ',');
+
+    static char lookup_result[1024];
+
+    char relative_uris[10][100];
+
+    int resource_number = 0;
+    
+    memset(lookup_result, 0, sizeof(lookup_result));
+
+    memset(relative_uris, 0, sizeof(relative_uris));
+
+
+    if (strstr((char*)uri_query, "href") != NULL)
+    {
+
+        char path[50];
+
+        extract_value_from_query((char*)uri_query, path, "href=");
+        
+        int location_nr = extract_number_from_location(path);
+
+        if (location_nr <= number_registered_endpoints && location_nr > 0)
+        {
+            Endpoint ep = list[location_nr - 1];
+
+            resource_number = extract_resource_uris(ep.ressources, relative_uris);
+
+            build_resource_string(resource_number, relative_uris, lookup_result, &ep);
+            
+        }
+
+    }
+    else if(strstr((char*)uri_query, "ep") != NULL)
+    {
+        char ep_name[60];
+
+        extract_value_from_query((char*)uri_query, ep_name, "ep=");
+
+        Endpoint ep = find_endpoint_by_pattern(ep_name);
+
+        resource_number = extract_resource_uris(ep.ressources, relative_uris);
+
+        build_resource_string(resource_number, relative_uris, lookup_result, &ep);
+
+
+    }
+    else if(strstr((char*)uri_query, "base") != NULL)
+    {
+        char base_value[60];
+
+        extract_value_from_query((char*)uri_query, base_value, "base=");
+
+        find_endpoints_by_pattern(base_value);
+        
+        for(unsigned int i = 0; i<sizeof(lookup_result_list); i++)
+        {   
+            if(strlen(lookup_result_list[i].name) == 0)
+            {
+                puts("Breaking...\n");
+                break;
+            }
+
+            resource_number = extract_resource_uris(lookup_result_list[i].ressources, relative_uris);
+
+            build_resource_string(resource_number, relative_uris, lookup_result, &lookup_result_list[i]);
+
+        }
+
+        return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
+        
+    }
+    else
+    {
+        
+        Ptr actual = head;
+
+        resource_number = extract_resource_uris(actual->ressources, relative_uris);
+
+        build_resource_string(resource_number, relative_uris, lookup_result, actual);
+
+        do{
+            if(actual->next != NULL)
+            {
+                strcat(lookup_result, ",");
+                actual = actual->next;
+
+                memset(relative_uris, 0, sizeof(relative_uris));
+
+                resource_number = extract_resource_uris(actual->ressources, relative_uris);
+
+                build_resource_string(resource_number, relative_uris, lookup_result, actual);
+                
+            }
+            else
+            {
+                break;
+            }
+
+
+        }while(actual->next != NULL);
+
+        return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
+
+    }
+
+    gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
+
+        
+    coap_opt_add_format(pdu, COAP_FORMAT_LINK);
+
+    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+
+
+    if (pdu->payload_len >= strlen(lookup_result)) {
+        memcpy(pdu->payload, lookup_result, strlen(lookup_result));
+        return resp_len + strlen(lookup_result);
+    }
+    else {
+        puts("gcoap_cli: msg buffer too small");
+        return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
+    }
 }
 
 
