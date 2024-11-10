@@ -14,21 +14,21 @@
 #include "msg.h"
 
 
-
-typedef struct nodeelement *Ptr;
+typedef struct intrusive_list{
+    int location_nr;
+    struct intrusive_list *next;
+    struct intrusive_list *previous;
+}intrusive_list_node;
 
 typedef struct nodeelement{
     char base[50];
-    char location[20];
     char name[50];
     int lt;
     char ressources[100];
-    int location_nr;
-    Ptr next;
-    Ptr previous;
+    intrusive_list_node node_management;
 } Endpoint;
 
-Ptr head;
+intrusive_list_node *head;
 
 Endpoint list[100];
 
@@ -84,9 +84,9 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
     }
 }
 
-static void append(Endpoint *new_node)
+static void append(intrusive_list_node *new_node)
 {
-    Ptr actual = NULL;
+    intrusive_list_node* actual = NULL;
 
     if(head == NULL)
     {
@@ -130,13 +130,26 @@ static int printList(Endpoint* endpoint)
     printf("I'm being printed: %d \n", endpoint->lt);
     puts("===\n");
 
-    Ptr actual = head;
+    intrusive_list_node *actual = head;
+
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    char location_str[20] = "";
+    char location_str_1[6] = "/reg/";
+    char location_str_2[2] = "/";
+    char number_str[15];
+
+    sprintf(number_str, "%d", actual->location_nr);
+
+    strcat(location_str, location_str_1);
+    strcat(location_str, number_str);
+    strcat(location_str, location_str_2);
     
-    printf("Endpoint: %s\n", actual->name);
-    printf("Lifetime: %d\n", actual->lt);
-    printf("Resources: %s\n", actual->ressources);
-    printf("Location: %s\n", actual->location);
-    printf("Base URI: %s\n", actual->base);
+    printf("Endpoint: %s\n", endpoint_ptr->name);
+    printf("Lifetime: %d\n", endpoint_ptr->lt);
+    printf("Resources: %s\n", endpoint_ptr->ressources);
+    printf("Location: %s\n", location_str);
+    printf("Base URI: %s\n", endpoint_ptr->base);
     puts("===\n");
 
     do
@@ -144,11 +157,22 @@ static int printList(Endpoint* endpoint)
         if(actual->next != NULL)
         {
             actual = actual->next;
-            printf("Endpoint: %s\n", actual->name);
-            printf("Lifetime: %d\n", actual->lt);
-            printf("Resources: %s\n", actual->ressources);
-            printf("Location: %s\n", actual->location);
-            printf("Base URI: %s\n", actual->base);
+
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+            memset(location_str, 0, sizeof(location_str));
+
+            sprintf(number_str, "%d", actual->location_nr);
+
+            strcat(location_str, location_str_1);
+            strcat(location_str, number_str);
+            strcat(location_str, location_str_2);
+
+            printf("Endpoint: %s\n", endpoint_ptr->name);
+            printf("Lifetime: %d\n", endpoint_ptr->lt);
+            printf("Resources: %s\n", endpoint_ptr->ressources);
+            printf("Location: %s\n", location_str);
+            printf("Base URI: %s\n", endpoint_ptr->base);
             puts("===\n"); 
         }
         else
@@ -177,11 +201,13 @@ static void find_endpoints_by_pattern(char* pattern)
         return ;
     }
 
-    Ptr actual = head;
+    intrusive_list_node *actual = head;
 
-    if (strcmp(actual->base, pattern)  == 0)
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    if (strcmp(endpoint_ptr->base, pattern)  == 0)
     {
-        lookup_result_list[last_element_index] = *actual;
+        lookup_result_list[last_element_index] = *endpoint_ptr;
         last_element_index++;
     }
     
@@ -190,10 +216,12 @@ static void find_endpoints_by_pattern(char* pattern)
         if(actual->next != NULL)
         {
             actual = actual->next;
+
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
            
-            if(strcmp(actual->base, pattern)  == 0)
+            if(strcmp(endpoint_ptr->base, pattern)  == 0)
             {
-                lookup_result_list[last_element_index] = *actual;
+                lookup_result_list[last_element_index] = *endpoint_ptr;
                 last_element_index++;
             }
         }
@@ -209,7 +237,6 @@ static void find_endpoints_by_pattern(char* pattern)
 
     return ;
 
-
 }
 
 static Endpoint find_endpoint_by_pattern(char* pattern)
@@ -223,11 +250,24 @@ static Endpoint find_endpoint_by_pattern(char* pattern)
         return empty;
     }
 
-    Ptr actual = head;
+    char location_str[20] = "";
+    char location_str_1[6] = "/reg/";
+    char location_str_2[2] = "/";
+    char number_str[15];
 
-    if (strcmp(actual->name, pattern)  == 0 || strcmp(actual->location, pattern) == 0)
+    intrusive_list_node *actual = head;
+
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    sprintf(number_str, "%d", actual->location_nr);
+
+    strcat(location_str, location_str_1);
+    strcat(location_str, number_str);
+    strcat(location_str, location_str_2);
+
+    if (strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0)
     {
-        return *actual;
+        return *endpoint_ptr;
     }
     
     do
@@ -235,10 +275,22 @@ static Endpoint find_endpoint_by_pattern(char* pattern)
         if(actual->next != NULL)
         {
             actual = actual->next;
+
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+            memset(location_str, 0, sizeof(location_str));
+
+            memset(number_str, 0, sizeof(number_str));
+
+            sprintf(number_str, "%d", actual->location_nr);
+
+            strcat(location_str, location_str_1);
+            strcat(location_str, number_str);
+            strcat(location_str, location_str_2);
            
-            if(strcmp(actual->name, pattern)  == 0 || strcmp(actual->location, pattern) == 0)
+            if(strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0)
             {
-                return *actual;
+                return *endpoint_ptr;
             }
         }
         
@@ -267,9 +319,9 @@ static int find_next_empty(Endpoint* endpoint)
     {
         for (int i = 0; i < number_deleted_registrations; i++)
         {
-            if (deleted_registrations_list[i].location_nr < location)
+            if (deleted_registrations_list[i].node_management.location_nr < location)
             {
-                location = deleted_registrations_list[i].location_nr;
+                location = deleted_registrations_list[i].node_management.location_nr;
             }
         }
 
@@ -287,7 +339,7 @@ static void remove_deleted_endpoint_by_location(int location_nr)
     {
         for (int i = 0; i < number_deleted_registrations; i++)
         {
-            if (deleted_registrations_list[i].location_nr == location_nr)
+            if (deleted_registrations_list[i].node_management.location_nr == location_nr)
             {
                 for (int j = i; j < number_deleted_registrations; j++)
                 {
@@ -351,98 +403,100 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     strcat(location_str, number_str);
     strcat(location_str, location_str_2);
 
-    list[number_registered_endpoints].lt = atoi(lifetime); 
+    intrusive_list_node *node_ptr = &list[number_registered_endpoints].node_management;
 
-    strncpy((char*)list[number_registered_endpoints].ressources, (char*)pdu->payload, sizeof(list[number_registered_endpoints].ressources) - 1);
-    list[number_registered_endpoints].ressources[sizeof(list[number_registered_endpoints].ressources) - 1] = '\0'; 
+    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-    strncpy((char*)list[number_registered_endpoints].name, endpoint_name, sizeof(list[number_registered_endpoints].name) - 1);
-    list[number_registered_endpoints].name[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
+    endpoint_ptr->lt = atoi(lifetime); 
 
-    strncpy((char*)list[number_registered_endpoints].location, location_str, sizeof(list[number_registered_endpoints].location) - 1);
-    list[number_registered_endpoints].location[sizeof(list[number_registered_endpoints].location) - 1] = '\0';
+    strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
+    endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-    list[number_registered_endpoints].location_nr = number_registered_endpoints + 1;
+    strncpy((char*)endpoint_ptr->name, endpoint_name, sizeof(endpoint_ptr->name) - 1);
+    endpoint_ptr->name[sizeof(endpoint_ptr->name) - 1] = '\0';
 
-    strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
-    list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
+    node_ptr->location_nr = number_registered_endpoints + 1;
+
+    strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
+    endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
+
 
     puts("======= Registration record infos: =========\n");
-    printf("Endpoint: %s\n", list[number_registered_endpoints].name);
-    printf("Lifetime: %d\n", list[number_registered_endpoints].lt);
-    printf("Resources: %s\n", list[number_registered_endpoints].ressources);
+    printf("Endpoint: %s\n", endpoint_ptr->name);
+    printf("Lifetime: %d\n", endpoint_ptr->lt);
+    printf("Resources: %s\n", endpoint_ptr->ressources);
 
 
-    append(&list[number_registered_endpoints]);
+    append(node_ptr);
 
     number_registered_endpoints++;
     }
     else
     {
-        int location = find_next_empty(&list[number_registered_endpoints]);
+        int location_nr = find_next_empty(&list[number_registered_endpoints]);
 
-        if (location > 1 && location < number_registered_endpoints)
+        if (location_nr > 1 && location_nr < number_registered_endpoints)
         {
-            sprintf(number_str, "%d", location);
+            sprintf(number_str, "%d", location_nr);
 
             strcat(location_str, location_str_1);
             strcat(location_str, number_str);
             strcat(location_str, location_str_2);
 
-            list[location - 1].lt = atoi(lifetime);
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
 
-            strncpy((char*)list[location - 1].ressources, (char*)pdu->payload, sizeof(list[location - 1].ressources) - 1);
-            list[location - 1].ressources[sizeof(list[location - 1].ressources) - 1] = '\0';
+            Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-            strncpy((char*)list[location - 1].name, endpoint_name, sizeof(list[location - 1].name) - 1);
-            list[location - 1].name[sizeof(list[location - 1].name) - 1] = '\0';
+            endpoint_ptr->lt = atoi(lifetime); 
 
-            strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
-            list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
+            strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
+            endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-            list[location - 1].location_nr = location;  
+            strncpy((char*)endpoint_ptr->name, endpoint_name, sizeof(endpoint_ptr->name) - 1);
+            endpoint_ptr->name[sizeof(endpoint_ptr->name) - 1] = '\0';
 
-            strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
-            list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
+            node_ptr->location_nr = number_registered_endpoints + 1;
 
-            list[location - 1].next = list[location - 2].next;
-            list[location - 1].previous = &list[location - 2];
-            list[location - 2].next = &list[location - 1];
+            strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
+            endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
 
-            remove_deleted_endpoint_by_location(location);
+            node_ptr->next = list[location_nr - 2].node_management.next;
+            node_ptr->previous = &list[location_nr - 2].node_management;
+            list[location_nr - 2].node_management.next = node_ptr;
+
+            remove_deleted_endpoint_by_location(location_nr);
 
         }
-        else if (location == 1)
+        else if (location_nr == 1)
         {
-            head = &list[location - 1];
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
 
-            sprintf(number_str, "%d", location);
+            Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+
+            sprintf(number_str, "%d", location_nr);
 
             strcat(location_str, location_str_1);
             strcat(location_str, number_str);
             strcat(location_str, location_str_2);
 
-            list[location - 1].lt = atoi(lifetime);
+            endpoint_ptr->lt = atoi(lifetime); 
 
-            strncpy((char*)list[location - 1].ressources, (char*)pdu->payload, sizeof(list[location - 1].ressources) - 1);
-            list[location - 1].ressources[sizeof(list[location - 1].ressources) - 1] = '\0';
+            strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
+            endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-            strncpy((char*)list[location - 1].name, endpoint_name, sizeof(list[location - 1].name) - 1);
-            list[location - 1].name[sizeof(list[location - 1].name) - 1] = '\0';
+            strncpy((char*)endpoint_ptr->name, endpoint_name, sizeof(endpoint_ptr->name) - 1);
+            endpoint_ptr->name[sizeof(endpoint_ptr->name) - 1] = '\0';
 
-            strncpy((char*)list[location - 1].location, location_str, sizeof(list[location - 1].location) - 1);
-            list[location - 1].location[sizeof(list[location - 1].location) - 1] = '\0';
+            node_ptr->location_nr = number_registered_endpoints + 1;
 
-            list[location - 1].location_nr = location;
+            strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
+            endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
 
-            strncpy((char*)list[number_registered_endpoints].base, base_uri, sizeof(list[number_registered_endpoints].base) - 1);
-            list[number_registered_endpoints].base[sizeof(list[number_registered_endpoints].name) - 1] = '\0';
+            node_ptr->previous = NULL;
+            node_ptr->next = head;
+            head = node_ptr;
 
-            list[location - 1].previous = NULL;
-            list[location - 1].next = head;
-            head = &list[location - 1];
-
-            remove_deleted_endpoint_by_location(location);
+            remove_deleted_endpoint_by_location(location_nr);
 
         }
     }
@@ -510,7 +564,7 @@ void delete_endpoint(int location_nr) {
 
         for (int i = 0; i < number_deleted_registrations; i++)
         {
-            if (deleted_registrations_list[i].location_nr == location_nr)
+            if (deleted_registrations_list[i].node_management.location_nr == location_nr)
             {
                 deleted_registrations_list[i] = list[location_nr - 1];
                 replace = true;
@@ -559,6 +613,9 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
     
             ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+
+            Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
             char base_uri[50];
             char* base_first = "coap://[";
@@ -568,10 +625,10 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
             strcat(base_uri, addr_str);
             strcat(base_uri, ending);
 
-            list[location_nr - 1].lt = 86400;
+            endpoint_ptr->lt = 86400;
 
-            strncpy((char*)list[location_nr - 1].base, base_uri, sizeof(list[location_nr - 1].base) - 1);
-            list[location_nr - 1].base[sizeof(list[location_nr - 1].name) - 1] = '\0';
+            strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
+            endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
 
         }
     }
@@ -579,47 +636,54 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
     if (method == COAP_DELETE)
     {
 
-        if (location_nr < number_registered_endpoints && location_nr > 1)
+        if (location_nr > 0 && location_nr < number_registered_endpoints)
         {
-            if (list[location_nr - 1].previous != NULL)
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+
+            if (location_nr < number_registered_endpoints && location_nr > 1)
             {
-                list[location_nr - 1].previous->next = list[location_nr - 1].next;
-                list[location_nr - 1].next->previous = list[location_nr - 1].previous;
+                
+
+                if (node_ptr->previous != NULL)
+                {
+                    node_ptr->previous->next = node_ptr->next;
+                    node_ptr->next->previous = node_ptr->previous;
+                }
+                else
+                {
+                    head = node_ptr->next;
+                    node_ptr->next->previous = NULL;
+                }
+
+                delete_endpoint(location_nr);
+                
             }
-            else
+            else if(location_nr == number_registered_endpoints)
             {
-                head = list[location_nr - 1].next;
-                list[location_nr - 1].next->previous = NULL;
-            }
 
-            delete_endpoint(location_nr);
-            
-        }
-        else if(location_nr == number_registered_endpoints)
-        {
-            list[location_nr - 1].previous->next = NULL;
-            number_registered_endpoints--;
-
-            delete_endpoint(location_nr);
-
-        }
-        else if(location_nr == 1)
-        {
-            if (number_registered_endpoints == 1)
-            {
-                head = NULL;
+                node_ptr->previous->next = NULL;
                 number_registered_endpoints--;
+
+                delete_endpoint(location_nr);
+
             }
-            else
+            else if(location_nr == 1)
             {
-                head = list[location_nr - 1].next;
-                list[location_nr - 1].next->previous = NULL;
+                if (number_registered_endpoints == 1)
+                {
+                    head = NULL;
+                    number_registered_endpoints--;
+                }
+                else
+                {
+                    head = node_ptr->next;
+                    node_ptr->next->previous = NULL;
+                }
+
+                delete_endpoint(location_nr);
+
             }
-
-            delete_endpoint(location_nr);
-
         }
-
         Endpoint empty = { 0 };
 
         list[location_nr - 1] = empty;
@@ -640,8 +704,19 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
 
 static void build_result_string(char* lookup_result, char* first_bracket, char* second_href_bracket, char* ep_key, char* base, char* rt, Endpoint* endpoint){
 
+    char location_str[20] = "";
+    char location_str_1[6] = "/reg/";
+    char location_str_2[2] = "/";
+    char number_str[15];
+
+    sprintf(number_str, "%d", endpoint->node_management.location_nr);
+
+    strcat(location_str, location_str_1);
+    strcat(location_str, number_str);
+    strcat(location_str, location_str_2);
+
     strcat(lookup_result, first_bracket);
-    strcat(lookup_result, (*endpoint).location);
+    strcat(lookup_result, location_str);
     strcat(lookup_result, second_href_bracket);
     strcat(lookup_result, ep_key);
     strcat(lookup_result, (*endpoint).name);
@@ -764,11 +839,13 @@ static ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t le
 
         if (location_nr <= number_registered_endpoints && location_nr > 0)
         {
-            Endpoint ep = list[location_nr - 1];
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
 
-            resource_number = extract_resource_uris(ep.ressources, relative_uris);
+            Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-            build_resource_string(resource_number, relative_uris, lookup_result, &ep);
+            resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
+
+            build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
             
         }
 
@@ -815,11 +892,13 @@ static ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t le
     else
     {
         
-        Ptr actual = head;
+        intrusive_list_node *actual = head;
 
-        resource_number = extract_resource_uris(actual->ressources, relative_uris);
+        Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
 
-        build_resource_string(resource_number, relative_uris, lookup_result, actual);
+        resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
+
+        build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
 
         do{
             if(actual->next != NULL)
@@ -827,11 +906,13 @@ static ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t le
                 strcat(lookup_result, ",");
                 actual = actual->next;
 
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
+
                 memset(relative_uris, 0, sizeof(relative_uris));
 
-                resource_number = extract_resource_uris(actual->ressources, relative_uris);
+                resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
 
-                build_resource_string(resource_number, relative_uris, lookup_result, actual);
+                build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
                 
             }
             else
@@ -895,9 +976,11 @@ static ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t le
 
         if (location_nr <= number_registered_endpoints && location_nr > 0)
         {
-            Endpoint ep = list[location_nr - 1];
+            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+
+            Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
             
-            build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, &ep);
+            build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr);
 
         }
 
@@ -939,18 +1022,23 @@ static ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t le
     else
     {
         
-        Ptr actual = head;
+        intrusive_list_node *actual = head;
+
+        Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
         
-        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, actual);
+        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr);
 
 
         do{
             if(actual->next != NULL)
             {
                 strcat(lookup_result, ",");
+
                 actual = actual->next;
+
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
                 
-                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, actual);
+                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr);
             }
             else
             {
