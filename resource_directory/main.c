@@ -309,50 +309,34 @@ static Endpoint find_endpoint_by_pattern(char* pattern)
 }
 
 
-static int find_next_empty(Endpoint* endpoint)
+static int get_next_empty_location(Endpoint* deleted_list)
 {
-    (void) endpoint;
+    (void) deleted_list;
 
-    int location = sizeof(deleted_registrations_list);
+    int location_nr = deleted_registrations_list[0].node_management.location_nr;
 
-    if (number_deleted_registrations > 0)
+    for (int i = 0; i < number_deleted_registrations; i++) 
     {
-        for (int i = 0; i < number_deleted_registrations; i++)
-        {
-            if (deleted_registrations_list[i].node_management.location_nr < location)
-            {
-                location = deleted_registrations_list[i].node_management.location_nr;
-            }
-        }
+        deleted_registrations_list[i] = deleted_registrations_list[i + 1];
+    }
+     
+    Endpoint empty = { 0 };
+            
+    deleted_registrations_list[number_deleted_registrations - 1] = empty;
+    number_deleted_registrations--; 
 
-        return location;
-    }   
-
-    return 0;
+    return location_nr;
 
 }
 
-
-static void remove_deleted_endpoint_by_location(int location_nr)
+static int get_previous_endpoint_location(int actual_location)
 {
-    if (number_deleted_registrations > 0)
+    for (int i = actual_location - 2; i >= 0; i--)
     {
-        for (int i = 0; i < number_deleted_registrations; i++)
-        {
-            if (deleted_registrations_list[i].node_management.location_nr == location_nr)
-            {
-                for (int j = i; j < number_deleted_registrations; j++)
-                {
-                    deleted_registrations_list[j] = deleted_registrations_list[j + 1];
-                }
-
-                Endpoint empty = { 0 };
-            
-                deleted_registrations_list[number_deleted_registrations - 1] = empty;
-                number_deleted_registrations--;
-            }
-        }
+        if(strlen(list[i].name) > 0) return list[i].node_management.location_nr;
     }
+
+    return -1;
 }
 
 
@@ -433,7 +417,7 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
     }
     else
     {
-        int location_nr = find_next_empty(&list[number_registered_endpoints]);
+        int location_nr = get_next_empty_location(deleted_registrations_list);
 
         if (location_nr > 1 && location_nr < number_registered_endpoints)
         {
@@ -460,11 +444,11 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
             strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
             endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
 
-            node_ptr->next = list[location_nr - 2].node_management.next;
-            node_ptr->previous = &list[location_nr - 2].node_management;
-            list[location_nr - 2].node_management.next = node_ptr;
+            int previous_endpoint_location = get_previous_endpoint_location(node_ptr->location_nr);
 
-            remove_deleted_endpoint_by_location(location_nr);
+            node_ptr->next = list[previous_endpoint_location - 1].node_management.next;
+            node_ptr->previous = &list[previous_endpoint_location - 1].node_management;
+            list[previous_endpoint_location - 1].node_management.next = node_ptr;
 
         }
         else if (location_nr == 1)
@@ -495,8 +479,6 @@ static ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, 
             node_ptr->previous = NULL;
             node_ptr->next = head;
             head = node_ptr;
-
-            remove_deleted_endpoint_by_location(location_nr);
 
         }
     }
@@ -558,31 +540,14 @@ void extract_value_from_query(const char *input, char *href_value, char* pref) {
 
 void delete_endpoint(int location_nr) {
 
-    if (number_deleted_registrations > 0)
-    {
-        bool replace = false;
-
-        for (int i = 0; i < number_deleted_registrations; i++)
-        {
-            if (deleted_registrations_list[i].node_management.location_nr == location_nr)
-            {
-                deleted_registrations_list[i] = list[location_nr - 1];
-                replace = true;
-                break;
-            }
-        }
-
-        if (replace == false)
-        {
-            number_deleted_registrations++;
-            deleted_registrations_list[number_deleted_registrations - 1] = list[location_nr - 1];
-        }
-
-    }
-    else
+    if (number_deleted_registrations < 100)
     {
         number_deleted_registrations++;
         deleted_registrations_list[number_deleted_registrations - 1] = list[location_nr - 1];
+
+        Endpoint empty = { 0 };
+
+        list[location_nr - 1] = empty;
     }
 
 }
@@ -684,9 +649,6 @@ static ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
 
             }
         }
-        Endpoint empty = { 0 };
-
-        list[location_nr - 1] = empty;
 
     }
 
