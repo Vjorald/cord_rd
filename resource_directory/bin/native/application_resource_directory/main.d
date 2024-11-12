@@ -177,7 +177,8 @@
  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
  /usr/include/asm-generic/posix_types.h \
  /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/xfa.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/flash_utils.h
+ /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/flash_utils.h \
+ /home/vjorald/cord_rd/resource_directory/resource_directory.h
 
 /usr/include/stdc-predef.h:
 
@@ -626,3 +627,5 @@
 /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/xfa.h:
 
 /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/flash_utils.h:
+
+/home/vjorald/cord_rd/resource_directory/resource_directory.h:
