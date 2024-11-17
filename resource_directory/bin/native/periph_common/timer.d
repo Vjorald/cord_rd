@@ -1,8 +1,8 @@
 /home/vjorald/cord_rd/resource_directory/bin/native/periph_common/timer.o: \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/periph_common/timer.c \
+ /home/vjorald/cord_rd/RIOT/drivers/periph_common/timer.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/timer.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/timer.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
  /usr/include/limits.h /usr/include/bits/libc-header-start.h \
@@ -17,12 +17,12 @@
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/architecture.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
  /usr/include/inttypes.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/architecture_arch.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
  /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
  /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
  /usr/include/linux/types.h /usr/include/asm/types.h \
@@ -31,15 +31,15 @@
  /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
  /usr/include/asm-generic/posix_types.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/irq.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h
 
 /usr/include/stdc-predef.h:
 
 /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/timer.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/timer.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
 
@@ -89,17 +89,17 @@
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/architecture.h:
+/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
 
 /usr/include/inttypes.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/architecture_arch.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
 
 /usr/include/linux/gpio.h:
 
@@ -131,8 +131,8 @@
 
 /usr/include/asm-generic/posix_types.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/irq.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h:

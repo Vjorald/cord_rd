@@ -3,7 +3,7 @@ APPLICATION = endpoint
 BOARD ?= native
 
 # Folder of the RIOT-Submodule
-RIOTBASE ?= $(CURDIR)/RIOT
+RIOTBASE ?= $(CURDIR)/../RIOT
 
 USEMODULE += cord_ep
 USEMODULE += cord_common

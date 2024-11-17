@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/resource_directory/bin/native/periph/uart.o: \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/periph/uart.c \
+ /home/vjorald/cord_rd/RIOT/cpu/native/periph/uart.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
  /usr/include/errno.h /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -27,40 +27,39 @@
  /usr/include/bits/termios-c_cflag.h /usr/include/bits/termios-c_lflag.h \
  /usr/include/bits/termios-tcflow.h /usr/include/bits/termios-misc.h \
  /usr/include/sys/ttydefaults.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h \
+ /home/vjorald/cord_rd/RIOT/core/include/thread.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/clist.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/cib.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/list.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/cib.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/msg.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h \
- /usr/include/inttypes.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h \
+ /home/vjorald/cord_rd/RIOT/core/include/msg.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h /usr/include/inttypes.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/core/include/native_sched.h \
  /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
  /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
  /usr/include/bits/stdio.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/thread_config.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread_flags.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/thread_arch.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/uart.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h \
+ /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/uart.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
  /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
  /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
  /usr/include/linux/types.h /usr/include/asm/types.h \
@@ -69,8 +68,8 @@
  /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
  /usr/include/asm-generic/posix_types.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_internal.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h \
  /usr/include/signal.h /usr/include/bits/signum.h \
  /usr/include/bits/signum-generic.h \
  /usr/include/bits/types/sig_atomic_t.h \
@@ -93,7 +92,7 @@
  /usr/include/sys/types.h /usr/include/bits/types/clock_t.h \
  /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \
  /usr/include/bits/types/timer_t.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
  /usr/include/bits/types/struct_timeval.h /usr/include/bits/socket_type.h \
  /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
@@ -109,12 +108,12 @@
  /usr/include/bits/statvfs.h /usr/include/sys/uio.h \
  /usr/include/bits/uio_lim.h /usr/include/dirent.h \
  /usr/include/bits/dirent.h /usr/include/bits/dirent_ext.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/async_read.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h \
  /usr/include/stdlib.h /usr/include/bits/waitflags.h \
  /usr/include/bits/waitstatus.h /usr/include/bits/floatn.h \
  /usr/include/bits/floatn-common.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/debug.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/debug.h
 
 /usr/include/stdc-predef.h:
 
@@ -216,17 +215,17 @@
 
 /usr/include/sys/ttydefaults.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread.h:
+/home/vjorald/cord_rd/RIOT/core/include/thread.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/clist.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/list.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/cib.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/cib.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -238,25 +237,25 @@
 
 /usr/include/bits/stdint-uintn.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/msg.h:
+/home/vjorald/cord_rd/RIOT/core/include/msg.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
 /usr/include/inttypes.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/native_sched.h:
 
 /usr/include/stdio.h:
 
@@ -280,23 +279,23 @@
 
 /usr/include/bits/stdio.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/thread_config.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread_flags.h:
+/home/vjorald/cord_rd/RIOT/core/include/thread_flags.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/thread_arch.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/uart.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/uart.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
 
 /usr/include/linux/gpio.h:
 
@@ -328,9 +327,9 @@
 
 /usr/include/asm-generic/posix_types.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_internal.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h:
 
 /usr/include/signal.h:
 
@@ -416,7 +415,7 @@
 
 /usr/include/bits/types/timer_t.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
 /usr/include/sys/select.h:
 
@@ -476,7 +475,7 @@
 
 /usr/include/bits/dirent_ext.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/async_read.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h:
 
 /usr/include/stdlib.h:
 
@@ -494,4 +493,4 @@
 
 /usr/include/bits/stdlib-float.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/debug.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/debug.h:

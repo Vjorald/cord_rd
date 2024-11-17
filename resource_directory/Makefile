@@ -3,7 +3,7 @@ APPLICATION = resource_directory
 BOARD ?= native
 
 # Folder of the RIOT-Submodule
-RIOTBASE ?= $(CURDIR)/RIOT
+RIOTBASE ?= $(CURDIR)/../RIOT
 
 USEMODULE += gnrc_sock_udp
 USEMODULE += gnrc_ipv6_default

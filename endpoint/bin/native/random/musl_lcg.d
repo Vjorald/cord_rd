@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/endpoint/bin/native/random/musl_lcg.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/random/musl_lcg.c \
+ /home/vjorald/cord_rd/RIOT/sys/random/musl_lcg.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \

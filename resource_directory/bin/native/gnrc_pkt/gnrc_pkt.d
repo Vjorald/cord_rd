@@ -1,8 +1,8 @@
 /home/vjorald/cord_rd/resource_directory/bin/native/gnrc_pkt/gnrc_pkt.o: \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/net/gnrc/pkt/gnrc_pkt.c \
+ /home/vjorald/cord_rd/RIOT/sys/net/gnrc/pkt/gnrc_pkt.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/gnrc/pkt.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pkt.h \
  /usr/include/inttypes.h /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
@@ -17,8 +17,8 @@
  /usr/include/sys/types.h /usr/include/bits/types/clock_t.h \
  /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \
  /usr/include/bits/types/timer_t.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/posix/include/sys/select.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/posix/include/sys/select.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
  /usr/include/bits/types/sigset_t.h /usr/include/bits/types/__sigset_t.h \
  /usr/include/bits/types/struct_timeval.h \
@@ -26,41 +26,41 @@
  /usr/include/bits/endianness.h /usr/include/string.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h /usr/include/sys/time.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/bitfield.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/bitfield.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/irq.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h \
  /usr/include/bits/pthreadtypes.h /usr/include/bits/thread-shared-types.h \
  /usr/include/bits/pthreadtypes-arch.h /usr/include/bits/struct_mutex.h \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/core/include/native_sched.h \
  /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__mbstate_t.h \
  /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
  /usr/include/bits/stdio.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/gnrc/nettype.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ethertype.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/protnum.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/clist.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/list.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/nettype.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ethertype.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/protnum.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/list.h
 
 /usr/include/stdc-predef.h:
 
 /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/gnrc/pkt.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pkt.h:
 
 /usr/include/inttypes.h:
 
@@ -118,9 +118,9 @@
 
 /usr/include/bits/types/timer_t.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/posix/include/sys/select.h:
+/home/vjorald/cord_rd/RIOT/sys/posix/include/sys/select.h:
 
 /usr/include/sys/select.h:
 
@@ -148,13 +148,13 @@
 
 /usr/include/sys/time.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/bitfield.h:
+/home/vjorald/cord_rd/RIOT/sys/include/bitfield.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/irq.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h:
 
 /usr/include/bits/pthreadtypes.h:
 
@@ -172,21 +172,21 @@
 
 /usr/include/bits/stdlib-float.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/native_sched.h:
 
 /usr/include/stdio.h:
 
@@ -210,16 +210,16 @@
 
 /usr/include/bits/stdio.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/clist.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/list.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/gnrc/nettype.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/nettype.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ethertype.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/ethertype.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/protnum.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/protnum.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/list.h:

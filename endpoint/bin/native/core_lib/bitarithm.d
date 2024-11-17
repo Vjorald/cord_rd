@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/endpoint/bin/native/core_lib/bitarithm.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/bitarithm.c \
+ /home/vjorald/cord_rd/RIOT/core/lib/bitarithm.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/include/stdio.h /usr/include/bits/libc-header-start.h \
@@ -15,11 +15,11 @@
  /usr/include/bits/types/FILE.h /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
  /usr/include/bits/stdio.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/bitarithm.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/bitarithm.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
- /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/cpu_conf.h
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h
 
 /usr/include/stdc-predef.h:
 
@@ -71,7 +71,7 @@
 
 /usr/include/bits/stdio.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/bitarithm.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/bitarithm.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -83,4 +83,4 @@
 
 /usr/include/bits/stdint-uintn.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h:

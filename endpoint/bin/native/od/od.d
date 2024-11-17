@@ -1,6 +1,5 @@
 /home/vjorald/cord_rd/endpoint/bin/native/od/od.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/od/od.c \
- /usr/include/stdc-predef.h \
+ /home/vjorald/cord_rd/RIOT/sys/od/od.c /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/include/stdio.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -20,8 +19,8 @@
  /usr/include/bits/stdint-uintn.h /usr/include/ctype.h \
  /usr/include/bits/endian.h /usr/include/bits/endianness.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/fmt.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/od.h
+ /home/vjorald/cord_rd/RIOT/sys/include/fmt.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/od.h
 
 /usr/include/stdc-predef.h:
 
@@ -93,6 +92,6 @@
 
 /usr/include/bits/types/__locale_t.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/fmt.h:
+/home/vjorald/cord_rd/RIOT/sys/include/fmt.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/od.h:
+/home/vjorald/cord_rd/RIOT/sys/include/od.h:

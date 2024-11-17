@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/endpoint/bin/native/cpu/async_read.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/async_read.c \
+ /home/vjorald/cord_rd/RIOT/cpu/native/async_read.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/include/err.h /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -31,7 +31,7 @@
  /usr/include/bits/types/clock_t.h /usr/include/bits/types/clockid_t.h \
  /usr/include/bits/types/time_t.h /usr/include/bits/types/timer_t.h \
  /usr/include/bits/stdint-intn.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-uintn.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
@@ -44,8 +44,8 @@
  /usr/include/bits/fcntl.h /usr/include/bits/fcntl-linux.h \
  /usr/include/bits/stat.h /usr/include/poll.h /usr/include/sys/poll.h \
  /usr/include/bits/poll.h \
- /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/async_read.h \
- /home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/native_internal.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h \
  /usr/include/stdio.h /usr/include/bits/types/__fpos_t.h \
  /usr/include/bits/types/__mbstate_t.h \
  /usr/include/bits/types/__fpos64_t.h /usr/include/bits/types/__FILE.h \
@@ -75,18 +75,17 @@
  /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/dirent_ext.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/include/sched.h \
- /usr/include/inttypes.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/assert.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/container.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/include/native_sched.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/clist.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h /usr/include/inttypes.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/core/include/native_sched.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/clist.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/list.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/list.h
 
 /usr/include/stdc-predef.h:
 
@@ -202,7 +201,7 @@
 
 /usr/include/bits/stdint-intn.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -252,9 +251,9 @@
 
 /usr/include/bits/poll.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/async_read.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/cpu/native/include/native_internal.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h:
 
 /usr/include/stdio.h:
 
@@ -366,26 +365,26 @@
 
 /usr/include/bits/dirent_ext.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
 /usr/include/inttypes.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/include/native_sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/native_sched.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/clist.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/clist.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdbool.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/list.h:

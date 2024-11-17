@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/resource_directory/bin/native/cpu/startup.o: \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/startup.c \
+ /home/vjorald/cord_rd/RIOT/cpu/native/startup.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
  /usr/include/dlfcn.h /usr/include/features.h /usr/include/sys/cdefs.h \
@@ -7,7 +7,7 @@
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/include/bits/dlfcn.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/libc-header-start.h /usr/include/bits/types.h \
  /usr/include/bits/timesize.h /usr/include/bits/typesizes.h \
@@ -37,7 +37,7 @@
  /usr/include/sys/types.h /usr/include/bits/types/clock_t.h \
  /usr/include/bits/types/clockid_t.h /usr/include/bits/types/time_t.h \
  /usr/include/bits/types/timer_t.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
  /usr/include/sys/select.h /usr/include/bits/select.h \
  /usr/include/bits/types/sigset_t.h /usr/include/bits/types/__sigset_t.h \
  /usr/include/bits/types/struct_timeval.h \
@@ -58,12 +58,12 @@
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
  /usr/include/bits/unistd_ext.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/byteorder.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/unaligned.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_init.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_internal.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/byteorder.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/unaligned.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/irq.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_init.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h \
  /usr/include/signal.h /usr/include/bits/signum.h \
  /usr/include/bits/signum-generic.h \
  /usr/include/bits/types/sig_atomic_t.h \
@@ -95,53 +95,52 @@
  /usr/include/bits/dirent.h /usr/include/bits/posix1_lim.h \
  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
  /usr/include/bits/dirent_ext.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h \
- /usr/include/inttypes.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/init.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/pm.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h /usr/include/inttypes.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/core/include/native_sched.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/clist.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/list.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/init.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/pm.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
  /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
  /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/test_utils/expect.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/panic.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/tty_uart.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/uart.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/test_utils/expect.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/panic.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/tty_uart.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/uart.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
  /usr/include/limits.h /usr/include/bits/posix2_lim.h \
  /usr/include/bits/xopen_lim.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/debug.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/cib.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/msg.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/thread_config.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread_flags.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/thread_arch.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/netdev_tap_params.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/netdev_tap.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/net/netdev.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/iolist.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/netopt.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ethernet/hdr.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/debug.h \
+ /home/vjorald/cord_rd/RIOT/core/include/thread.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/cib.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
+ /home/vjorald/cord_rd/RIOT/core/include/msg.h \
+ /home/vjorald/cord_rd/RIOT/core/include/sched.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h \
+ /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap_params.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/iolist.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/netopt.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ethernet/hdr.h \
  /usr/include/net/if.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/gpiodev_linux.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_cli_eui_provider.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/eui64.h
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/gpiodev_linux.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/native_cli_eui_provider.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/eui64.h
 
 /usr/include/stdc-predef.h:
 
@@ -165,7 +164,7 @@
 
 /usr/include/bits/dlfcn.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h:
 
@@ -277,7 +276,7 @@
 
 /usr/include/bits/types/timer_t.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
 /usr/include/sys/select.h:
 
@@ -355,17 +354,17 @@
 
 /usr/include/bits/unistd_ext.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/byteorder.h:
+/home/vjorald/cord_rd/RIOT/sys/include/byteorder.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/unaligned.h:
+/home/vjorald/cord_rd/RIOT/sys/include/unaligned.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/irq.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/irq.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_init.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_init.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_internal.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/native_internal.h:
 
 /usr/include/signal.h:
 
@@ -487,35 +486,35 @@
 
 /usr/include/bits/dirent_ext.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
 /usr/include/inttypes.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/native_sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/native_sched.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/clist.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/clist.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/list.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/list.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/init.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/init.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/pm.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/pm.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
 
 /usr/include/linux/gpio.h:
 
@@ -525,17 +524,17 @@
 
 /usr/include/asm-generic/ioctl.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/test_utils/expect.h:
+/home/vjorald/cord_rd/RIOT/sys/include/test_utils/expect.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/panic.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/panic.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/tty_uart.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/tty_uart.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/uart.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/uart.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
 
@@ -547,42 +546,42 @@
 
 /usr/include/bits/xopen_lim.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/debug.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/debug.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread.h:
+/home/vjorald/cord_rd/RIOT/core/include/thread.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/cib.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/cib.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/msg.h:
+/home/vjorald/cord_rd/RIOT/core/include/msg.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/sched.h:
+/home/vjorald/cord_rd/RIOT/core/include/sched.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/thread_config.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/include/thread_flags.h:
+/home/vjorald/cord_rd/RIOT/core/include/thread_flags.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/thread_arch.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/netdev_tap_params.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap_params.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/netdev_tap.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/net/netdev.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/iolist.h:
+/home/vjorald/cord_rd/RIOT/sys/include/iolist.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/netopt.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/netopt.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/ethernet/hdr.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/ethernet/hdr.h:
 
 /usr/include/net/if.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/gpiodev_linux.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/gpiodev_linux.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/native_cli_eui_provider.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/native_cli_eui_provider.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/sys/include/net/eui64.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/eui64.h:

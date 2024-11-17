@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/resource_directory/bin/native/periph_common/cpuid.o: \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/periph_common/cpuid.c \
+ /home/vjorald/cord_rd/RIOT/drivers/periph_common/cpuid.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/resource_directory/bin/native/riotbuild/riotbuild.h \
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
@@ -13,10 +13,10 @@
  /usr/include/string.h /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
  /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
  /usr/include/strings.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/cpuid.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h \
+ /home/vjorald/cord_rd/RIOT/drivers/include/periph/cpuid.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
  /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
  /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
  /usr/include/linux/types.h /usr/include/asm/types.h \
@@ -72,13 +72,13 @@
 
 /usr/include/strings.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/drivers/include/periph/cpuid.h:
+/home/vjorald/cord_rd/RIOT/drivers/include/periph/cpuid.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_cpu.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/cpu/native/include/periph_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
 
-/home/vjorald/cord_rd/resource_directory/RIOT/core/lib/include/macros/units.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
 
 /usr/include/linux/gpio.h:
 

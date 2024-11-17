@@ -1,5 +1,5 @@
 /home/vjorald/cord_rd/endpoint/bin/native/udp/udp_hdr_print.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/net/transport_layer/udp/udp_hdr_print.c \
+ /home/vjorald/cord_rd/RIOT/sys/net/transport_layer/udp/udp_hdr_print.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
  /usr/include/stdio.h /usr/include/bits/libc-header-start.h \
@@ -18,12 +18,11 @@
  /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/net/udp.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/byteorder.h \
- /usr/include/string.h /usr/include/bits/types/locale_t.h \
- /usr/include/bits/types/__locale_t.h /usr/include/strings.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/endian.h \
- /home/vjorald/cord_rd/endpoint/RIOT/sys/include/unaligned.h
+ /home/vjorald/cord_rd/RIOT/sys/include/net/udp.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/byteorder.h /usr/include/string.h \
+ /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
+ /usr/include/strings.h /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/unaligned.h
 
 /usr/include/stdc-predef.h:
 
@@ -87,9 +86,9 @@
 
 /usr/include/bits/stdint-uintn.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/net/udp.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/udp.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/byteorder.h:
+/home/vjorald/cord_rd/RIOT/sys/include/byteorder.h:
 
 /usr/include/string.h:
 
@@ -99,6 +98,6 @@
 
 /usr/include/strings.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/sys/include/unaligned.h:
+/home/vjorald/cord_rd/RIOT/sys/include/unaligned.h:

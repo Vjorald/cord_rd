@@ -1,4 +1,20 @@
 /* Generated file do not edit */
+#ifdef DOXYGEN
+#define RIOT_VERSION "<YEAR_OF_RELEASE>.<MONTH_OF_RELEASE>-<POSTFIX>"
+#define RIOT_VERSION_CODE   RIOT_VERSION_NUM(<YEAR>,<MONTH>,<PATCH>,<EXTRA>)
+#define RIOT_APPLICATION    "<RIOT_APP_NAME>"
+#define RIOT_BOARD          "<BOARD_NAME>"
+#define RIOT_CPU            "<CPU_FOLDER_NAME>"
+#define CPU_RAM_SIZE        /* RAM Size in Bytes */
+#endif /* DOXYGEN */
+#if defined(DOXYGEN)
+#  define MACRO_DEPRECATED    /* implementation */
+#elif defined(__GNUC__) || defined(__clang__)
+#  define MACRO_DEPRECATED _Pragma("GCC warning \"Code is using a deprecated macro\"")
+#else
+#  define MACRO_DEPRECATED
+#endif
+#define RIOT_MCU        MACRO_DEPRECATED RIOT_CPU
 #define CONFIG_GNRC_IPV6_STATIC_LLADDR "fe80::cafe:cafe:cafe:1"
 #define CONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED 1
 #undef _FORTIFY_SOURCE
@@ -13,8 +29,8 @@
 #define SOCK_HAS_IPV6 1
 #define SOCK_HAS_ASYNC 1
 #define SOCK_HAS_ASYNC_CTX 1
-#define RIOT_VERSION "UNKNOWN (builddir: /home/vjorald/cord_rd/resource_directory/RIOT)"
-#define RIOT_VERSION_CODE RIOT_VERSION_NUM(2042,5,23,0)
+#define RIOT_VERSION "2025.01-devel-110-g51f96"
+#define RIOT_VERSION_CODE RIOT_VERSION_NUM(2025,01,0,0)
 #define MODULE_AUTO_INIT 1
 #define MODULE_AUTO_INIT_GNRC_IPV6 1
 #define MODULE_AUTO_INIT_GNRC_IPV6_NIB 1

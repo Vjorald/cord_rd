@@ -1,8 +1,8 @@
 /home/vjorald/cord_rd/endpoint/bin/native/core_lib/ringbuffer.o: \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/ringbuffer.c \
+ /home/vjorald/cord_rd/RIOT/core/lib/ringbuffer.c \
  /usr/include/stdc-predef.h \
  /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h \
- /home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/ringbuffer.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/ringbuffer.h \
  /usr/include/string.h /usr/include/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/sys/cdefs.h \
  /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
@@ -15,7 +15,7 @@
 
 /home/vjorald/cord_rd/endpoint/bin/native/riotbuild/riotbuild.h:
 
-/home/vjorald/cord_rd/endpoint/RIOT/core/lib/include/ringbuffer.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/ringbuffer.h:
 
 /usr/include/string.h:
 
