@@ -14,49 +14,8 @@
 #include "shell.h"
 #include "msg.h"
 
-#define BASE_URI_MAX_LEN 64
-#define ENDPOINT_NAME_MAX_LEN 50
-#define RESOURCES_MAX_LEN 100
-#define REGISTERED_ENDPOINTS_MAX_NUMBER 100
-#define DELETED_ENDPOINTS_MAX_NUMBER 100
-#define LOOKUP_RESULTS_MAX_LEN 100
-#define INITIAL_NUMBER_REGISTERED_ENDPOINTS 0
-#define INITIAL_NUMBER_DELETED_ENDPOINTS 0
-#define LOCATION_STR_1_MAX_LEN 6
-#define LOCATION_STR_2_MAX_LEN 2
-#define LOCATION_NUMBER_STR_MAX_LEN 4
-#define LOCATION_STR_MAX_LEN 12
-#define RESOURCE_URI_MAX_NUMBER 10
-#define RESOURCE_URI_MAX_LEN 100
-#define QUERY_BUFFER_MAX_LEN 100
-#define LIFETIME_STR_MAX_LEN 10
-#define LOOKUP_RESULT_STR_MAX_LEN 1024
+#include "i_list.h"
 
-typedef struct intrusive_list{
-    int location_nr;
-    struct intrusive_list *next;
-    struct intrusive_list *previous;
-}intrusive_list_node;
-
-typedef struct nodeelement{
-    char base[BASE_URI_MAX_LEN];
-    char name[ENDPOINT_NAME_MAX_LEN];
-    int lt;
-    char ressources[RESOURCES_MAX_LEN];
-    intrusive_list_node node_management;
-} Endpoint;
-
-intrusive_list_node *head;
-
-Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
-
-Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
-
-int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
-
-int number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
 
 void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
    
