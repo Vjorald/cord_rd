@@ -1,4 +1,3 @@
-
 #include <stdio.h>
  
 #include "net/sock/udp.h"
@@ -15,6 +14,19 @@
 #include "msg.h"
 
 #include "i_list.h"
+
+
+intrusive_list_node *head;
+
+Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+
+Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
+
+Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
+
+int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
+
+int number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
 
 
 void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt) {
@@ -396,38 +408,4 @@ int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][
     }
 
     return uri_count;
-}
-
-size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx, char* lookup_result)
-{
-    (void) ctx;
-
-    coap_block1_t req_block;
-
-    if (coap_get_block2(pdu, &req_block) == 0) {
-        
-        req_block.blknum = 0;
-        req_block.szx = COAP_BLOCKSIZE_64; 
-    
-    }
-
-    coap_block_slicer_t resp_block;
-    coap_block_slicer_init(&resp_block, req_block.blknum, 1 << (req_block.szx + 4));
-
-    size_t block_size = (1 << (req_block.szx + 4)); 
-    size_t offset =  req_block.blknum * block_size;
-    size_t chunk_len =  (offset + block_size < strlen(lookup_result)) ? block_size : (strlen(lookup_result) - offset);
-
-
-    if (offset >= strlen(lookup_result)) return COAP_CODE_404;
-
-    bool more = (offset + chunk_len < strlen(lookup_result));
-
-    gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
-    req_block.more = more;
-    coap_opt_add_block2(pdu, &resp_block, more);
-    size_t result = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
-    memcpy(pdu->payload, lookup_result + offset, chunk_len);
-
-    return result + chunk_len;
 }

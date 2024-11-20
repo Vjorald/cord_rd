@@ -13,7 +13,74 @@
 #include "shell.h"
 #include "msg.h"
 
-#include "resource_directory.h"
+#include "rd.h"
+#include "i_list.h"
+
+
+ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
+ssize_t _update_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
+ssize_t _endpoint_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
+ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
+
+const coap_resource_t _resources[] = {
+
+    { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST , _registration_handler, NULL },
+    { "/reg/",  COAP_PUT | COAP_POST | COAP_DELETE | COAP_MATCH_SUBTREE , _update_handler, NULL },
+    { "/endpoint-lookup/",  COAP_GET | COAP_MATCH_SUBTREE , _endpoint_lookup_handler, NULL },
+    { "/resource-lookup/",  COAP_GET | COAP_MATCH_SUBTREE , _resource_lookup_handler, NULL}
+};
+
+gcoap_listener_t _listener = {
+    _resources,
+    ARRAY_SIZE(_resources),
+    GCOAP_SOCKET_TYPE_UDP,
+    NULL,
+    NULL,
+    NULL
+};
+
+void resource_directory_init(void){
+
+    gcoap_register_listener(&_listener);
+
+}
+
+size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx, char* lookup_result)
+{
+    (void) ctx;
+
+    coap_block1_t req_block;
+
+    if (coap_get_block2(pdu, &req_block) == 0) {
+        
+        req_block.blknum = 0;
+        req_block.szx = COAP_BLOCKSIZE_64; 
+    
+    }
+
+    coap_block_slicer_t resp_block;
+    coap_block_slicer_init(&resp_block, req_block.blknum, 1 << (req_block.szx + 4));
+
+    size_t block_size = (1 << (req_block.szx + 4)); 
+    size_t offset =  req_block.blknum * block_size;
+    size_t chunk_len =  (offset + block_size < strlen(lookup_result)) ? block_size : (strlen(lookup_result) - offset);
+
+
+    if (offset >= strlen(lookup_result)) return COAP_CODE_404;
+
+    bool more = (offset + chunk_len < strlen(lookup_result));
+
+    gcoap_resp_init(pdu, buf, len, COAP_CODE_CONTENT);
+    req_block.more = more;
+    coap_opt_add_block2(pdu, &resp_block, more);
+    size_t result = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+    memcpy(pdu->payload, lookup_result + offset, chunk_len);
+
+    return result + chunk_len;
+}
 
 ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
@@ -316,12 +383,4 @@ ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap
             puts("gcoap_cli: msg buffer too small");
             return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
         }
-}
-
-
-int main(void)
-{ 
-    gcoap_register_listener(&_listener);
-  
-    return 0;
 }

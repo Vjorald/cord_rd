@@ -30,17 +30,17 @@ typedef struct nodeelement{
     intrusive_list_node node_management;
 } Endpoint;
 
-intrusive_list_node *head;
+extern intrusive_list_node *head;
 
-Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
-Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
+extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
-Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
+extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
-int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
+extern int number_registered_endpoints;
 
-int number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
+extern int number_deleted_registrations;
 
 void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt);
 
@@ -77,5 +77,3 @@ void build_result_string(char* lookup_result, char* first_bracket, char* second_
 void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], char* lookup_result, Endpoint* endpoint);
 
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
-
-size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx, char* lookup_result);
