@@ -13,7 +13,6 @@
 #include "shell.h"
 #include "msg.h"
 
-//#include "i_list.h"
 #include "rd.h"
 
 int main(void)
