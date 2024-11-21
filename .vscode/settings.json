@@ -3,6 +3,7 @@
         "*.tcc": "c",
         "array": "c",
         "string_view": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "i_list.h": "c"
     }
 }

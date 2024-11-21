@@ -1,0 +1,1 @@
+void resource_directory_init(void);
