@@ -171,7 +171,7 @@ int main(void) {
     sock_udp_ep_t endpoint = { 0 };
     
 
-    if (sock_udp_str2ep(&endpoint, "[fe80::cafe:cafe:cafe:2]:5683") < 0) {
+    if (sock_udp_str2ep(&endpoint, "[fe80::cafe:cafe:cafe:4]:5683") < 0) {
         puts("Unable to parse destination address");
         return 1;
     }

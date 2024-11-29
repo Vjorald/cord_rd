@@ -158,6 +158,7 @@
  /usr/include/bits/fp-fast.h \
  /usr/include/bits/mathcalls-helper-functions.h \
  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/event/thread.h \
  /home/vjorald/cord_rd/RIOT/sys/include/shell.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/periph/pm.h \
  /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
@@ -579,6 +580,8 @@
 /usr/include/bits/mathcalls.h:
 
 /usr/include/bits/mathinline.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/event/thread.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/shell.h:
 

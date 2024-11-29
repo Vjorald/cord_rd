@@ -1,1 +1,3 @@
-USEMODULE += i_list
+USEMODULE  += i_list
+USEMODULE += event
+USEMODULE += event_thread_medium
