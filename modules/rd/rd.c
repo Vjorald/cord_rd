@@ -10,6 +10,8 @@
 #include "string.h"
 #include <math.h>
 
+#include "ztimer.h"
+
 #include "event.h"
 #include "event/thread.h"
 
@@ -20,11 +22,13 @@
 #include "i_list.h"
 
 
-uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
+uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
-int location_epsim_endpoint;
+sock_udp_t sock;
 
-sock_udp_ep_t epsim_remote;
+int location_epsim_endpoint = -1;
+
+sock_udp_ep_t epsim_remote = { 0 };
 
 
 ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
@@ -100,7 +104,7 @@ size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
 void _resp_handler(const gcoap_request_memo_t *memo,
                           coap_pkt_t *pdu,
                           const sock_udp_ep_t *remote) {
-    (void)memo; // Ignore memo if not used
+    (void)memo; 
     (void)remote;
 
     printf("Received: %s", pdu->payload);
@@ -111,11 +115,18 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
     endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-    //memset(pdu->payload, 0, pdu->payload_len);
-
     location_epsim_endpoint = -1;
 
     printList(&list[number_registered_endpoints - 1]);
+
+    memset(_req_buf, 0, CONFIG_GCOAP_PDU_BUF_SIZE);
+
+    sock_udp_ep_t empty = { 0 };
+    epsim_remote = empty;
+
+    sock_udp_close(&sock);
+
+    ztimer_sleep(ZTIMER_SEC, 1);
 
 }
 
@@ -124,10 +135,8 @@ void send_get_request(event_t *event) {
     (void) event;
 
     coap_pkt_t pdu;
-    uint8_t *buf = _req_buf;
-
-    sock_udp_t sock;
     sock_udp_ep_t local = { .family = AF_INET6 };
+    coap_request_ctx_t ctx = { .remote = &epsim_remote };
 
     if (sock_udp_str2ep(&local, "[fe80::cafe:cafe:cafe:1]:5683") < 0) {
         puts("Unable to parse destination address");
@@ -137,23 +146,22 @@ void send_get_request(event_t *event) {
         printf("Sock creation unsuccessful!");
     }
 
-    // Initialize CoAP packet
-    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
+
+    gcoap_req_init(&pdu, _req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
     coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
     
-    // Send the GET request
-    if (gcoap_req_send(buf, strlen((char *)buf), &epsim_remote, &local, _resp_handler, NULL, 1) <= 0) {
+    int result = gcoap_req_send(_req_buf, strlen((char *)_req_buf), &epsim_remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
+    
+    if (result <= 0) {
         puts("Failed to send request");
+        printf("Result: %d\n", result);
     } else {
-        puts("GET request sent successfully");
+        puts("GET request sent successfully\n");
+        printf("Result: %d\n", result);
     }
 
-    sock_udp_ep_t empty = { 0 };
-    epsim_remote = empty;
+    ztimer_sleep(ZTIMER_SEC, 1);
 
-    //event_wait(EVENT_PRIO_MEDIUM);
-    
-    //event_cancel(EVENT_PRIO_MEDIUM, event);
 }
 
 event_t event = { .handler = send_get_request };
@@ -222,8 +230,9 @@ ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_re
     
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
     coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
-    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_NONE);
-    
+    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+
+    memset(pdu->payload, 0, pdu->payload_len);
     
     return resp_len + strlen(location_str);
    
@@ -238,15 +247,15 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CHANGED);
     coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
-    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_NONE);
+    size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+
+    memset(pdu->payload, 0, pdu->payload_len);
 
     location_epsim_endpoint = location_nr;
     epsim_remote = *(ctx->remote);
 
-    //event_post(EVENT_PRIO_MEDIUM, &event);
+    event_post(EVENT_PRIO_MEDIUM, &event);
     
-    memset(pdu->payload, 0, pdu->payload_len);
-    memset(buf, 0, len);
 
     return resp_len;
 
