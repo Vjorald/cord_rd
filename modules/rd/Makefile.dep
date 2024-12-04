@@ -1,5 +1,5 @@
 USEMODULE  += i_list
-USEMODULE += event
-USEMODULE += event_thread_medium
 USEMODULE += ztimer
 USEMODULE += ztimer_sec
+USEMODULE += nanocoap
+USEMODULE += nanocoap_cache

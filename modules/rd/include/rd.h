@@ -1,4 +1,4 @@
-extern uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
+extern u_int8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
 
 extern sock_udp_t sock;
 

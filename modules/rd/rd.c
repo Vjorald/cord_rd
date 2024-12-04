@@ -12,23 +12,21 @@
 
 #include "ztimer.h"
 
-#include "event.h"
-#include "event/thread.h"
-
 #include "shell.h"
 #include "msg.h"
 
 #include "rd.h"
 #include "i_list.h"
 
+uint8_t _epsim_req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
-uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
+coap_pkt_t epsim_pkt = { 0 };
 
-sock_udp_t sock;
-
-int location_epsim_endpoint = -1;
+sock_udp_t epsim_sock = { 0 };
 
 sock_udp_ep_t epsim_remote = { 0 };
+
+int location_epsim_endpoint = -1;
 
 
 ssize_t _registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
@@ -45,7 +43,6 @@ const coap_resource_t _resources[] = {
 
     
     { "/resourcedirectory/", COAP_GET | COAP_PUT | COAP_POST | COAP_MATCH_SUBTREE, _registration_handler, NULL },
-    //{ "/.well-known/rd", COAP_GET | COAP_PUT | COAP_POST , _registration_handler, NULL },
     { "/.well-known/rd", COAP_GET | COAP_PUT | COAP_POST | COAP_MATCH_SUBTREE, _simple_registration_handler, NULL },
     { "/reg/",  COAP_PUT | COAP_POST | COAP_DELETE | COAP_MATCH_SUBTREE , _update_handler, NULL },
     { "/endpoint-lookup/",  COAP_GET | COAP_MATCH_SUBTREE , _endpoint_lookup_handler, NULL },
@@ -105,36 +102,41 @@ void _resp_handler(const gcoap_request_memo_t *memo,
                           coap_pkt_t *pdu,
                           const sock_udp_ep_t *remote) {
     (void)memo; 
-    (void)remote;
 
-    printf("Received: %s", pdu->payload);
+    char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
+    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
+    printf("Remote address %s\n", addr_str);
+
+    printf("Received: %s\n", pdu->payload);
+
+    nanocoap_cache_entry_t *cache = nanocoap_cache_add_by_req(&epsim_pkt, pdu, pdu->options_len + pdu->payload_len);
+
+    printf("Cache buf: %s\n", cache->response_buf);
+ 
     intrusive_list_node *node_ptr = &list[location_epsim_endpoint - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
     strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
     endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-    location_epsim_endpoint = -1;
-
     printList(&list[number_registered_endpoints - 1]);
 
-    memset(_req_buf, 0, CONFIG_GCOAP_PDU_BUF_SIZE);
+    memset(_epsim_req_buf, 0, CONFIG_GCOAP_PDU_BUF_SIZE);
 
     sock_udp_ep_t empty = { 0 };
     epsim_remote = empty;
 
-    sock_udp_close(&sock);
+    sock_udp_close(&epsim_sock);
 
     ztimer_sleep(ZTIMER_SEC, 1);
 
 }
 
+void send_get_request(char *location_str) {
 
-void send_get_request(event_t *event) {
-    (void) event;
+    (void) location_str;
 
-    coap_pkt_t pdu;
     sock_udp_ep_t local = { .family = AF_INET6 };
     coap_request_ctx_t ctx = { .remote = &epsim_remote };
 
@@ -142,15 +144,18 @@ void send_get_request(event_t *event) {
         puts("Unable to parse destination address");
     }
 
-    if(sock_udp_create(&sock, &local, NULL, 0) < 0) {
+    if(sock_udp_create(&epsim_sock, &local, NULL, 0) < 0) {
         printf("Sock creation unsuccessful!");
     }
 
 
-    gcoap_req_init(&pdu, _req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
-    coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
+    gcoap_req_init(&epsim_pkt, _epsim_req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
+    coap_hdr_set_type(epsim_pkt.hdr, COAP_TYPE_CON);
+    int len = coap_opt_finish(&epsim_pkt, COAP_OPT_FINISH_PAYLOAD);
+
+    memset(epsim_pkt.payload, 0, epsim_pkt.payload_len);
     
-    int result = gcoap_req_send(_req_buf, strlen((char *)_req_buf), &epsim_remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
+    int result = gcoap_req_send(_epsim_req_buf, len, &epsim_remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
     
     if (result <= 0) {
         puts("Failed to send request");
@@ -163,8 +168,6 @@ void send_get_request(event_t *event) {
     ztimer_sleep(ZTIMER_SEC, 1);
 
 }
-
-event_t event = { .handler = send_get_request };
 
 int register_endpoint(coap_pkt_t *pdu, coap_request_ctx_t *ctx, char *location_str){
 
@@ -227,7 +230,6 @@ ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_re
 
     printList(&list[number_registered_endpoints - 1]);
     
-    
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
     coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
     size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
@@ -243,19 +245,17 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
    
     char location_str[LOCATION_STR_MAX_LEN] = { 0 };
 
-    int location_nr = register_endpoint(pdu, ctx, location_str);
+    location_epsim_endpoint = register_endpoint(pdu, ctx, location_str);
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CHANGED);
-    coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
+    coap_opt_add_accept(pdu, COAP_FORMAT_LINK);
     size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
+
+    epsim_remote = *(ctx->remote);
 
     memset(pdu->payload, 0, pdu->payload_len);
 
-    location_epsim_endpoint = location_nr;
-    epsim_remote = *(ctx->remote);
-
-    event_post(EVENT_PRIO_MEDIUM, &event);
-    
+    send_get_request(location_str);
 
     return resp_len;
 
