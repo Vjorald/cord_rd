@@ -1,1 +1,5 @@
-USEMODULE += i_list
+USEMODULE  += i_list
+USEMODULE += ztimer
+USEMODULE += ztimer_sec
+USEMODULE += nanocoap
+USEMODULE += nanocoap_cache

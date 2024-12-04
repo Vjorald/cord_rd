@@ -41,7 +41,8 @@
  /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
  /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
  /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
- /usr/include/asm-generic/posix_types.h
+ /usr/include/asm-generic/posix_types.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/ps.h
 
 /usr/include/stdc-predef.h:
 
@@ -166,3 +167,5 @@
 /usr/include/asm/posix_types_32.h:
 
 /usr/include/asm-generic/posix_types.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/ps.h:

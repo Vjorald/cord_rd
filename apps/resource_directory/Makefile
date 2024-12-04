@@ -49,7 +49,7 @@ USEMODULE += i_list
 USEMODULE += rd
 EXTERNAL_MODULE_DIRS += $(CURDIR)/../../modules
 
-
+DEVELHELP ?= 1
 
 ifdef DBG_ID_COAP
   DEBUG_ADAPTER_ID=$(DBG_ID_COAP)

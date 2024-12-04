@@ -76,11 +76,11 @@ void build_location_string(int location_nr, char* location_str)
 }
 
 void build_base_uri_string(char* addr_str, char* base_uri){
-    
+
     char* base_first = "coap://[";
     char* ending = "]";
 
-    strcat(base_uri, base_first);
+    strcpy(base_uri, base_first);
     strcat(base_uri, addr_str);
     strcat(base_uri, ending);
 }
@@ -95,7 +95,7 @@ int printList(Endpoint* endpoint)
         puts("There are no registered endpoints.");
         return 0;
     }
-
+    
     puts("\n");
     puts("======= Registered Endpoints: ===========\n");
 
@@ -110,7 +110,7 @@ int printList(Endpoint* endpoint)
     printf("Location: %s\n", location_str);
     printf("Base URI: %s\n", endpoint_ptr->base);
     puts("===\n");
-
+    
     do
     {
         if(actual->next != NULL)
@@ -126,6 +126,7 @@ int printList(Endpoint* endpoint)
             printf("Location: %s\n", location_str);
             printf("Base URI: %s\n", endpoint_ptr->base);
             puts("===\n"); 
+            
         }
         else return 0;
 
@@ -219,8 +220,10 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
 
     endpoint_ptr->lt = atoi(lifetime); 
 
-    strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
-    endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
+    if (pdu->payload_len > 0){
+        strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, pdu->payload_len);
+        endpoint_ptr->ressources[strlen((char*)endpoint_ptr->ressources)] = '\0';
+    }
 
     strncpy((char*)endpoint_ptr->name, endpoint_name, sizeof(endpoint_ptr->name) - 1);
     endpoint_ptr->name[sizeof(endpoint_ptr->name) - 1] = '\0';

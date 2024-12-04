@@ -53,6 +53,8 @@ CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
 USEMODULE += netdev_tap
 
 
+DEVELHELP ?= 1
+
 include $(RIOTBASE)/Makefile.include
 
 include $(RIOTMAKE)/default-radio-settings.inc.mk
