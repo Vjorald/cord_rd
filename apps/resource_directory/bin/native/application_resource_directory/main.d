@@ -174,7 +174,8 @@
  /usr/include/asm-generic/posix_types.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/xfa.h \
  /home/vjorald/cord_rd/RIOT/sys/include/flash_utils.h \
- /home/vjorald/cord_rd/modules/rd/include/rd.h
+ /home/vjorald/cord_rd/modules/rd/include/rd.h \
+ /home/vjorald/cord_rd/modules/i_list/include/i_list.h
 
 /usr/include/stdc-predef.h:
 
@@ -625,3 +626,5 @@
 /home/vjorald/cord_rd/RIOT/sys/include/flash_utils.h:
 
 /home/vjorald/cord_rd/modules/rd/include/rd.h:
+
+/home/vjorald/cord_rd/modules/i_list/include/i_list.h:
