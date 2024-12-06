@@ -16,7 +16,7 @@
 #include "msg.h"
 
 #include "rd.h"
-#include "i_list.h"
+
 
 uint8_t _epsim_req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
@@ -75,6 +75,62 @@ void resource_directory_init(void){
 
     gcoap_register_listener(&_listener);
     
+}
+
+
+void append_endpoint(intrusive_list_node *new_node){
+
+    intrusive_list_node* previous = NULL;
+
+    if (head != NULL)
+    {
+        int previous_location = get_previous_endpoint_location(new_node->location_nr);
+        previous = &list[previous_location - 1].node_management;
+    }
+
+    append_list_entry(&head, &new_node, &previous);
+
+}
+
+void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr)
+{
+    if (number_deleted_registrations == INITIAL_NUMBER_DELETED_ENDPOINTS) append_endpoint(node_ptr);
+    else
+    {
+        if (location_nr > 1 && location_nr < number_registered_endpoints)
+        {
+            int previous_endpoint_location = get_previous_endpoint_location(node_ptr->location_nr);
+            intrusive_list_node *previous_node = &list[previous_endpoint_location - 1].node_management;
+
+            add_list_entry_in_the_middle(&node_ptr, &previous_node);
+        }
+        else if (location_nr == 1)
+        {
+            add_list_entry_at_the_beginning(&head, &node_ptr);
+        }
+    }
+}
+
+void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr){
+
+    (void) location_nr;
+
+    remove_list_entry(&head, &node_ptr);
+}
+
+void delete_endpoint(int location_nr) {
+
+    if (number_deleted_registrations < DELETED_ENDPOINTS_MAX_NUMBER)
+    {
+        number_deleted_registrations++;
+        deleted_registrations_list[number_deleted_registrations - 1] = list[location_nr - 1];
+
+        Endpoint empty = { 0 };
+        list[location_nr - 1] = empty;
+
+        if (location_nr == number_registered_endpoints) number_registered_endpoints--;
+    }
+
 }
 
 int printList(Endpoint* endpoint)

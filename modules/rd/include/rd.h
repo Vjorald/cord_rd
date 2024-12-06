@@ -1,3 +1,5 @@
+#include "i_list.h"
+
 #define BASE_URI_MAX_LEN 64
 #define ENDPOINT_NAME_MAX_LEN 50
 #define RESOURCES_MAX_LEN 100
@@ -75,3 +77,11 @@ void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOUR
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
 
 int printList(Endpoint* endpoint);
+
+void append_endpoint(intrusive_list_node *new_node);
+
+void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr);
+
+void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
+
+void delete_endpoint(int location_nr);

@@ -5,12 +5,11 @@ typedef struct intrusive_list{
     struct intrusive_list *previous;
 }intrusive_list_node;
 
+void append_list_entry(intrusive_list_node **head, intrusive_list_node **new_node, intrusive_list_node **previous);
 
-void append(intrusive_list_node *new_node);
+void add_list_entry_in_the_middle(intrusive_list_node **new_node, intrusive_list_node **previous_node);
 
-void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr);
+void add_list_entry_at_the_beginning(intrusive_list_node **head, intrusive_list_node **new_node);
 
-void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
-
-void delete_endpoint(int location_nr);
+void remove_list_entry(intrusive_list_node **head,intrusive_list_node **node_ptr);
 
