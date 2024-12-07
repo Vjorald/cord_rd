@@ -10,8 +10,6 @@
 #include "string.h"
 #include <math.h>
 
-#include "ztimer.h"
-
 #include "shell.h"
 #include "msg.h"
 
@@ -28,7 +26,6 @@ sock_udp_ep_t epsim_remote = { 0 };
 
 int location_epsim_endpoint = -1;
 
-
 intrusive_list_node *head;
 
 Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
@@ -36,6 +33,8 @@ Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
+
+ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
 int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
 
@@ -297,6 +296,21 @@ Endpoint find_endpoint_by_pattern(char* pattern)
 
 }
 
+void lifetime_callback(void *argument)
+{
+    intrusive_list_node *node_ptr = &list[*(int*)argument - 1].node_management;
+
+    printf("Location nummer: %d\n", *(int*)argument);
+
+    disconnect_endpoint_from_the_rest(node_ptr->location_nr, node_ptr);
+    delete_endpoint(node_ptr->location_nr);
+
+    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+
+    printList(endpoint_ptr);
+}
+
+
 void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr)
 {
     build_location_string(location_nr, location_str);
@@ -315,6 +329,12 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
 
     strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
     endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
+
+
+    lifetime_expiries[location_nr - 1].callback = lifetime_callback; 
+    lifetime_expiries[location_nr - 1].arg = &(node_ptr->location_nr);             
+    ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], endpoint_ptr->lt);
+
 }
 
 

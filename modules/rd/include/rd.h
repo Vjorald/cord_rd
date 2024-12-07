@@ -35,6 +35,8 @@ extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
+extern ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
+
 extern int number_registered_endpoints;
 
 extern int number_deleted_registrations;
@@ -85,3 +87,5 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
 void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
 
 void delete_endpoint(int location_nr);
+
+
