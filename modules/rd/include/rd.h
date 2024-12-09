@@ -26,6 +26,11 @@ typedef struct nodeelement{
     intrusive_list_node node_management;
 } Endpoint;
 
+typedef struct rd{
+    sock_udp_ep_t remote;
+    int location_epsim_endpoint;
+}epsim_callback_data;
+
 
 extern intrusive_list_node *head;
 
@@ -34,6 +39,14 @@ extern Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
+
+extern ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
+
+extern ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
+
+extern ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
+
+extern epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
 extern int number_registered_endpoints;
 
@@ -76,6 +89,8 @@ void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOUR
 
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
 
+void send_get_request(char *location_str);
+
 int printList(Endpoint* endpoint);
 
 void append_endpoint(intrusive_list_node *new_node);
@@ -85,3 +100,5 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
 void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
 
 void delete_endpoint(int location_nr);
+
+

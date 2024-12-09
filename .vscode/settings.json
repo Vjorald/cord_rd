@@ -5,6 +5,8 @@
         "string_view": "c",
         "type_traits": "c",
         "i_list.h": "c",
-        "cache.h": "c"
+        "cache.h": "c",
+        "internet": "c",
+        "sstream": "c"
     }
 }
