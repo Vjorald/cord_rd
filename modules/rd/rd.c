@@ -339,6 +339,11 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
         strncpy((char*)endpoint_ptr->et, et, sizeof(endpoint_ptr->et) - 1);
         endpoint_ptr->et[sizeof(endpoint_ptr->et) - 1] = '\0';
     }
+    else
+    {
+        strncpy((char*)endpoint_ptr->et, "core.rd-ep", sizeof(endpoint_ptr->et) - 1);
+        endpoint_ptr->et[sizeof(endpoint_ptr->et) - 1] = '\0';
+    }
 
     strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
     endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
@@ -421,6 +426,7 @@ void build_result_string(char* lookup_result, char* first_bracket, char* second_
     {
         strcat(lookup_result, rt);
         strcat(lookup_result, et);
+        strcat(lookup_result, "\"");
     }
     
 
