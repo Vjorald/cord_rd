@@ -6,6 +6,7 @@
 #define REGISTERED_ENDPOINTS_MAX_NUMBER 100
 #define DELETED_ENDPOINTS_MAX_NUMBER 100
 #define LOOKUP_RESULTS_MAX_LEN 100
+#define ENDPOINT_TYPE_MAX_LEN 50
 #define INITIAL_NUMBER_REGISTERED_ENDPOINTS 0
 #define INITIAL_NUMBER_DELETED_ENDPOINTS 0
 #define LOCATION_STR_1_MAX_LEN 6
@@ -22,6 +23,7 @@ typedef struct nodeelement{
     char base[BASE_URI_MAX_LEN];
     char name[ENDPOINT_NAME_MAX_LEN];
     int lt;
+    char et[ENDPOINT_TYPE_MAX_LEN];
     char ressources[RESOURCES_MAX_LEN];
     intrusive_list_node node_management;
 } Endpoint;
@@ -63,7 +65,7 @@ extern int location_epsim_endpoint;
 
 void resource_directory_init(void);
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt);
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et);
 
 void build_location_string(int location_nr, char* location_str);
 
@@ -73,7 +75,7 @@ void find_endpoints_by_pattern(char* pattern);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr);
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et);
 
 int get_next_empty_location(Endpoint* deleted_list);
 
@@ -83,7 +85,7 @@ int extract_number_from_location(char *path);
 
 void extract_value_from_query(const char *input, char *href_value, char* pref);
 
-void build_result_string(char* lookup_result, char* first_bracket, char* second_href_bracket, char* ep_key, char* base, char* rt, Endpoint* endpoint);
+void build_result_string(char* lookup_result, char* first_bracket, char* second_href_bracket, char* ep_key, char* base, char* rt, Endpoint* endpoint, char *et);
 
 void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], char* lookup_result, Endpoint* endpoint);
 
