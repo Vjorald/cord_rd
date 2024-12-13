@@ -189,7 +189,7 @@ int printList(Endpoint* endpoint)
 
 }
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et) {
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector) {
    
     char *token = strtok((char *)query_buffer, " ");
     
@@ -197,6 +197,7 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *e
         if (strncmp(token, "ep=", 3) == 0) strcpy(ep, token + 3);
         else if (strncmp(token, "lt=", 3) == 0) strcpy(lt, token + 3);
         else if (strncmp(token, "et=", 3) == 0) strcpy(et, token + 3);
+        else if (strncmp(token, "d=", 2) == 0) strcpy(sector, token + 2);
         token = strtok(NULL, " ");
     }
 }
@@ -318,7 +319,7 @@ void lifetime_callback(void *argument)
 }
 
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et)
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et, char *sector)
 {
     build_location_string(location_nr, location_str);
 
@@ -343,6 +344,17 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
     {
         strncpy((char*)endpoint_ptr->et, "core.rd-ep", sizeof(endpoint_ptr->et) - 1);
         endpoint_ptr->et[sizeof(endpoint_ptr->et) - 1] = '\0';
+    }
+
+    if (strlen(sector) > 0)
+    {
+        strncpy((char*)endpoint_ptr->sector, sector, sizeof(endpoint_ptr->sector) - 1);
+        endpoint_ptr->et[sizeof(endpoint_ptr->sector) - 1] = '\0';
+    }
+    else
+    {
+        strncpy((char*)endpoint_ptr->sector, "default", sizeof(endpoint_ptr->sector) - 1);
+        endpoint_ptr->et[sizeof(endpoint_ptr->sector) - 1] = '\0';
     }
 
     strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
@@ -627,8 +639,9 @@ int register_endpoint(coap_pkt_t *pdu, coap_request_ctx_t *ctx, char *location_s
     char lifetime[LIFETIME_STR_MAX_LEN] = { 0 };
     char resources[RESOURCES_MAX_LEN] = { 0 };
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
+    char sector[SECTOR_NAME_MAX_LEN] = { 0 };
     strncpy(resources, (char *)pdu->payload, pdu->payload_len);
-    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type);
+    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector);
     
     puts("======== Request infos: =======\n");
     printf("Endpoint: %s\n", endpoint_name);
@@ -653,7 +666,7 @@ int register_endpoint(coap_pkt_t *pdu, coap_request_ctx_t *ctx, char *location_s
     }
 
     memset(location_str, 0, LOCATION_STR_MAX_LEN);
-    initialize_endpoint(lifetime, endpoint_name, endpoint_ptr, node_ptr, base_uri, pdu, location_str, location_nr, endpoint_type);
+    initialize_endpoint(lifetime, endpoint_name, endpoint_ptr, node_ptr, base_uri, pdu, location_str, location_nr, endpoint_type, sector);
     connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
 
     return location_nr;

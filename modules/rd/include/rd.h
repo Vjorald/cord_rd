@@ -1,8 +1,9 @@
 #include "i_list.h"
 
 #define BASE_URI_MAX_LEN 64
-#define ENDPOINT_NAME_MAX_LEN 50
+#define ENDPOINT_NAME_MAX_LEN 63
 #define RESOURCES_MAX_LEN 100
+#define SECTOR_NAME_MAX_LEN 63
 #define REGISTERED_ENDPOINTS_MAX_NUMBER 100
 #define DELETED_ENDPOINTS_MAX_NUMBER 100
 #define LOOKUP_RESULTS_MAX_LEN 100
@@ -24,6 +25,7 @@ typedef struct nodeelement{
     char name[ENDPOINT_NAME_MAX_LEN];
     int lt;
     char et[ENDPOINT_TYPE_MAX_LEN];
+    char sector[SECTOR_NAME_MAX_LEN];
     char ressources[RESOURCES_MAX_LEN];
     intrusive_list_node node_management;
 } Endpoint;
@@ -65,7 +67,7 @@ extern int location_epsim_endpoint;
 
 void resource_directory_init(void);
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et);
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector);
 
 void build_location_string(int location_nr, char* location_str);
 
@@ -75,7 +77,7 @@ void find_endpoints_by_pattern(char* pattern);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et);
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et, char *sector);
 
 int get_next_empty_location(Endpoint* deleted_list);
 
