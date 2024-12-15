@@ -162,6 +162,20 @@ static ssize_t _riot_board_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, co
     }
 }
 
+void _resp_handler(const gcoap_request_memo_t *memo,
+                          coap_pkt_t *pdu,
+                          const sock_udp_ep_t *remote) {
+    (void)memo; 
+
+
+    char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
+    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
+
+    printf("Received: %s\n", pdu->payload);
+
+    printf("Remote Addres: %s\n", addr_str);
+}
+
 int main(void) {
 
 
@@ -184,10 +198,16 @@ int main(void) {
 
 
     sock_udp_ep_t remote = { .family = AF_INET6 };
-    remote.port = 5683;
 
-    ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
-                                   IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
+    if (sock_udp_str2ep(&remote, "[fe80::cafe:cafe:cafe:1]:5683") < 0) {
+        puts("Unable to parse destination address");
+        return 1;
+    }
+
+    //remote.port = 5683;
+
+    //ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
+    //                               IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
     /*
     puts("All up, running the shell now");
     char line_buf[SHELL_DEFAULT_BUFSIZE];
@@ -199,11 +219,25 @@ int main(void) {
     //printf("Initiated, result: %d", res);
    // int res = cord_ep_discover_regif(&remote, endpoint_buffer, sizeof(endpoint_buffer) - 1);
 
-
     int res = cord_ep_register(&remote, NULL);
 
     printf("%s, result: %d \n", endpoint_buffer, res);
+/*
+    ssize_t len;
+    coap_pkt_t pdu = { 0 };
+    u_int8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
+
+    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/endpoint-lookup/");
+    coap_opt_add_format(&pdu, COAP_FORMAT_LINK);
+    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "base=coap://[fe80::cafe:cafe:cafe:2]", ' ');
+    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "page=2", ' ');
+    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "count=2", ' ');
+    len = coap_opt_finish(&pdu, COAP_OPT_FINISH_PAYLOAD);
+
+    int res = gcoap_req_send(buf, len, &remote, &endpoint, _resp_handler, NULL, GCOAP_SOCKET_TYPE_UNDEF);
+*/
+    (void)res;
 
     return 0;
 }

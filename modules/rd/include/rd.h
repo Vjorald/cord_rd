@@ -4,6 +4,8 @@
 #define ENDPOINT_NAME_MAX_LEN 63
 #define RESOURCES_MAX_LEN 100
 #define SECTOR_NAME_MAX_LEN 63
+#define MAX_PAGE_DIGIT_NUMBER 3
+#define MAX_COUNT_DIGIT_NUMBER 3
 #define REGISTERED_ENDPOINTS_MAX_NUMBER 100
 #define DELETED_ENDPOINTS_MAX_NUMBER 100
 #define LOOKUP_RESULTS_MAX_LEN 100
@@ -90,6 +92,9 @@ void extract_value_from_query(const char *input, char *href_value, char* pref);
 void build_result_string(char* lookup_result, char* first_bracket, char* second_href_bracket, char* ep_key, char* base, char* rt, Endpoint* endpoint, char *et);
 
 void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], char* lookup_result, Endpoint* endpoint);
+
+void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *first_bracket, char *second_href_bracket, char *ep_key,
+                                char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number);
 
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
 
