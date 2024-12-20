@@ -355,14 +355,14 @@ void lifetime_callback(void *argument)
 }
 
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et, char *sector)
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector)
 {
     build_location_string(location_nr, location_str);
 
     endpoint_ptr->lt = atoi(lifetime); 
 
-    if (pdu->payload_len > 0){
-        strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, pdu->payload_len);
+    if (*payload_len > 0){
+        strncpy((char*)endpoint_ptr->ressources, payload, *payload_len);
         endpoint_ptr->ressources[strlen((char*)endpoint_ptr->ressources)] = '\0';
     }
 
@@ -715,29 +715,20 @@ void send_get_request(char *location_str) {
 
 }
 
-int register_endpoint(coap_pkt_t *pdu, coap_request_ctx_t *ctx, char *location_str){
+int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len){
 
-    char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
-    sock_udp_ep_t* remote = ctx->remote;
-    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
-   
     char base_uri[BASE_URI_MAX_LEN] = { 0 };
     build_base_uri_string(addr_str, base_uri);
-    
-    unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
-    int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
-    printf("Options: %s\n", query_buffer);
 
     intrusive_list_node *node_ptr;
     Endpoint *endpoint_ptr;
 
-    printf("%s, result: %d \n", query_buffer, result);
     char endpoint_name[ENDPOINT_NAME_MAX_LEN] = { 0 };
     char lifetime[LIFETIME_STR_MAX_LEN] = { 0 };
     char resources[RESOURCES_MAX_LEN] = { 0 };
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     char sector[SECTOR_NAME_MAX_LEN] = { 0 };
-    strncpy(resources, (char *)pdu->payload, pdu->payload_len);
+    strncpy(resources, payload, *payload_len);
     parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector);
     
     puts("======== Request infos: =======\n");
@@ -763,7 +754,7 @@ int register_endpoint(coap_pkt_t *pdu, coap_request_ctx_t *ctx, char *location_s
     }
 
     memset(location_str, 0, LOCATION_STR_MAX_LEN);
-    initialize_endpoint(lifetime, endpoint_name, endpoint_ptr, node_ptr, base_uri, pdu, location_str, location_nr, endpoint_type, sector);
+    initialize_endpoint(lifetime, endpoint_name, endpoint_ptr, node_ptr, base_uri, payload, payload_len, location_str, location_nr, endpoint_type, sector);
     connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
 
     return location_nr;
@@ -773,8 +764,16 @@ ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_re
 {
 
     char location_str[LOCATION_STR_MAX_LEN] = { 0 };
+
+    char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
+    sock_udp_ep_t* remote = ctx->remote;
+    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
+
+    unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+    int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
+    printf("Options: %s\n", query_buffer);
     
-    register_endpoint(pdu, ctx, location_str);
+    register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &pdu->payload_len);
 
     printList(&list[number_registered_endpoints - 1]);
     

@@ -1,4 +1,18 @@
 #include "i_list.h"
+#include <stdio.h>
+ 
+#include "net/sock/udp.h"
+#include "net/ipv6.h"
+#include <netdev_tap.h>
+#include "net/sock/util.h"
+#include "net/gcoap.h"
+#include <ctype.h>
+#include "net/cord/ep.h"
+#include "string.h"
+#include <math.h>
+
+#include "shell.h"
+#include "msg.h"
 
 #define BASE_URI_MAX_LEN 64
 #define ENDPOINT_NAME_MAX_LEN 63
@@ -79,7 +93,9 @@ void find_endpoints_by_pattern(char* pattern);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, coap_pkt_t *pdu, char* location_str, int location_nr, char *et, char *sector);
+int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len);
+
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
 
 int get_next_empty_location(Endpoint* deleted_list);
 
