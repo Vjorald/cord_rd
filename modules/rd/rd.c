@@ -189,7 +189,7 @@ int printList(Endpoint* endpoint)
 
 }
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector) {
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector, char *base) {
    
     char *token = strtok((char *)query_buffer, " ");
     
@@ -198,6 +198,7 @@ void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *e
         else if (strncmp(token, "lt=", 3) == 0) strcpy(lt, token + 3);
         else if (strncmp(token, "et=", 3) == 0) strcpy(et, token + 3);
         else if (strncmp(token, "d=", 2) == 0) strcpy(sector, token + 2);
+        else if (strncmp(token, "base=", 5) == 0) strcpy(base, token + 5);
         token = strtok(NULL, " ");
     }
 }
@@ -746,10 +747,62 @@ void send_get_request(char *location_str) {
 
 }
 
-int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len){
+void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffer, Endpoint *endpoint_ptr, char *addr_str){
 
+    char endpoint_name[ENDPOINT_NAME_MAX_LEN] = { 0 };
+    char lifetime[LIFETIME_STR_MAX_LEN] = { 0 };
+    char resources[RESOURCES_MAX_LEN] = { 0 };
+    char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
+    char sector[SECTOR_NAME_MAX_LEN] = { 0 };
     char base_uri[BASE_URI_MAX_LEN] = { 0 };
-    build_base_uri_string(addr_str, base_uri);
+    strncpy(resources, payload, *payload_len);
+    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
+
+    if(strlen(endpoint_name) > 0){
+        
+        memset(endpoint_ptr->name, 0, ENDPOINT_NAME_MAX_LEN);
+        strncpy(endpoint_ptr->name, endpoint_name, strlen(endpoint_name));
+    }
+
+    if (strlen(lifetime) > 0){
+        endpoint_ptr->lt = atoi(lifetime);
+    }
+    else{
+        endpoint_ptr->lt = 90000;
+    }
+
+    if (*payload_len > 0){
+
+        memset(endpoint_ptr->ressources, 0, RESOURCES_MAX_LEN);
+        strncpy(endpoint_ptr->ressources, resources, strlen(resources));
+    }
+
+    if (strlen(endpoint_type) > 0){
+
+        memset(endpoint_ptr->et, 0, ENDPOINT_TYPE_MAX_LEN);
+        strncpy(endpoint_ptr->et, endpoint_type, strlen(endpoint_type));
+    }
+
+    if (strlen(sector) > 0){
+
+        memset(endpoint_ptr->sector, 0, SECTOR_NAME_MAX_LEN);
+        strncpy(endpoint_ptr->sector, sector, strlen(sector));
+    }
+
+    if (strlen(base_uri) > 0){
+
+        memset(endpoint_ptr->base, 0, BASE_URI_MAX_LEN);
+        strncpy(endpoint_ptr->base, base_uri, strlen(base_uri));
+    }
+    else{
+        
+        memset(endpoint_ptr->base, 0, BASE_URI_MAX_LEN);
+        build_base_uri_string(addr_str, base_uri);
+        strncpy(endpoint_ptr->base, base_uri, strlen(base_uri));
+    }
+}
+
+int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len){
 
     intrusive_list_node *node_ptr;
     Endpoint *endpoint_ptr;
@@ -759,8 +812,13 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     char resources[RESOURCES_MAX_LEN] = { 0 };
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     char sector[SECTOR_NAME_MAX_LEN] = { 0 };
+    char base_uri[BASE_URI_MAX_LEN] = { 0 };
     strncpy(resources, payload, *payload_len);
-    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector);
+    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
+
+    if (strlen(base_uri) == 0){
+        build_base_uri_string(addr_str, base_uri);
+    }
     
     puts("======== Request infos: =======\n");
     printf("Endpoint: %s\n", endpoint_name);
@@ -869,7 +927,6 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
 
 ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx)
 {
-    (void)ctx;
 
     char uri[CONFIG_NANOCOAP_URI_MAX] = { 0 };
     coap_get_uri_path(pdu, (uint8_t *)uri);
@@ -886,16 +943,19 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
     {
         if (location_nr > 0 && location_nr < number_registered_endpoints)
         {
-            char addr_str[IPV6_ADDR_MAX_STR_LEN];
+            char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
             sock_udp_ep_t* remote = ctx->remote;
             ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
-            endpoint_ptr->lt = 86400;
+            unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+            int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
+            printf("Options: %s\n", query_buffer);
 
-            char base_uri[BASE_URI_MAX_LEN];
-            build_base_uri_string(addr_str, base_uri);
-            strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
-            endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
+            (void) result;
+
+            int payload_len = pdu->payload_len;
+
+            update_endpoint((char *)pdu->payload, &payload_len, query_buffer, endpoint_ptr, addr_str);
         }
     }
     if (method == COAP_DELETE)

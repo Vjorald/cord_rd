@@ -83,7 +83,7 @@ extern int location_epsim_endpoint;
 
 void resource_directory_init(void);
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector);
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector, char *base);
 
 void build_location_string(int location_nr, char* location_str);
 
