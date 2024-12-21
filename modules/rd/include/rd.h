@@ -93,6 +93,8 @@ void find_endpoints_by_pattern(char* pattern);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 
+int check_existing_endpoint(char *ep_name, char* sector);
+
 int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len);
 
 void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);

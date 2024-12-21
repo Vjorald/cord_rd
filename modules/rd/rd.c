@@ -457,6 +457,37 @@ void extract_value_from_query(const char *input, char *query_value, char* pref) 
     else query_value[0] = '\0';
 }
 
+int check_existing_endpoint(char *ep_name, char* sector){
+
+
+    if (head == NULL)
+    {
+        puts("There are no registered endpoints.");
+        return -1;
+    }
+
+
+    intrusive_list_node *actual = head;
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    if (strcmp(endpoint_ptr->name, ep_name) == 0 && strcmp(endpoint_ptr->sector, sector) == 0) return actual->location_nr;
+    
+    do
+    {
+        if(actual->next != NULL)
+        {
+            actual = actual->next;
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+            if (strcmp(endpoint_ptr->name, ep_name) == 0 && strcmp(endpoint_ptr->sector, sector) == 0) return actual->location_nr;
+        }
+        else return -1;
+        
+    }while(actual->next != NULL);
+
+    return -1;
+}
+
 void build_result_string(char* lookup_result, char* first_bracket, char* second_href_bracket, char* ep_key, char* base, char* rt, Endpoint* endpoint, char *et){
 
     char location_str[LOCATION_STR_MAX_LEN] = "";
@@ -738,24 +769,35 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     puts("\n");
     
     int location_nr = -1;
+    int location_existing = check_existing_endpoint(endpoint_name, sector);
 
-    if (number_deleted_registrations == INITIAL_NUMBER_DELETED_ENDPOINTS)
-    {
-        node_ptr = &list[number_registered_endpoints].node_management;
+    if (location_existing != -1){
+        node_ptr = &list[location_existing - 1].node_management;
         endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
-        number_registered_endpoints++;
-        location_nr = number_registered_endpoints;
+        location_nr = location_existing;
     }
-    else
-    {
-        location_nr = get_next_empty_location(deleted_registrations_list);
-        node_ptr = &list[location_nr - 1].node_management;
-        endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+    else{
+        if (number_deleted_registrations == INITIAL_NUMBER_DELETED_ENDPOINTS)
+        {
+            node_ptr = &list[number_registered_endpoints].node_management;
+            endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+            number_registered_endpoints++;
+            location_nr = number_registered_endpoints;
+        }
+        else
+        {
+            location_nr = get_next_empty_location(deleted_registrations_list);
+            node_ptr = &list[location_nr - 1].node_management;
+            endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+        }
     }
 
     memset(location_str, 0, LOCATION_STR_MAX_LEN);
     initialize_endpoint(lifetime, endpoint_name, endpoint_ptr, node_ptr, base_uri, payload, payload_len, location_str, location_nr, endpoint_type, sector);
-    connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
+    if (location_existing == -1){
+        connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
+    }
+    
 
     return location_nr;
 }
@@ -772,8 +814,12 @@ ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_re
     unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
     int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
     printf("Options: %s\n", query_buffer);
+
+    (void) result;
+
+    int payload_len = pdu->payload_len;
     
-    register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &pdu->payload_len);
+    register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &payload_len);
 
     printList(&list[number_registered_endpoints - 1]);
     
@@ -792,7 +838,19 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
    
     char location_str[LOCATION_STR_MAX_LEN] = { 0 };
 
-    location_epsim_endpoint = register_endpoint(pdu, ctx, location_str);
+    char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
+    sock_udp_ep_t* remote = ctx->remote;
+    ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
+
+    unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+    int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
+    printf("Options: %s\n", query_buffer);
+
+    (void) result;
+
+    int payload_len = pdu->payload_len;
+
+    location_epsim_endpoint = register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &payload_len);
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CHANGED);
     coap_opt_add_accept(pdu, COAP_FORMAT_LINK);
