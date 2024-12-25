@@ -39,10 +39,11 @@
 typedef struct nodeelement{
     char base[BASE_URI_MAX_LEN];
     char name[ENDPOINT_NAME_MAX_LEN];
-    int lt;
+    uint32_t expiration_time;
     char et[ENDPOINT_TYPE_MAX_LEN];
     char sector[SECTOR_NAME_MAX_LEN];
     char ressources[RESOURCES_MAX_LEN];
+    bool epsim;
     intrusive_list_node node_management;
 } Endpoint;
 
@@ -90,6 +91,8 @@ void build_location_string(int location_nr, char* location_str);
 void build_base_uri_string(char* addr_str, char* base_uri);
 
 void find_endpoints_by_pattern(char* pattern);
+
+void timely_sort_list(void);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 

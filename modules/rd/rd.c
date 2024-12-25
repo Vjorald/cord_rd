@@ -34,6 +34,12 @@ Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
+ztimer_t lifetime_expiry;
+
+ztimer_t epsim_request_before_lifetime_expiry;
+
+ztimer_t epsim_request_cache_expiry;
+
 ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
 ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
@@ -116,6 +122,150 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
     }
 }
 
+void set_timeout(void){
+
+     if (head == NULL)
+    {
+        return ;
+    }
+
+    intrusive_list_node *actual = head;
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    if (actual->earlier == NULL){
+
+        lifetime_expiry.callback = lifetime_callback; 
+        lifetime_expiry.arg = &(actual->location_nr);             
+        ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->expiration_time);
+
+        if (endpoint_ptr->epsim){
+
+            epsim_request_before_lifetime_expiry.callback = epsim_get_request_callback; 
+            epsim_request_before_lifetime_expiry.arg = &callback_data_list[location_epsim_endpoint - 1];             
+            ztimer_set(ZTIMER_SEC, &epsim_request_before_lifetime_expiry, 0.75*endpoint_ptr->expiration_time);
+        }
+
+        return ;
+    }
+    else{
+
+        do
+        {
+            if (actual->earlier != NULL){
+                
+                actual = actual->earlier;
+            }
+            else{
+                break;
+            }
+
+        } while (actual->earlier != NULL);
+
+        lifetime_expiry.callback = lifetime_callback; 
+        lifetime_expiry.arg = &(actual->location_nr);             
+        ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->expiration_time);
+
+        if (endpoint_ptr->epsim){
+            
+            epsim_request_before_lifetime_expiry.callback = epsim_get_request_callback; 
+            epsim_request_before_lifetime_expiry.arg = &callback_data_list[location_epsim_endpoint - 1];             
+            ztimer_set(ZTIMER_SEC, &epsim_request_before_lifetime_expiry, 0.75*endpoint_ptr->expiration_time);
+        }
+        
+    }
+
+    return ;
+
+}
+
+void timely_sort_list(void){
+
+     if (head == NULL)
+    {
+        return ;
+    }
+    
+
+    intrusive_list_node *actual = head;
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+    intrusive_list_node *temp;
+    Endpoint *temp_ptr;
+
+    intrusive_list_node *temp_next;
+    Endpoint *ptr_temp_next;
+
+    if (actual->next == NULL){
+
+        actual->earlier = NULL;
+        return ;
+    }
+    else{
+        
+        do
+        {
+            temp = head;
+            temp_ptr = container_of(temp, Endpoint, node_management);
+
+            if (temp_ptr->expiration_time - ztimer_now(ZTIMER_SEC) >= endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC)){
+
+                do{
+
+                    if(temp_ptr->expiration_time - ztimer_now(ZTIMER_SEC) >= endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC)){
+
+                        temp = temp->next;
+                        temp_ptr = container_of(temp, Endpoint, node_management);
+                    }
+                    else{
+                        break;
+                    }
+                        
+                }while(temp_ptr->expiration_time - ztimer_now(ZTIMER_SEC) >= endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC));
+            }
+
+            temp_next = head;
+            ptr_temp_next = container_of(temp_next, Endpoint, node_management);
+
+            if(ptr_temp_next->expiration_time - ztimer_now(ZTIMER_SEC) >= temp_ptr->expiration_time - ztimer_now(ZTIMER_SEC) 
+            && ptr_temp_next->expiration_time - ztimer_now(ZTIMER_SEC) < endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC)){
+
+                temp = temp_next;
+                temp_ptr = container_of(temp, Endpoint, node_management);
+
+            }
+
+            do
+            {
+                if (temp_next->next != NULL){
+
+                    temp_next = temp_next->next;
+                    ptr_temp_next = container_of(temp_next, Endpoint, node_management);
+
+                    if(ptr_temp_next->expiration_time - ztimer_now(ZTIMER_SEC) >= temp_ptr->expiration_time - ztimer_now(ZTIMER_SEC) 
+                    && ptr_temp_next->expiration_time - ztimer_now(ZTIMER_SEC) < endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC)){
+
+                        temp = temp_next;
+                        temp_ptr = container_of(temp, Endpoint, node_management);
+                    }
+
+                }
+                else{
+                    break;
+                }
+
+            } while (temp_next->next != NULL);
+
+            actual->earlier = temp;
+            actual = actual->next;
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+                
+        } while (actual->next != NULL);
+        
+    }
+
+    return ;
+}
+
 void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr){
 
     (void) location_nr;
@@ -158,7 +308,7 @@ int printList(Endpoint* endpoint)
     build_location_string(actual->location_nr, location_str);
 
     printf("Endpoint: %s\n", endpoint_ptr->name);
-    printf("Lifetime: %d\n", endpoint_ptr->lt);
+    printf("%d seconds left\n", endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC));
     printf("Resources: %s\n", endpoint_ptr->ressources);
     printf("Location: %s\n", location_str);
     printf("Base URI: %s\n", endpoint_ptr->base);
@@ -174,7 +324,7 @@ int printList(Endpoint* endpoint)
             build_location_string(actual->location_nr, location_str);
 
             printf("Endpoint: %s\n", endpoint_ptr->name);
-            printf("Lifetime: %d\n", endpoint_ptr->lt);
+            printf("%d seconds left\n", endpoint_ptr->expiration_time - ztimer_now(ZTIMER_SEC));
             printf("Resources: %s\n", endpoint_ptr->ressources);
             printf("Location: %s\n", location_str);
             printf("Base URI: %s\n", endpoint_ptr->base);
@@ -360,7 +510,7 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
 {
     build_location_string(location_nr, location_str);
 
-    endpoint_ptr->lt = atoi(lifetime); 
+    endpoint_ptr->expiration_time = ztimer_now(ZTIMER_SEC) + atoi(lifetime);
 
     if (*payload_len > 0){
         strncpy((char*)endpoint_ptr->ressources, payload, *payload_len);
@@ -400,7 +550,7 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
 
     lifetime_expiries[location_nr - 1].callback = lifetime_callback; 
     lifetime_expiries[location_nr - 1].arg = &(node_ptr->location_nr);             
-    ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], endpoint_ptr->lt);
+    ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], atoi(lifetime));
 
 }
 
@@ -655,10 +805,13 @@ void epsim_get_request_callback(void* argument){
     intrusive_list_node *node_ptr = &list[location_epsim_endpoint - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
+    (void) node_ptr;
+    (void)endpoint_ptr;
+/*
     lifetime_expiries[location_epsim_endpoint - 1].callback = lifetime_callback; 
     lifetime_expiries[location_epsim_endpoint - 1].arg = &(node_ptr->location_nr);             
     ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_epsim_endpoint - 1], endpoint_ptr->lt);
-
+*/
     send_get_request("location_str");
 
 }
@@ -694,9 +847,11 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
     endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
+/* 
     epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1].callback = epsim_get_request_callback; 
     epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1].arg = &callback_data_list[location_epsim_endpoint - 1];             
     ztimer_set(ZTIMER_SEC, &epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1], 0.75*endpoint_ptr->lt);
+*/
 
     printList(&list[number_registered_endpoints - 1]);
 
@@ -763,14 +918,14 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
         memset(endpoint_ptr->name, 0, ENDPOINT_NAME_MAX_LEN);
         strncpy(endpoint_ptr->name, endpoint_name, strlen(endpoint_name));
     }
-
+/*
     if (strlen(lifetime) > 0){
         endpoint_ptr->lt = atoi(lifetime);
     }
     else{
         endpoint_ptr->lt = 90000;
     }
-
+*/
     if (*payload_len > 0){
 
         memset(endpoint_ptr->ressources, 0, RESOURCES_MAX_LEN);

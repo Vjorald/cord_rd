@@ -24,6 +24,17 @@ void message_callback(void *argument)
 
 int main(void)
 { 
+    /*
+    uint32_t expiration_time = ztimer_now(ZTIMER_SEC) + 5;
+
+    printf("Expiration time: %d\n", expiration_time);
+
+    ztimer_sleep(ZTIMER_SEC, 2);
+
+    uint32_t time_left = expiration_time - ztimer_now(ZTIMER_SEC);
+
+    printf("%d seconds left\n", time_left);
+    */
 /*
     ztimer_now_t first = ztimer_now(ZTIMER_SEC);
 
