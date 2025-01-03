@@ -4,6 +4,7 @@ typedef struct intrusive_list{
     struct intrusive_list *next;
     struct intrusive_list *previous;
     struct intrusive_list *earlier;
+    struct intrusive_list *earlier_chache;
 }intrusive_list_node;
 
 void append_list_entry(intrusive_list_node **head, intrusive_list_node **new_node, intrusive_list_node **previous);

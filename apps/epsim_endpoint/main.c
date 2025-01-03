@@ -45,6 +45,7 @@ static gcoap_listener_t _listener = {
     NULL
 };
 
+/*
 char * configure_network(sock_udp_ep_t * remote, char *addr, char *port) {
     
      char *full_addr = (char*)malloc(50 * sizeof(char));
@@ -61,6 +62,7 @@ char * configure_network(sock_udp_ep_t * remote, char *addr, char *port) {
     }
     return full_addr;
 }
+*/
 
 char * send_message(sock_udp_ep_t * remote, char *message, int *res, char *full_addr){
 

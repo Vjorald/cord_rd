@@ -40,18 +40,13 @@ typedef struct nodeelement{
     char base[BASE_URI_MAX_LEN];
     char name[ENDPOINT_NAME_MAX_LEN];
     uint32_t expiration_time;
+    uint32_t cache_max_age;
     char et[ENDPOINT_TYPE_MAX_LEN];
     char sector[SECTOR_NAME_MAX_LEN];
     char ressources[RESOURCES_MAX_LEN];
     bool epsim;
     intrusive_list_node node_management;
 } Endpoint;
-
-typedef struct rd{
-    sock_udp_ep_t remote;
-    int location_epsim_endpoint;
-}epsim_callback_data;
-
 
 extern intrusive_list_node *head;
 
@@ -61,13 +56,11 @@ extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
-extern ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern ztimer_t lifetime_expiry;
 
-extern ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern ztimer_t epsim_request_before_lifetime_expiry;
 
-extern ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-extern epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern ztimer_t epsim_request_cache_expiry;
 
 extern int number_registered_endpoints;
 
@@ -92,7 +85,9 @@ void build_base_uri_string(char* addr_str, char* base_uri);
 
 void find_endpoints_by_pattern(char* pattern);
 
-void timely_sort_list(void);
+void lifetime_sort_list(void);
+
+void cache_sort_list(void);
 
 Endpoint find_endpoint_by_pattern(char* pattern);
 
@@ -108,6 +103,8 @@ int get_next_empty_location(Endpoint* deleted_list);
 
 int get_previous_endpoint_location(int actual_location);
 
+void convert_base_uri(const char *input, char *output, size_t output_size);
+
 int extract_number_from_location(char *path);
 
 void extract_value_from_query(const char *input, char *href_value, char* pref);
@@ -120,6 +117,14 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
                                 char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number);
 
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
+
+void lifetime_callback(void *argument);
+
+void epsim_get_request_callback(void* argument);
+
+void set_lifetime_timeout(void);
+
+void set_cache_timeout(void);
 
 void send_get_request(char *location_str);
 
