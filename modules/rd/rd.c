@@ -16,16 +16,6 @@
 #include "rd.h"
 
 
-uint8_t _epsim_req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
-
-coap_pkt_t epsim_pkt = { 0 };
-
-sock_udp_t epsim_sock = { 0 };
-
-sock_udp_ep_t epsim_remote = { 0 };
-
-int location_epsim_endpoint = -1;
-
 intrusive_list_node *head;
 
 Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
@@ -34,13 +24,9 @@ Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
-ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
+ztimer_t lifetime_expiry;
 
-ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+ztimer_t epsim_get_request;
 
 int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
 
@@ -189,6 +175,73 @@ int printList(Endpoint* endpoint)
 
 }
 
+intrusive_list_node* find_next_expiring_endpoint(void){
+
+
+    if (head == NULL)
+    {
+        puts("There are no registered endpoints.");
+        return NULL;
+    }
+
+    intrusive_list_node *actual = head;
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+    
+    int min_lifetime = endpoint_ptr->lt;
+    intrusive_list_node *candidate = actual;
+    
+    do
+    {
+        if(actual->next != NULL)
+        {
+            actual = actual->next;
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+            if(min_lifetime > endpoint_ptr->lt){
+                
+                min_lifetime = endpoint_ptr->lt;
+                candidate = actual;
+
+            }
+            
+        }
+        else return candidate;
+
+    }while(actual->next != NULL);
+
+    return candidate;
+
+}
+
+void update_registration_lifetimes(int expired_lifetime){
+
+    if (head == NULL)
+    {
+        puts("There are no registered endpoints.");
+        return ;
+    }
+
+    intrusive_list_node *actual = head;
+    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+    
+    endpoint_ptr->lt = endpoint_ptr->lt - expired_lifetime;
+    
+    do
+    {
+        if(actual->next != NULL)
+        {
+            actual = actual->next;
+            endpoint_ptr = container_of(actual, Endpoint, node_management);
+           
+            endpoint_ptr->lt = endpoint_ptr->lt - expired_lifetime;
+            
+        }
+        else return ;
+
+    }while(actual->next != NULL);
+
+}
+
 void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector, char *base) {
    
     char *token = strtok((char *)query_buffer, " ");
@@ -304,14 +357,15 @@ void find_endpoints_by_pattern(char* pattern)
 
 }
 
-Endpoint find_endpoint_by_pattern(char* pattern)
+Endpoint *find_endpoint_by_pattern(char* pattern)
 {
-    Endpoint empty = { 0 };
+
+    char base_uri[BASE_URI_MAX_LEN] = { 0 };
 
     if (head == NULL)
     {
         puts("There are no registered endpoints.");
-        return empty;
+        return NULL;
     }
 
 
@@ -320,7 +374,20 @@ Endpoint find_endpoint_by_pattern(char* pattern)
     char location_str[LOCATION_STR_MAX_LEN] = "";
     build_location_string(actual->location_nr, location_str);
 
-    if (strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0) return *endpoint_ptr;
+    if(endpoint_ptr->epsim == true){
+
+        memset(base_uri, 0, sizeof(base_uri));
+        
+        build_base_uri_string(pattern, base_uri);
+
+        if(strcmp(base_uri, endpoint_ptr->base)  == 0){
+            return endpoint_ptr;
+        }
+
+    }
+    
+
+    if (strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0) return endpoint_ptr;
     
     do
     {
@@ -331,26 +398,48 @@ Endpoint find_endpoint_by_pattern(char* pattern)
             memset(location_str, 0, sizeof(location_str));
             build_location_string(actual->location_nr, location_str);
 
-            if (strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0) return *endpoint_ptr;
+            if(endpoint_ptr->epsim == true){
+
+                memset(base_uri, 0, sizeof(base_uri));
+                
+                build_base_uri_string(pattern, base_uri);
+
+                if(strcmp(base_uri, endpoint_ptr->base)  == 0){
+                    return endpoint_ptr;
+                }
+
+            }
+
+        
+
+         if (strcmp(endpoint_ptr->name, pattern)  == 0 || strcmp(location_str, pattern) == 0) return endpoint_ptr;
         }
-        else return empty;
+        else return NULL;
         
     }while(actual->next != NULL);
 
-    return empty;
+    return NULL;
 
 }
 
 void lifetime_callback(void *argument)
 {
     intrusive_list_node *node_ptr = &list[*(int*)argument - 1].node_management;
+    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
     printf("Location nummer: %d\n", *(int*)argument);
 
     disconnect_endpoint_from_the_rest(node_ptr->location_nr, node_ptr);
     delete_endpoint(node_ptr->location_nr);
 
-    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+    update_registration_lifetimes(endpoint_ptr->lt);
+
+    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+    Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+    lifetime_expiry.callback = lifetime_callback; 
+    lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+    ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
 
     printList(endpoint_ptr);
 }
@@ -396,11 +485,6 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
 
     strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
     endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
-
-
-    lifetime_expiries[location_nr - 1].callback = lifetime_callback; 
-    lifetime_expiries[location_nr - 1].arg = &(node_ptr->location_nr);             
-    ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], endpoint_ptr->lt);
 
 }
 
@@ -648,18 +732,17 @@ size_t send_blockwise_response(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_r
 
 void epsim_get_request_callback(void* argument){ 
 
-    location_epsim_endpoint = ((epsim_callback_data *)argument)->location_epsim_endpoint;
+    int location_nr = *(int *)argument;
 
-    epsim_remote = ((epsim_callback_data *)argument)->remote;
-
-    intrusive_list_node *node_ptr = &list[location_epsim_endpoint - 1].node_management;
+    intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-    lifetime_expiries[location_epsim_endpoint - 1].callback = lifetime_callback; 
-    lifetime_expiries[location_epsim_endpoint - 1].arg = &(node_ptr->location_nr);             
-    ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_epsim_endpoint - 1], endpoint_ptr->lt);
 
-    send_get_request("location_str");
+    bool cache_expired = nanocoap_cache_entry_is_stale(endpoint_ptr->cache, ztimer_now(ZTIMER_SEC));
+
+    if(endpoint_ptr->epsim == true && cache_expired == true){
+        send_get_request(endpoint_ptr);
+    }
 
 }
 
@@ -672,68 +755,64 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
 
-    callback_data_list[location_epsim_endpoint - 1].remote = *remote;
-    callback_data_list[location_epsim_endpoint - 1].location_epsim_endpoint = location_epsim_endpoint;
-
     printf("Remote address %s\n", addr_str);
 
     printf("Received: %s\n", pdu->payload);
 
-    nanocoap_cache_entry_t *cache = nanocoap_cache_add_by_req(&epsim_pkt, pdu, pdu->options_len + pdu->payload_len);
+    Endpoint *endpoint_ptr = find_endpoint_by_pattern(addr_str);
+
+    nanocoap_cache_entry_t *cache = nanocoap_cache_add_by_req(&endpoint_ptr->epsim_pkt, pdu, pdu->options_len + pdu->payload_len);
 
     printf("Cache buf: %s\n", cache->response_buf);
-    
 
-    epsim_request_cache_expiry[location_epsim_endpoint - 1].callback = epsim_get_request_callback; 
-    epsim_request_cache_expiry[location_epsim_endpoint - 1].arg = &callback_data_list[location_epsim_endpoint - 1];             
-    ztimer_set(ZTIMER_SEC, &epsim_request_cache_expiry[location_epsim_endpoint - 1], cache->max_age);
- 
-    intrusive_list_node *node_ptr = &list[location_epsim_endpoint - 1].node_management;
-    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+
+    endpoint_ptr->cache = cache;
+
+    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+
+    if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
+
+        epsim_get_request.callback = epsim_get_request_callback; 
+        epsim_get_request.arg = &endpoint_ptr->node_management.location_nr;      
+        ztimer_set(ZTIMER_SEC, &epsim_get_request, 0.75*endpoint_ptr->lt);
+
+    }
 
     strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
     endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
-    epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1].callback = epsim_get_request_callback; 
-    epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1].arg = &callback_data_list[location_epsim_endpoint - 1];             
-    ztimer_set(ZTIMER_SEC, &epsim_request_before_lifetime_expiry[location_epsim_endpoint - 1], 0.75*endpoint_ptr->lt);
-
     printList(&list[number_registered_endpoints - 1]);
 
-    memset(_epsim_req_buf, 0, CONFIG_GCOAP_PDU_BUF_SIZE);
-
-    sock_udp_ep_t empty = { 0 };
-    epsim_remote = empty;
-
-    sock_udp_close(&epsim_sock);
+    sock_udp_close(&endpoint_ptr->epsim_sock);
 
     ztimer_sleep(ZTIMER_SEC, 1);
 
 }
 
-void send_get_request(char *location_str) {
-
-    (void) location_str;
+void send_get_request(Endpoint *endpoint_ptr) {
 
     sock_udp_ep_t local = { .family = AF_INET6 };
-    coap_request_ctx_t ctx = { .remote = &epsim_remote };
+    coap_request_ctx_t ctx = { .remote = endpoint_ptr->remote };
+
+    uint8_t _epsim_req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
+
 
     if (sock_udp_str2ep(&local, "[fe80::cafe:cafe:cafe:1]:5683") < 0) {
         puts("Unable to parse destination address");
     }
 
-    if(sock_udp_create(&epsim_sock, &local, NULL, 0) < 0) {
+    if(sock_udp_create(&endpoint_ptr->epsim_sock, &local, NULL, 0) < 0) {
         printf("Sock creation unsuccessful!");
     }
 
 
-    gcoap_req_init(&epsim_pkt, _epsim_req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
-    coap_hdr_set_type(epsim_pkt.hdr, COAP_TYPE_CON);
-    int len = coap_opt_finish(&epsim_pkt, COAP_OPT_FINISH_PAYLOAD);
+    gcoap_req_init(&endpoint_ptr->epsim_pkt, _epsim_req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
+    coap_hdr_set_type(endpoint_ptr->epsim_pkt.hdr, COAP_TYPE_CON);
+    int len = coap_opt_finish(&endpoint_ptr->epsim_pkt, COAP_OPT_FINISH_PAYLOAD);
 
-    memset(epsim_pkt.payload, 0, epsim_pkt.payload_len);
+    memset(endpoint_ptr->epsim_pkt.payload, 0, endpoint_ptr->epsim_pkt.payload_len);
     
-    int result = gcoap_req_send(_epsim_req_buf, len, &epsim_remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
+    int result = gcoap_req_send(_epsim_req_buf, len, endpoint_ptr->remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
     
     if (result <= 0) {
         puts("Failed to send request");
@@ -765,10 +844,34 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
     }
 
     if (strlen(lifetime) > 0){
+
         endpoint_ptr->lt = atoi(lifetime);
+
+        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+        if (endpoint_ptr->node_management.location_nr == next_expiring_node->location_nr){
+
+            lifetime_expiry.callback = lifetime_callback; 
+            lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+            ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+
+        }
+
     }
     else{
         endpoint_ptr->lt = 90000;
+
+        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+        if (endpoint_ptr->node_management.location_nr == next_expiring_node->location_nr){
+
+            lifetime_expiry.callback = lifetime_callback; 
+            lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+            ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+
+        }
     }
 
     if (*payload_len > 0){
@@ -855,7 +958,18 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     if (location_existing == -1){
         connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
     }
-    
+
+    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+    if (next_expiring_node != NULL){
+        Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+        if (next_expiring_node->location_nr == node_ptr->location_nr){
+
+            lifetime_expiry.callback = lifetime_callback; 
+            lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+            ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+        }
+    }
 
     return location_nr;
 }
@@ -908,17 +1022,21 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
 
     int payload_len = pdu->payload_len;
 
-    location_epsim_endpoint = register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &payload_len);
+    int location_nr = register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &payload_len);
+
+    intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
+
+    endpoint_ptr->epsim = true;
+    endpoint_ptr->remote = remote;
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CHANGED);
     coap_opt_add_accept(pdu, COAP_FORMAT_LINK);
     size_t resp_len = coap_opt_finish(pdu, COAP_OPT_FINISH_PAYLOAD);
 
-    epsim_remote = *(ctx->remote);
-
     memset(pdu->payload, 0, pdu->payload_len);
 
-    send_get_request(location_str);
+    send_get_request(endpoint_ptr);
 
     return resp_len;
 
@@ -960,11 +1078,32 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
     }
     if (method == COAP_DELETE)
     {
+        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+        int expired_lifetime = 0;
+
+        if(next_expiring_node->location_nr == location_nr){
+
+            expired_lifetime = next_expiring_endpoint->lt;
+        }
 
         if (location_nr > 0 && location_nr < number_registered_endpoints)
         {
             disconnect_endpoint_from_the_rest(location_nr, node_ptr);
             delete_endpoint(location_nr);
+            
+            if(expired_lifetime > 0){
+
+                update_registration_lifetimes(expired_lifetime);
+
+                next_expiring_node = find_next_expiring_endpoint();
+                next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+
+                lifetime_expiry.callback = lifetime_callback; 
+                lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+                ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+            }
         }
 
     }
@@ -1010,9 +1149,9 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
     {
         char ep_name[ENDPOINT_NAME_MAX_LEN];
         extract_value_from_query((char*)uri_query, ep_name, "ep=");
-        Endpoint ep = find_endpoint_by_pattern(ep_name);
-        resource_number = extract_resource_uris(ep.ressources, relative_uris);
-        build_resource_string(resource_number, relative_uris, lookup_result, &ep);
+        Endpoint *ep = find_endpoint_by_pattern(ep_name);
+        resource_number = extract_resource_uris(ep->ressources, relative_uris);
+        build_resource_string(resource_number, relative_uris, lookup_result, ep);
     }
     else if(strstr((char*)uri_query, "base") != NULL)
     {
@@ -1099,8 +1238,8 @@ ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap
     {
         char ep_name[ENDPOINT_NAME_MAX_LEN];
         extract_value_from_query((char*)uri_query, ep_name, "ep=");
-        Endpoint ep = find_endpoint_by_pattern(ep_name);
-        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, &ep, ep.et);
+        Endpoint *ep = find_endpoint_by_pattern(ep_name);
+        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, ep, ep->et);
     }
     else if(strstr((char*)uri_query, "base") != NULL)
     {

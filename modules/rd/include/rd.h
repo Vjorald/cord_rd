@@ -43,13 +43,13 @@ typedef struct nodeelement{
     char et[ENDPOINT_TYPE_MAX_LEN];
     char sector[SECTOR_NAME_MAX_LEN];
     char ressources[RESOURCES_MAX_LEN];
+    bool epsim;
+    nanocoap_cache_entry_t *cache;
+    sock_udp_ep_t *remote;
+    coap_pkt_t epsim_pkt;
+    sock_udp_t epsim_sock;
     intrusive_list_node node_management;
 } Endpoint;
-
-typedef struct rd{
-    sock_udp_ep_t remote;
-    int location_epsim_endpoint;
-}epsim_callback_data;
 
 
 extern intrusive_list_node *head;
@@ -60,25 +60,13 @@ extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
-extern ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern ztimer_t lifetime_expiry;
 
-extern ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-extern ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-extern epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern ztimer_t epsim_get_request;
 
 extern int number_registered_endpoints;
 
 extern int number_deleted_registrations;
-
-extern u_int8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
-
-extern sock_udp_t sock;
-
-extern sock_udp_ep_t epsim_remote;
-
-extern int location_epsim_endpoint;
 
 
 void resource_directory_init(void);
@@ -91,7 +79,7 @@ void build_base_uri_string(char* addr_str, char* base_uri);
 
 void find_endpoints_by_pattern(char* pattern);
 
-Endpoint find_endpoint_by_pattern(char* pattern);
+Endpoint *find_endpoint_by_pattern(char* pattern);
 
 int check_existing_endpoint(char *ep_name, char* sector);
 
@@ -118,7 +106,7 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
 
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
 
-void send_get_request(char *location_str);
+void send_get_request(Endpoint *endpoint_ptr);
 
 int printList(Endpoint* endpoint);
 
@@ -129,5 +117,9 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
 void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
 
 void delete_endpoint(int location_nr);
+
+void update_registration_lifetimes(int expired_lifetime);
+
+intrusive_list_node* find_next_expiring_endpoint(void);
 
 
