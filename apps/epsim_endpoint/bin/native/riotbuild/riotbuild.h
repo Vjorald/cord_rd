@@ -17,6 +17,7 @@
 #define RIOT_MCU        MACRO_DEPRECATED RIOT_CPU
 #define CONFIG_GNRC_IPV6_STATIC_LLADDR "fe80::cafe:cafe:cafe:4"
 #define CONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED 1
+#define DEVELHELP 1
 #undef _FORTIFY_SOURCE
 #define DEBUG_ASSERT_VERBOSE 1
 #define RIOT_APPLICATION "epsim_endpoint"
@@ -24,7 +25,6 @@
 #define RIOT_BOARD BOARD_NATIVE
 #define CPU_NATIVE "native"
 #define RIOT_CPU CPU_NATIVE
-#define NDEBUG 1
 #define SOCK_HAS_ASYNC 1
 #define SOCK_HAS_IPV6 1
 #define SOCK_HAS_ASYNC 1

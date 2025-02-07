@@ -198,16 +198,16 @@ int main(void) {
 
 
     sock_udp_ep_t remote = { .family = AF_INET6 };
-
+/*
     if (sock_udp_str2ep(&remote, "[fe80::cafe:cafe:cafe:1]:5683") < 0) {
         puts("Unable to parse destination address");
         return 1;
     }
+*/
+    remote.port = 5683;
 
-    //remote.port = 5683;
-
-    //ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
-    //                               IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
+    ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
+                                   IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
     /*
     puts("All up, running the shell now");
     char line_buf[SHELL_DEFAULT_BUFSIZE];
