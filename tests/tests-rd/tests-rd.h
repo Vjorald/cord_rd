@@ -24,18 +24,11 @@ extern "C" {
 #endif
 
 /**
- * @brief   Generates tests for <header1>.h
+ * @brief   Generates tests for rd.h
  *
  * @return  embUnit tests if successful, NULL if not.
  */
-Test *tests_<module>_<header1>_tests(void);
-
-/**
- * @brief   Generates tests for <header2>.h
- *
- * @return  embUnit tests if successful, NULL if not.
- */
-Test *tests_<module>_<header2>_tests(void);
+Test *tests_rd_tests(void);
 
 /* ... */
 
@@ -43,5 +36,5 @@ Test *tests_<module>_<header2>_tests(void);
 }
 #endif
 
-#endif /* TESTS_<MODULE>_H */
+#endif /* TESTS_RD_H */
 /** @} */

@@ -1,0 +1,2 @@
+USEMODULE += rd
+EXTERNAL_MODULE_DIRS += $(CURDIR)/../../modules

@@ -110,6 +110,8 @@ void send_get_request(Endpoint *endpoint_ptr);
 
 int printList(Endpoint* endpoint);
 
+void get_all_registered_endpoints(void);
+
 void append_endpoint(intrusive_list_node *new_node);
 
 void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr);

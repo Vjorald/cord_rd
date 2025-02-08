@@ -7,6 +7,7 @@
         "i_list.h": "c",
         "cache.h": "c",
         "internet": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "cstring": "c"
     }
 }
