@@ -15,17 +15,7 @@
 
 #include "rd.h"
 
-/*
-uint8_t _epsim_req_buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
-coap_pkt_t epsim_pkt = { 0 };
-
-sock_udp_t epsim_sock = { 0 };
-
-sock_udp_ep_t epsim_remote = { 0 };
-
-int location_epsim_endpoint = -1;
-*/
 intrusive_list_node *head;
 
 Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
@@ -36,11 +26,6 @@ Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
 ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
-//ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-//ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-//epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
 int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
 
@@ -417,7 +402,7 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
     strncpy((char*)endpoint_ptr->base, base_uri, sizeof(endpoint_ptr->base) - 1);
     endpoint_ptr->base[sizeof(endpoint_ptr->base) - 1] = '\0';
 
-    if(lifetime_expiries == false){
+    if(endpoint_ptr->epsim == false){
 
         lifetime_expiries[location_nr - 1].callback = lifetime_callback; 
         lifetime_expiries[location_nr - 1].arg = &(node_ptr->location_nr);             
@@ -685,7 +670,7 @@ void epsim_get_request_callback(void* argument){
 
         lifetime_expiries[location_nr - 1].callback = epsim_get_request_callback; 
         lifetime_expiries[location_nr - 1].arg = &(node_ptr->location_nr);             
-        ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], endpoint_ptr->lt);
+        ztimer_set(ZTIMER_SEC, &lifetime_expiries[location_nr - 1], 0.75*endpoint_ptr->lt);
     }
 
 }
@@ -698,10 +683,6 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
     ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
-/*
-    callback_data_list[location_epsim_endpoint - 1].remote = *remote;
-    callback_data_list[location_epsim_endpoint - 1].location_epsim_endpoint = location_epsim_endpoint;
-*/
     printf("Remote address %s\n", addr_str);
 
     printf("Received: %s\n", pdu->payload);
@@ -712,28 +693,15 @@ void _resp_handler(const gcoap_request_memo_t *memo,
 
     printf("Cache buf: %s\n", cache->response_buf);
     
-/*
-    epsim_request_cache_expiry[location_epsim_endpoint - 1].callback = epsim_get_request_callback; 
-    epsim_request_cache_expiry[location_epsim_endpoint - 1].arg = &callback_data_list[location_epsim_endpoint - 1];             
-    ztimer_set(ZTIMER_SEC, &epsim_request_cache_expiry[location_epsim_endpoint - 1], cache->max_age);
- 
-    intrusive_list_node *node_ptr = &list[location_epsim_endpoint - 1].node_management;
-    Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
-*/
     strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
     endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
 
     lifetime_expiries[endpoint_ptr->node_management.location_nr - 1].callback = epsim_get_request_callback;
     lifetime_expiries[endpoint_ptr->node_management.location_nr - 1].arg      = &endpoint_ptr->node_management.location_nr;
-    ztimer_set(ZTIMER_SEC, &lifetime_expiries[endpoint_ptr->node_management.location_nr - 1], endpoint_ptr->lt);
+    ztimer_set(ZTIMER_SEC, &lifetime_expiries[endpoint_ptr->node_management.location_nr - 1], 0.75*endpoint_ptr->lt);
 
     printList(&list[number_registered_endpoints - 1]);
-/*
-    memset(_epsim_req_buf, 0, CONFIG_GCOAP_PDU_BUF_SIZE);
 
-    sock_udp_ep_t empty = { 0 };
-    epsim_remote = empty;
-*/
     sock_udp_close(&endpoint_ptr->epsim_sock);
 
     ztimer_sleep(ZTIMER_SEC, 1);
@@ -809,7 +777,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
     if (endpoint_ptr->epsim == true){
         lifetime_expiries[endpoint_ptr->node_management.location_nr - 1].callback = epsim_get_request_callback;
         lifetime_expiries[endpoint_ptr->node_management.location_nr - 1].arg      = &endpoint_ptr->node_management.location_nr;
-        ztimer_set(ZTIMER_SEC, &lifetime_expiries[endpoint_ptr->node_management.location_nr - 1], endpoint_ptr->lt);
+        ztimer_set(ZTIMER_SEC, &lifetime_expiries[endpoint_ptr->node_management.location_nr - 1], 0.75*endpoint_ptr->lt);
     }
     else{
         lifetime_expiries[endpoint_ptr->node_management.location_nr - 1].callback = lifetime_callback;
@@ -860,7 +828,11 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     char sector[SECTOR_NAME_MAX_LEN] = { 0 };
     char base_uri[BASE_URI_MAX_LEN] = { 0 };
     strncpy(resources, payload, *payload_len);
-    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
+
+    unsigned char rep_query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+    memcpy(rep_query_buffer, query_buffer, QUERY_BUFFER_MAX_LEN);
+
+    parse_query_buffer(rep_query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
 
     if (strlen(base_uri) == 0){
         build_base_uri_string(addr_str, base_uri);
@@ -873,7 +845,14 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     puts("\n");
     
     int location_nr = -1;
-    int location_existing = check_existing_endpoint(endpoint_name, sector);
+    int location_existing = -1;
+    
+    if(strlen(sector) == 0){
+        location_existing = check_existing_endpoint(endpoint_name, "default");
+    }
+    else{
+        location_existing = check_existing_endpoint(endpoint_name, sector);
+    }
 
     if (location_existing != -1){
         node_ptr = &list[location_existing - 1].node_management;

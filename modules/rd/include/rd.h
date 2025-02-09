@@ -125,6 +125,8 @@ int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][
 
 void send_get_request(Endpoint *endpoint_ptr);
 
+void get_all_registered_endpoints(void);
+
 int printList(Endpoint* endpoint);
 
 void append_endpoint(intrusive_list_node *new_node);
