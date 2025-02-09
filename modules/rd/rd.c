@@ -435,11 +435,13 @@ void lifetime_callback(void *argument)
     update_registration_lifetimes(endpoint_ptr->lt);
 
     intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
-    Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
+    if (next_expiring_node != NULL){
+        Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
-    lifetime_expiry.callback = lifetime_callback; 
-    lifetime_expiry.arg = &(next_expiring_node->location_nr);             
-    ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+        lifetime_expiry.callback = lifetime_callback; 
+        lifetime_expiry.arg = &(next_expiring_node->location_nr);             
+        ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
+    }
 
     printList(endpoint_ptr);
 }
@@ -835,7 +837,11 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
     char sector[SECTOR_NAME_MAX_LEN] = { 0 };
     char base_uri[BASE_URI_MAX_LEN] = { 0 };
     strncpy(resources, payload, *payload_len);
-    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
+
+    unsigned char rep_query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+    memcpy(rep_query_buffer, query_buffer, QUERY_BUFFER_MAX_LEN);
+
+    parse_query_buffer(rep_query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
 
     if(strlen(endpoint_name) > 0){
         
@@ -917,7 +923,11 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     char sector[SECTOR_NAME_MAX_LEN] = { 0 };
     char base_uri[BASE_URI_MAX_LEN] = { 0 };
     strncpy(resources, payload, *payload_len);
-    parse_query_buffer(query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
+
+    unsigned char rep_query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
+    memcpy(rep_query_buffer, query_buffer, QUERY_BUFFER_MAX_LEN);
+    
+    parse_query_buffer(rep_query_buffer, endpoint_name, lifetime, endpoint_type, sector, base_uri);
 
     if (strlen(base_uri) == 0){
         build_base_uri_string(addr_str, base_uri);
@@ -930,7 +940,16 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
     puts("\n");
     
     int location_nr = -1;
-    int location_existing = check_existing_endpoint(endpoint_name, sector);
+
+
+    int location_existing = -1;
+    if(strlen(sector) == 0){
+        location_existing = check_existing_endpoint(endpoint_name, "default");
+    }
+    else{
+        location_existing = check_existing_endpoint(endpoint_name, sector);
+    }
+    
 
     if (location_existing != -1){
         node_ptr = &list[location_existing - 1].node_management;

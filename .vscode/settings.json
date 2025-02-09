@@ -8,6 +8,7 @@
         "cache.h": "c",
         "internet": "c",
         "sstream": "c",
-        "cstring": "c"
+        "cstring": "c",
+        "ctype.h": "c"
     }
 }
