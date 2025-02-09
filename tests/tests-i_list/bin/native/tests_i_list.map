@@ -32586,311 +32586,311 @@ LOAD /usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib32/crtn.o
 .debug_frame
  *(.debug_frame)
 
-.debug_str      0x0000000000000000    0x853cc
+.debug_str      0x0000000000000000    0x853b5
  *(.debug_str)
- .debug_str     0x0000000000000000     0x8613 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/application_tests_i_list/tests-i_list.o
-                                       0x8879 (size before relaxing)
- .debug_str     0x0000000000008613    0x47391 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/auto_init/auto_init.o
+ .debug_str     0x0000000000000000     0x85fc /home/vjorald/cord_rd/tests/tests-i_list/bin/native/application_tests_i_list/tests-i_list.o
+                                       0x8869 (size before relaxing)
+ .debug_str     0x00000000000085fc    0x47391 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/auto_init/auto_init.o
                                       0x4d48e (size before relaxing)
- .debug_str     0x000000000004f9a4     0x1bb9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/board/board_init.o
+ .debug_str     0x000000000004f98d     0x1bb9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/board/board_init.o
                                        0x82cd (size before relaxing)
- .debug_str     0x000000000005155d       0xc4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/board_common_init/board_common.o
+ .debug_str     0x0000000000051546       0xc4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/board_common_init/board_common.o
                                        0x7fc1 (size before relaxing)
- .debug_str     0x0000000000051621     0xebdb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cord_common/cord_common.o
+ .debug_str     0x000000000005160a     0xebdb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cord_common/cord_common.o
                                       0x1816d (size before relaxing)
- .debug_str     0x00000000000601fc      0x8b9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cord_ep/cord_ep.o
+ .debug_str     0x00000000000601e5      0x8b9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cord_ep/cord_ep.o
                                       0x1896a (size before relaxing)
- .debug_str     0x0000000000060ab5      0x169 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/cond.o
+ .debug_str     0x0000000000060a9e      0x169 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/cond.o
                                        0x960f (size before relaxing)
- .debug_str     0x0000000000060c1e       0xe6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/mbox.o
+ .debug_str     0x0000000000060c07       0xe6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/mbox.o
                                        0x88a0 (size before relaxing)
- .debug_str     0x0000000000060d04      0x2f7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/msg.o
+ .debug_str     0x0000000000060ced      0x2f7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/msg.o
                                        0x8a93 (size before relaxing)
- .debug_str     0x0000000000060ffb       0xfa /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/mutex.o
+ .debug_str     0x0000000000060fe4       0xfa /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/mutex.o
                                        0x9cd3 (size before relaxing)
- .debug_str     0x00000000000610f5      0x379 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/sched.o
+ .debug_str     0x00000000000610de      0x379 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/sched.o
                                        0x8d6e (size before relaxing)
- .debug_str     0x000000000006146e      0x26b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/thread.o
+ .debug_str     0x0000000000061457      0x26b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/thread.o
                                        0x930b (size before relaxing)
- .debug_str     0x00000000000616d9      0x11d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/thread_flags.o
+ .debug_str     0x00000000000616c2      0x11d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core/thread_flags.o
                                        0x8817 (size before relaxing)
- .debug_str     0x00000000000617f6      0x189 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/assert.o
+ .debug_str     0x00000000000617df      0x189 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/assert.o
                                        0x9582 (size before relaxing)
- .debug_str     0x000000000006197f     0x1ca1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/atomic_c11.o
+ .debug_str     0x0000000000061968     0x1ca1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/atomic_c11.o
                                        0x92bd (size before relaxing)
- .debug_str     0x0000000000063620       0xad /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/bitarithm.o
+ .debug_str     0x0000000000063609       0xad /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/bitarithm.o
                                        0x6b58 (size before relaxing)
- .debug_str     0x00000000000636cd       0x92 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/clist.o
+ .debug_str     0x00000000000636b6       0x92 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/clist.o
                                        0x3c23 (size before relaxing)
- .debug_str     0x000000000006375f      0x380 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/init.o
+ .debug_str     0x0000000000063748      0x380 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/init.o
                                        0xedee (size before relaxing)
- .debug_str     0x0000000000063adf       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/panic.o
+ .debug_str     0x0000000000063ac8       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/panic.o
                                        0x81ed (size before relaxing)
- .debug_str     0x0000000000063b8b      0x198 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/priority_queue.o
+ .debug_str     0x0000000000063b74      0x198 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/priority_queue.o
                                        0x87e2 (size before relaxing)
- .debug_str     0x0000000000063d23      0x185 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/ringbuffer.o
+ .debug_str     0x0000000000063d0c      0x185 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/ringbuffer.o
                                        0x4ede (size before relaxing)
- .debug_str     0x0000000000063ea8      0x413 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/rmutex.o
+ .debug_str     0x0000000000063e91      0x413 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/core_lib/rmutex.o
                                        0xa977 (size before relaxing)
- .debug_str     0x00000000000642bb     0x65e0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/async_read.o
+ .debug_str     0x00000000000642a4     0x65e0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/async_read.o
                                       0x13bdc (size before relaxing)
- .debug_str     0x000000000006a89b     0x1ba2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/irq_cpu.o
+ .debug_str     0x000000000006a884     0x1ba2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/irq_cpu.o
                                       0x16967 (size before relaxing)
- .debug_str     0x000000000006c43d     0x12ed /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/native_cpu.o
+ .debug_str     0x000000000006c426     0x12ed /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/native_cpu.o
                                       0x175f9 (size before relaxing)
- .debug_str     0x000000000006d72a       0x56 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/panic.o
+ .debug_str     0x000000000006d713       0x56 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/panic.o
                                       0x13388 (size before relaxing)
- .debug_str     0x000000000006d780      0xd38 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/startup.o
+ .debug_str     0x000000000006d769      0xd38 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/startup.o
                                       0x18b19 (size before relaxing)
- .debug_str     0x000000000006e4b8      0x233 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/syscalls.o
+ .debug_str     0x000000000006e4a1      0x233 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/syscalls.o
                                       0x17222 (size before relaxing)
- .debug_str     0x000000000006e6eb       0x3a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/tramp.o
+ .debug_str     0x000000000006e6d4       0x3a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/cpu/tramp.o
                                          0x60 (size before relaxing)
- .debug_str     0x000000000006e725      0x140 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/div/div.o
+ .debug_str     0x000000000006e70e      0x140 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/div/div.o
                                        0x680f (size before relaxing)
- .debug_str     0x000000000006e865      0x1f6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/AssertImpl.o
+ .debug_str     0x000000000006e84e      0x1f6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/AssertImpl.o
                                        0x7085 (size before relaxing)
- .debug_str     0x000000000006ea5b      0x4e7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/ColorOutputter.o
+ .debug_str     0x000000000006ea44      0x4e7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/ColorOutputter.o
                                        0x71e8 (size before relaxing)
- .debug_str     0x000000000006ef42      0x1cb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/ColorTextOutputter.o
+ .debug_str     0x000000000006ef2b      0x1cb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/ColorTextOutputter.o
                                        0x7241 (size before relaxing)
- .debug_str     0x000000000006f10d      0x1be /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/CompilerOutputter.o
+ .debug_str     0x000000000006f0f6      0x1be /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/CompilerOutputter.o
                                        0x7143 (size before relaxing)
- .debug_str     0x000000000006f2cb       0xe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/RepeatedTest.o
+ .debug_str     0x000000000006f2b4       0xe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/RepeatedTest.o
                                        0x3a4d (size before relaxing)
- .debug_str     0x000000000006f3ad       0xc6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestCaller.o
+ .debug_str     0x000000000006f396       0xc6 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestCaller.o
                                        0x3b87 (size before relaxing)
- .debug_str     0x000000000006f473       0xfb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestCase.o
+ .debug_str     0x000000000006f45c       0xfb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestCase.o
                                        0x3b49 (size before relaxing)
- .debug_str     0x000000000006f56e       0x92 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestResult.o
+ .debug_str     0x000000000006f557       0x92 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestResult.o
                                        0x3bcc (size before relaxing)
- .debug_str     0x000000000006f600       0xff /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestRunner.o
+ .debug_str     0x000000000006f5e9       0xff /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestRunner.o
                                        0x6436 (size before relaxing)
- .debug_str     0x000000000006f6ff       0xcf /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestSuite.o
+ .debug_str     0x000000000006f6e8       0xcf /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TestSuite.o
                                        0x3a4f (size before relaxing)
- .debug_str     0x000000000006f7ce       0xa4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TextOutputter.o
+ .debug_str     0x000000000006f7b7       0xa4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TextOutputter.o
                                        0x710f (size before relaxing)
- .debug_str     0x000000000006f872      0x1a4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TextUIRunner.o
+ .debug_str     0x000000000006f85b      0x1a4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/TextUIRunner.o
                                        0x4a52 (size before relaxing)
- .debug_str     0x000000000006fa16      0x1aa /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/XMLOutputter.o
+ .debug_str     0x000000000006f9ff      0x1aa /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/XMLOutputter.o
                                        0x7143 (size before relaxing)
- .debug_str     0x000000000006fbc0       0x9a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/stdImpl.o
+ .debug_str     0x000000000006fba9       0x9a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/embunit/stdImpl.o
                                        0x390a (size before relaxing)
- .debug_str     0x000000000006fc5a      0x426 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/eui_provider/eui_provider.o
+ .debug_str     0x000000000006fc43      0x426 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/eui_provider/eui_provider.o
                                        0xd74a (size before relaxing)
- .debug_str     0x0000000000070080       0xc9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/callback.o
+ .debug_str     0x0000000000070069       0xc9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/callback.o
                                        0x96f0 (size before relaxing)
- .debug_str     0x0000000000070149      0x31b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/event.o
+ .debug_str     0x0000000000070132      0x31b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/event.o
                                        0xad6e (size before relaxing)
- .debug_str     0x0000000000070464       0xfb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/timeout_ztimer.o
+ .debug_str     0x000000000007044d       0xfb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/event/timeout_ztimer.o
                                        0x9732 (size before relaxing)
- .debug_str     0x000000000007055f      0x171 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/evtimer/evtimer.o
+ .debug_str     0x0000000000070548      0x171 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/evtimer/evtimer.o
                                        0x9832 (size before relaxing)
- .debug_str     0x00000000000706d0      0x31a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/fmt/fmt.o
+ .debug_str     0x00000000000706b9      0x31a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/fmt/fmt.o
                                        0xad50 (size before relaxing)
- .debug_str     0x00000000000709ea       0xc8 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/frac/frac.o
+ .debug_str     0x00000000000709d3       0xc8 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/frac/frac.o
                                        0x89e8 (size before relaxing)
- .debug_str     0x0000000000070ab2      0xd8c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gcoap/gcoap.o
+ .debug_str     0x0000000000070a9b      0xd8c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gcoap/gcoap.o
                                       0x1a2c9 (size before relaxing)
- .debug_str     0x000000000007183e     0x10a3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6/gnrc_icmpv6.o
+ .debug_str     0x0000000000071827     0x10a3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6/gnrc_icmpv6.o
                                       0x17b33 (size before relaxing)
- .debug_str     0x00000000000728e1      0x2c3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6_echo/gnrc_icmpv6_echo.o
+ .debug_str     0x00000000000728ca      0x2c3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6_echo/gnrc_icmpv6_echo.o
                                       0x17cb7 (size before relaxing)
- .debug_str     0x0000000000072ba4      0x383 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6_error/gnrc_icmpv6_error.o
+ .debug_str     0x0000000000072b8d      0x383 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_icmpv6_error/gnrc_icmpv6_error.o
                                       0x17eb8 (size before relaxing)
- .debug_str     0x0000000000072f27      0xfa7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6/gnrc_ipv6.o
+ .debug_str     0x0000000000072f10      0xfa7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6/gnrc_ipv6.o
                                       0x18c57 (size before relaxing)
- .debug_str     0x0000000000073ece      0x134 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_hdr/gnrc_ipv6_hdr.o
+ .debug_str     0x0000000000073eb7      0x134 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_hdr/gnrc_ipv6_hdr.o
                                        0xf9e8 (size before relaxing)
- .debug_str     0x0000000000074002      0x883 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-arsm.o
+ .debug_str     0x0000000000073feb      0x883 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-arsm.o
                                       0x186b7 (size before relaxing)
- .debug_str     0x0000000000074885      0x41c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-internal.o
+ .debug_str     0x000000000007486e      0x41c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-internal.o
                                       0x180fb (size before relaxing)
- .debug_str     0x0000000000074ca1      0x1fc /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-router.o
+ .debug_str     0x0000000000074c8a      0x1fc /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-router.o
                                       0x186e5 (size before relaxing)
- .debug_str     0x0000000000074e9d      0x28d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-slaac.o
+ .debug_str     0x0000000000074e86      0x28d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/_nib-slaac.o
                                       0x1841e (size before relaxing)
- .debug_str     0x000000000007512a      0x73f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib.o
+ .debug_str     0x0000000000075113      0x73f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib.o
                                       0x19878 (size before relaxing)
- .debug_str     0x0000000000075869      0x102 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_ft.o
+ .debug_str     0x0000000000075852      0x102 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_ft.o
                                       0x16d8a (size before relaxing)
- .debug_str     0x000000000007596b      0x16a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_nc.o
+ .debug_str     0x0000000000075954      0x16a /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_nc.o
                                       0x16c97 (size before relaxing)
- .debug_str     0x0000000000075ad5      0x110 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_pl.o
+ .debug_str     0x0000000000075abe      0x110 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ipv6_nib/nib_pl.o
                                       0x17c7e (size before relaxing)
- .debug_str     0x0000000000075be5      0x24f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ndp/gnrc_ndp.o
+ .debug_str     0x0000000000075bce      0x24f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_ndp/gnrc_ndp.o
                                       0x17f77 (size before relaxing)
- .debug_str     0x0000000000075e34      0x150 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netapi/gnrc_netapi.o
+ .debug_str     0x0000000000075e1d      0x150 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netapi/gnrc_netapi.o
                                       0x10093 (size before relaxing)
- .debug_str     0x0000000000075f84      0x104 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/_netif.o
+ .debug_str     0x0000000000075f6d      0x104 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/_netif.o
                                       0x13586 (size before relaxing)
- .debug_str     0x0000000000076088      0x7e2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif.o
+ .debug_str     0x0000000000076071      0x7e2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif.o
                                       0x18a63 (size before relaxing)
- .debug_str     0x000000000007686a      0x100 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif_device_type.o
+ .debug_str     0x0000000000076853      0x100 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif_device_type.o
                                       0x139d9 (size before relaxing)
- .debug_str     0x000000000007696a      0x12e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif_raw.o
+ .debug_str     0x0000000000076953      0x12e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif/gnrc_netif_raw.o
                                       0x16c2d (size before relaxing)
- .debug_str     0x0000000000076a98      0x2f1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_ethernet/gnrc_netif_ethernet.o
+ .debug_str     0x0000000000076a81      0x2f1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_ethernet/gnrc_netif_ethernet.o
                                       0x17078 (size before relaxing)
- .debug_str     0x0000000000076d89      0x134 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_hdr/gnrc_netif_hdr.o
+ .debug_str     0x0000000000076d72      0x134 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_hdr/gnrc_netif_hdr.o
                                       0x15bbf (size before relaxing)
- .debug_str     0x0000000000076ebd       0xcb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_hdr/gnrc_netif_hdr_print.o
+ .debug_str     0x0000000000076ea6       0xcb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_hdr/gnrc_netif_hdr_print.o
                                       0x15a62 (size before relaxing)
- .debug_str     0x0000000000076f88      0x478 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_init_devs/auto_init_netdev_tap.o
+ .debug_str     0x0000000000076f71      0x478 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_init_devs/auto_init_netdev_tap.o
                                       0x14379 (size before relaxing)
- .debug_str     0x0000000000077400      0x2ab /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_init_devs/init.o
+ .debug_str     0x00000000000773e9      0x2ab /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netif_init_devs/init.o
                                        0x65fa (size before relaxing)
- .debug_str     0x00000000000776ab      0x2d7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netreg/gnrc_netreg.o
+ .debug_str     0x0000000000077694      0x2d7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_netreg/gnrc_netreg.o
                                       0x16e95 (size before relaxing)
- .debug_str     0x0000000000077982       0xb2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pkt/gnrc_pkt.o
+ .debug_str     0x000000000007796b       0xb2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pkt/gnrc_pkt.o
                                        0xa341 (size before relaxing)
- .debug_str     0x0000000000077a34      0x11c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktbuf/gnrc_pktbuf.o
+ .debug_str     0x0000000000077a1d      0x11c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktbuf/gnrc_pktbuf.o
                                        0xf18a (size before relaxing)
- .debug_str     0x0000000000077b50      0x265 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktbuf_static/gnrc_pktbuf_static.o
+ .debug_str     0x0000000000077b39      0x265 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktbuf_static/gnrc_pktbuf_static.o
                                        0xf35f (size before relaxing)
- .debug_str     0x0000000000077db5      0x57c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktdump/gnrc_pktdump.o
+ .debug_str     0x0000000000077d9e      0x57c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_pktdump/gnrc_pktdump.o
                                       0x1648d (size before relaxing)
- .debug_str     0x0000000000078331     0x16c0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl.o
+ .debug_str     0x000000000007831a     0x16c0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl.o
                                       0x19388 (size before relaxing)
- .debug_str     0x00000000000799f1       0xb4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_auto_init.o
+ .debug_str     0x00000000000799da       0xb4 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_auto_init.o
                                       0x18d86 (size before relaxing)
- .debug_str     0x0000000000079aa5      0x788 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_control_messages.o
+ .debug_str     0x0000000000079a8e      0x788 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_control_messages.o
                                       0x19b41 (size before relaxing)
- .debug_str     0x000000000007a22d      0x216 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_dodag.o
+ .debug_str     0x000000000007a216      0x216 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_dodag.o
                                       0x191fe (size before relaxing)
- .debug_str     0x000000000007a443       0xe3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_of_manager.o
+ .debug_str     0x000000000007a42c       0xe3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_of_manager.o
                                       0x17c59 (size before relaxing)
- .debug_str     0x000000000007a526       0xc3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_validation.o
+ .debug_str     0x000000000007a50f       0xc3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/gnrc_rpl_validation.o
                                       0x17ca7 (size before relaxing)
- .debug_str     0x000000000007a5e9       0xae /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/of0.o
+ .debug_str     0x000000000007a5d2       0xae /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_rpl/of0.o
                                       0x17af4 (size before relaxing)
- .debug_str     0x000000000007a697      0x63e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_sock/gnrc_sock.o
+ .debug_str     0x000000000007a680      0x63e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_sock/gnrc_sock.o
                                       0x189d4 (size before relaxing)
- .debug_str     0x000000000007acd5      0x222 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_sock_udp/gnrc_sock_udp.o
+ .debug_str     0x000000000007acbe      0x222 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_sock_udp/gnrc_sock_udp.o
                                       0x18570 (size before relaxing)
- .debug_str     0x000000000007aef7       0xf7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_udp/gnrc_udp.o
+ .debug_str     0x000000000007aee0       0xf7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/gnrc_udp/gnrc_udp.o
                                       0x16e78 (size before relaxing)
- .debug_str     0x000000000007afee      0xfe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/i_list/i_list.o
-                                      0x1beee (size before relaxing)
- .debug_str     0x000000000007bfd0       0xee /home/vjorald/cord_rd/tests/tests-i_list/bin/native/icmpv6/icmpv6_hdr_print.o
+ .debug_str     0x000000000007afd7      0xfe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/i_list/i_list.o
+                                      0x1bede (size before relaxing)
+ .debug_str     0x000000000007bfb9       0xee /home/vjorald/cord_rd/tests/tests-i_list/bin/native/icmpv6/icmpv6_hdr_print.o
                                        0x79dc (size before relaxing)
- .debug_str     0x000000000007c0be       0xe9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/inet_csum/inet_csum.o
+ .debug_str     0x000000000007c0a7       0xe9 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/inet_csum/inet_csum.o
                                        0x872d (size before relaxing)
- .debug_str     0x000000000007c1a7       0xb7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/iolist/iolist.o
+ .debug_str     0x000000000007c190       0xb7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/iolist/iolist.o
                                        0xafad (size before relaxing)
- .debug_str     0x000000000007c25e      0x16b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr.o
+ .debug_str     0x000000000007c247      0x16b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr.o
                                        0x94ae (size before relaxing)
- .debug_str     0x000000000007c3c9      0x158 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr_from_str.o
+ .debug_str     0x000000000007c3b2      0x158 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr_from_str.o
                                        0x9408 (size before relaxing)
- .debug_str     0x000000000007c521      0x103 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr_to_str.o
+ .debug_str     0x000000000007c50a      0x103 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_addr/ipv6_addr_to_str.o
                                        0x76d3 (size before relaxing)
- .debug_str     0x000000000007c624      0x14c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_hdr/ipv6_hdr_print.o
+ .debug_str     0x000000000007c60d      0x14c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ipv6_hdr/ipv6_hdr_print.o
                                        0x825b (size before relaxing)
- .debug_str     0x000000000007c770      0x103 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/isrpipe/isrpipe.o
+ .debug_str     0x000000000007c759      0x103 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/isrpipe/isrpipe.o
                                        0x950b (size before relaxing)
- .debug_str     0x000000000007c873      0x14c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/l2util/l2util.o
+ .debug_str     0x000000000007c85c      0x14c /home/vjorald/cord_rd/tests/tests-i_list/bin/native/l2util/l2util.o
                                        0xf79a (size before relaxing)
- .debug_str     0x000000000007c9bf       0xa3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/libc/string.o
+ .debug_str     0x000000000007c9a8       0xa3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/libc/string.o
                                        0x764a (size before relaxing)
- .debug_str     0x000000000007ca62      0x15d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/luid/luid.o
+ .debug_str     0x000000000007ca4b      0x15d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/luid/luid.o
                                        0xc880 (size before relaxing)
- .debug_str     0x000000000007cbbf      0x876 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/nanocoap/nanocoap.o
+ .debug_str     0x000000000007cba8      0x876 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/nanocoap/nanocoap.o
                                       0x18346 (size before relaxing)
- .debug_str     0x000000000007d435       0xda /home/vjorald/cord_rd/tests/tests-i_list/bin/native/native_cli_eui_provider/eui_provider.o
+ .debug_str     0x000000000007d41e       0xda /home/vjorald/cord_rd/tests/tests-i_list/bin/native/native_cli_eui_provider/eui_provider.o
                                       0x10b8b (size before relaxing)
- .debug_str     0x000000000007d50f      0x149 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/native_drivers/native-led.o
+ .debug_str     0x000000000007d4f8      0x149 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/native_drivers/native-led.o
                                        0x8359 (size before relaxing)
- .debug_str     0x000000000007d658       0xbb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netdev/eth.o
+ .debug_str     0x000000000007d641       0xbb /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netdev/eth.o
                                        0xdb99 (size before relaxing)
- .debug_str     0x000000000007d713     0x23a7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netdev_tap/netdev_tap.o
+ .debug_str     0x000000000007d6fc     0x23a7 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netdev_tap/netdev_tap.o
                                       0x18b97 (size before relaxing)
- .debug_str     0x000000000007faba      0x129 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netif/netif.o
+ .debug_str     0x000000000007faa3      0x129 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netif/netif.o
                                       0x10967 (size before relaxing)
- .debug_str     0x000000000007fbe3      0x136 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netutils/util.o
+ .debug_str     0x000000000007fbcc      0x136 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/netutils/util.o
                                        0xd1c0 (size before relaxing)
- .debug_str     0x000000000007fd19       0x82 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/od/od.o
+ .debug_str     0x000000000007fd02       0x82 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/od/od.o
                                        0x7533 (size before relaxing)
- .debug_str     0x000000000007fd9b       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/cpuid.o
+ .debug_str     0x000000000007fd84       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/cpuid.o
                                       0x103a3 (size before relaxing)
- .debug_str     0x000000000007fe47      0x223 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/gpio_linux.o
+ .debug_str     0x000000000007fe30      0x223 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/gpio_linux.o
                                       0x13ac4 (size before relaxing)
- .debug_str     0x000000000008006a      0x10e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/hwrng.o
+ .debug_str     0x0000000000080053      0x10e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/hwrng.o
                                       0x10a05 (size before relaxing)
- .debug_str     0x0000000000080178       0x8b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/pm.o
+ .debug_str     0x0000000000080161       0x8b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/pm.o
                                       0x11e61 (size before relaxing)
- .debug_str     0x0000000000080203      0x259 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/timer.o
+ .debug_str     0x00000000000801ec      0x259 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/timer.o
                                       0x11e41 (size before relaxing)
- .debug_str     0x000000000008045c      0x9b5 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/uart.o
+ .debug_str     0x0000000000080445      0x9b5 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph/uart.o
                                       0x12fb5 (size before relaxing)
- .debug_str     0x0000000000080e11       0xda /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/gpio.o
+ .debug_str     0x0000000000080dfa       0xda /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/gpio.o
                                        0x7531 (size before relaxing)
- .debug_str     0x0000000000080eeb       0x93 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/init.o
+ .debug_str     0x0000000000080ed4       0x93 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/init.o
                                        0x7356 (size before relaxing)
- .debug_str     0x0000000000080f7e      0x265 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/init_leds.o
+ .debug_str     0x0000000000080f67      0x265 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/periph_common/init_leds.o
                                        0x8191 (size before relaxing)
- .debug_str     0x00000000000811e3      0x770 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/posix_inet/inet.o
+ .debug_str     0x00000000000811cc      0x770 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/posix_inet/inet.o
                                        0xb5b5 (size before relaxing)
- .debug_str     0x0000000000081953       0xbf /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ps/ps.o
+ .debug_str     0x000000000008193c       0xbf /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ps/ps.o
                                        0x9381 (size before relaxing)
- .debug_str     0x0000000000081a12       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/random/musl_lcg.o
+ .debug_str     0x00000000000819fb       0xac /home/vjorald/cord_rd/tests/tests-i_list/bin/native/random/musl_lcg.o
                                        0x5a54 (size before relaxing)
- .debug_str     0x0000000000081abe       0x9f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/random/random.o
+ .debug_str     0x0000000000081aa7       0x9f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/random/random.o
                                        0xd1e6 (size before relaxing)
- .debug_str     0x0000000000081b5d      0x403 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell/shell.o
+ .debug_str     0x0000000000081b46      0x403 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell/shell.o
                                        0xb799 (size before relaxing)
- .debug_str     0x0000000000081f60      0x1e3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/cord_ep.o
+ .debug_str     0x0000000000081f49      0x1e3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/cord_ep.o
                                       0x193b9 (size before relaxing)
- .debug_str     0x0000000000082143      0x286 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_icmpv6_echo.o
+ .debug_str     0x000000000008212c      0x286 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_icmpv6_echo.o
                                       0x19769 (size before relaxing)
- .debug_str     0x00000000000823c9      0x150 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_ipv6_nib.o
+ .debug_str     0x00000000000823b2      0x150 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_ipv6_nib.o
                                       0x18f39 (size before relaxing)
- .debug_str     0x0000000000082519      0xe7b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_netif.o
+ .debug_str     0x0000000000082502      0xe7b /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_netif.o
                                       0x19951 (size before relaxing)
- .debug_str     0x0000000000083394      0x204 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_rpl.o
+ .debug_str     0x000000000008337d      0x204 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_rpl.o
                                       0x1971c (size before relaxing)
- .debug_str     0x0000000000083598       0xf3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_udp.o
+ .debug_str     0x0000000000083581       0xf3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/gnrc_udp.o
                                       0x198b5 (size before relaxing)
- .debug_str     0x000000000008368b       0xc0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/pm.o
+ .debug_str     0x0000000000083674       0xc0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/pm.o
                                        0xadc2 (size before relaxing)
- .debug_str     0x000000000008374b       0xb1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/ps.o
+ .debug_str     0x0000000000083734       0xb1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/ps.o
                                        0x9746 (size before relaxing)
- .debug_str     0x00000000000837fc      0x14f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/sys.o
+ .debug_str     0x00000000000837e5      0x14f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/shell_cmds/sys.o
                                        0x97db (size before relaxing)
- .debug_str     0x000000000008394b      0x117 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/sock_async_event/sock_async_event.o
+ .debug_str     0x0000000000083934      0x117 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/sock_async_event/sock_async_event.o
                                       0x161ef (size before relaxing)
- .debug_str     0x0000000000083a62      0x1c1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/sock_util/sock_util.o
+ .debug_str     0x0000000000083a4b      0x1c1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/sock_util/sock_util.o
                                       0x16c99 (size before relaxing)
- .debug_str     0x0000000000083c23       0xd3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/stdio_native/stdio_native.o
+ .debug_str     0x0000000000083c0c       0xd3 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/stdio_native/stdio_native.o
                                       0x14384 (size before relaxing)
- .debug_str     0x0000000000083cf6       0xd0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/trickle/trickle.o
+ .debug_str     0x0000000000083cdf       0xd0 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/trickle/trickle.o
                                        0x9762 (size before relaxing)
- .debug_str     0x0000000000083dc6       0xdd /home/vjorald/cord_rd/tests/tests-i_list/bin/native/tsrb/tsrb.o
+ .debug_str     0x0000000000083daf       0xdd /home/vjorald/cord_rd/tests/tests-i_list/bin/native/tsrb/tsrb.o
                                        0x6135 (size before relaxing)
- .debug_str     0x0000000000083ea3       0xe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/udp/udp_hdr_print.o
+ .debug_str     0x0000000000083e8c       0xe2 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/udp/udp_hdr_print.o
                                        0x76e2 (size before relaxing)
- .debug_str     0x0000000000083f85      0x22f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/uri_parser/uri_parser.o
+ .debug_str     0x0000000000083f6e      0x22f /home/vjorald/cord_rd/tests/tests-i_list/bin/native/uri_parser/uri_parser.o
                                        0x9ff0 (size before relaxing)
- .debug_str     0x00000000000841b4      0x118 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/overhead.o
+ .debug_str     0x000000000008419d      0x118 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/overhead.o
                                        0xaa77 (size before relaxing)
- .debug_str     0x00000000000842cc      0x18d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/util.o
+ .debug_str     0x00000000000842b5      0x18d /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/util.o
                                        0xb372 (size before relaxing)
- .debug_str     0x0000000000084459      0x152 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/ztimer64.o
+ .debug_str     0x0000000000084442      0x152 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer64/ztimer64.o
                                        0x9890 (size before relaxing)
- .debug_str     0x00000000000845ab      0x12e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert.o
+ .debug_str     0x0000000000084594      0x12e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert.o
                                        0x96f1 (size before relaxing)
- .debug_str     0x00000000000846d9      0x1a1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert_frac.o
+ .debug_str     0x00000000000846c2      0x1a1 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert_frac.o
                                        0x9808 (size before relaxing)
- .debug_str     0x000000000008487a      0x141 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert_shift.o
+ .debug_str     0x0000000000084863      0x141 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/convert_shift.o
                                        0x979d (size before relaxing)
- .debug_str     0x00000000000849bb      0x10e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/core.o
+ .debug_str     0x00000000000849a4      0x10e /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/core.o
                                        0x9903 (size before relaxing)
- .debug_str     0x0000000000084ac9      0x574 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/init.o
+ .debug_str     0x0000000000084ab2      0x574 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/init.o
                                        0xae57 (size before relaxing)
- .debug_str     0x000000000008503d      0x165 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/periodic.o
+ .debug_str     0x0000000000085026      0x165 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/periodic.o
                                        0x9ce2 (size before relaxing)
- .debug_str     0x00000000000851a2      0x140 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/periph_timer.o
+ .debug_str     0x000000000008518b      0x140 /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/periph_timer.o
                                        0xa6ac (size before relaxing)
- .debug_str     0x00000000000852e2       0xea /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/util.o
+ .debug_str     0x00000000000852cb       0xea /home/vjorald/cord_rd/tests/tests-i_list/bin/native/ztimer_core/util.o
                                        0xb2c0 (size before relaxing)
 
 .debug_loc      0x0000000000000000    0x2c2d5
