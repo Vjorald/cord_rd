@@ -36,7 +36,7 @@
 #define LIFETIME_STR_MAX_LEN 10
 #define LOOKUP_RESULT_STR_MAX_LEN 1024
 
-typedef struct nodeelement{
+typedef struct rd{
     char base[BASE_URI_MAX_LEN];
     char name[ENDPOINT_NAME_MAX_LEN];
     int lt;
@@ -48,11 +48,11 @@ typedef struct nodeelement{
     sock_udp_ep_t *remote;
     coap_pkt_t epsim_pkt;
     sock_udp_t epsim_sock;
-    intrusive_list_node node_management;
+    i_list_node node_management;
 } Endpoint;
 
 
-extern intrusive_list_node *head;
+extern i_list_node *head;
 
 extern Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
@@ -87,7 +87,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
 int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len);
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, i_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
 
 int get_next_empty_location(Endpoint* deleted_list);
 
@@ -112,16 +112,16 @@ int printList(Endpoint* endpoint);
 
 void get_all_registered_endpoints(void);
 
-void append_endpoint(intrusive_list_node *new_node);
+void append_endpoint(i_list_node *new_node);
 
-void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr);
+void connect_endpoint_with_the_rest(i_list_node *node_ptr, int location_nr);
 
-void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
+void disconnect_endpoint_from_the_rest(int location_nr, i_list_node *node_ptr);
 
 void delete_endpoint(int location_nr);
 
 void update_registration_lifetimes(int expired_lifetime);
 
-intrusive_list_node* find_next_expiring_endpoint(void);
+i_list_node* find_next_expiring_endpoint(void);
 
 

@@ -86,7 +86,7 @@ static void test_register_endpoint_three_nodes(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -113,13 +113,13 @@ static void test_register_endpoint_three_nodes(void) {
                      .ressources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
     /* Equality conditions between the registered endpoints and the expected ones */
@@ -344,7 +344,7 @@ static void test_delete_endpoint(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -369,12 +369,12 @@ static void test_delete_endpoint(void) {
     
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -455,7 +455,7 @@ static void test_update_node(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -482,13 +482,13 @@ static void test_update_node(void) {
                     .ressources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -595,7 +595,7 @@ static void test_resource_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
         resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
         build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
@@ -764,7 +764,7 @@ static void test_endpoint_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
         build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
     }

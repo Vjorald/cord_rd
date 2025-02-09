@@ -16,7 +16,7 @@
 #include "rd.h"
 
 
-intrusive_list_node *head;
+i_list_node *head;
 
 Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
@@ -69,9 +69,9 @@ void resource_directory_init(void){
 }
 
 
-void append_endpoint(intrusive_list_node *new_node){
+void append_endpoint(i_list_node *new_node){
 
-    intrusive_list_node* previous = NULL;
+    i_list_node* previous = NULL;
 
     if (head != NULL)
     {
@@ -83,7 +83,7 @@ void append_endpoint(intrusive_list_node *new_node){
 
 }
 
-void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr)
+void connect_endpoint_with_the_rest(i_list_node *node_ptr, int location_nr)
 {
     if (number_deleted_registrations == INITIAL_NUMBER_DELETED_ENDPOINTS) append_endpoint(node_ptr);
     else
@@ -91,7 +91,7 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
         if (location_nr > 1 && location_nr < number_registered_endpoints)
         {
             int previous_endpoint_location = get_previous_endpoint_location(node_ptr->location_nr);
-            intrusive_list_node *previous_node = &list[previous_endpoint_location - 1].node_management;
+            i_list_node *previous_node = &list[previous_endpoint_location - 1].node_management;
 
             add_list_entry_in_the_middle(&node_ptr, &previous_node);
         }
@@ -102,7 +102,7 @@ void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_
     }
 }
 
-void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr){
+void disconnect_endpoint_from_the_rest(int location_nr, i_list_node *node_ptr){
 
     (void) location_nr;
 
@@ -138,7 +138,7 @@ int printList(Endpoint* endpoint)
     puts("\n");
     puts("======= Registered Endpoints: ===========\n");
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
     char location_str[LOCATION_STR_MAX_LEN] = "";
     build_location_string(actual->location_nr, location_str);
@@ -175,7 +175,7 @@ int printList(Endpoint* endpoint)
 
 }
 
-intrusive_list_node* find_next_expiring_endpoint(void){
+i_list_node* find_next_expiring_endpoint(void){
 
 
     if (head == NULL)
@@ -184,11 +184,11 @@ intrusive_list_node* find_next_expiring_endpoint(void){
         return NULL;
     }
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
     
     int min_lifetime = endpoint_ptr->lt;
-    intrusive_list_node *candidate = actual;
+    i_list_node *candidate = actual;
     
     do
     {
@@ -221,7 +221,7 @@ void update_registration_lifetimes(int expired_lifetime){
         return ;
     }
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
     
     endpoint_ptr->lt = endpoint_ptr->lt - expired_lifetime;
@@ -291,7 +291,7 @@ void get_all_registered_endpoints(void){
         return ;
     }
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
 
 
@@ -327,7 +327,7 @@ void find_endpoints_by_pattern(char* pattern)
         return ;
     }
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
 
     if (strcmp(endpoint_ptr->base, pattern)  == 0 || strcmp(endpoint_ptr->et, pattern)  == 0)
@@ -369,7 +369,7 @@ Endpoint *find_endpoint_by_pattern(char* pattern)
     }
 
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
     char location_str[LOCATION_STR_MAX_LEN] = "";
     build_location_string(actual->location_nr, location_str);
@@ -424,7 +424,7 @@ Endpoint *find_endpoint_by_pattern(char* pattern)
 
 void lifetime_callback(void *argument)
 {
-    intrusive_list_node *node_ptr = &list[*(int*)argument - 1].node_management;
+    i_list_node *node_ptr = &list[*(int*)argument - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
     printf("Location nummer: %d\n", *(int*)argument);
@@ -434,7 +434,7 @@ void lifetime_callback(void *argument)
 
     update_registration_lifetimes(endpoint_ptr->lt);
 
-    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+    i_list_node *next_expiring_node = find_next_expiring_endpoint();
     if (next_expiring_node != NULL){
         Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
@@ -447,7 +447,7 @@ void lifetime_callback(void *argument)
 }
 
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector)
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, i_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector)
 {
     build_location_string(location_nr, location_str);
 
@@ -554,7 +554,7 @@ int check_existing_endpoint(char *ep_name, char* sector){
     }
 
 
-    intrusive_list_node *actual = head;
+    i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
 
     if (strcmp(endpoint_ptr->name, ep_name) == 0 && strcmp(endpoint_ptr->sector, sector) == 0) return actual->location_nr;
@@ -736,7 +736,7 @@ void epsim_get_request_callback(void* argument){
 
     int location_nr = *(int *)argument;
 
-    intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+    i_list_node *node_ptr = &list[location_nr - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
 
@@ -770,7 +770,7 @@ void _resp_handler(const gcoap_request_memo_t *memo,
 
     endpoint_ptr->cache = cache;
 
-    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+    i_list_node *next_expiring_node = find_next_expiring_endpoint();
 
     if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
 
@@ -853,7 +853,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
         endpoint_ptr->lt = atoi(lifetime);
 
-        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        i_list_node *next_expiring_node = find_next_expiring_endpoint();
         Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
         if (endpoint_ptr->node_management.location_nr == next_expiring_node->location_nr){
@@ -868,7 +868,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
     else{
         endpoint_ptr->lt = 90000;
 
-        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        i_list_node *next_expiring_node = find_next_expiring_endpoint();
         Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
         if (endpoint_ptr->node_management.location_nr == next_expiring_node->location_nr){
@@ -913,7 +913,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
 int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len){
 
-    intrusive_list_node *node_ptr;
+    i_list_node *node_ptr;
     Endpoint *endpoint_ptr;
 
     char endpoint_name[ENDPOINT_NAME_MAX_LEN] = { 0 };
@@ -978,7 +978,7 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
         connect_endpoint_with_the_rest(node_ptr, node_ptr->location_nr);
     }
 
-    intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+    i_list_node *next_expiring_node = find_next_expiring_endpoint();
     if (next_expiring_node != NULL){
         Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
@@ -1043,7 +1043,7 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
 
     int location_nr = register_endpoint(addr_str, query_buffer, location_str, (char *)pdu->payload, &payload_len);
 
-    intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+    i_list_node *node_ptr = &list[location_nr - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
     endpoint_ptr->epsim = true;
@@ -1073,7 +1073,7 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
     unsigned method = coap_method2flag(coap_get_code_detail(pdu));
     int location_nr = extract_number_from_location(uri);
 
-    intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+    i_list_node *node_ptr = &list[location_nr - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
     if (method == COAP_POST)
@@ -1097,7 +1097,7 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
     }
     if (method == COAP_DELETE)
     {
-        intrusive_list_node *next_expiring_node = find_next_expiring_endpoint();
+        i_list_node *next_expiring_node = find_next_expiring_endpoint();
         Endpoint *next_expiring_endpoint = container_of(next_expiring_node, Endpoint, node_management);
 
         int expired_lifetime = 0;
@@ -1157,7 +1157,7 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
 
         if (location_nr <= number_registered_endpoints && location_nr > 0)
         {
-            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+            i_list_node *node_ptr = &list[location_nr - 1].node_management;
             Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
             resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
             build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
@@ -1247,7 +1247,7 @@ ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap
 
         if (location_nr <= number_registered_endpoints && location_nr > 0)
         {
-            intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+            i_list_node *node_ptr = &list[location_nr - 1].node_management;
             Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
             build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
         }
