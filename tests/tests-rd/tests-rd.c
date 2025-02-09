@@ -86,7 +86,7 @@ static void test_register_endpoint_three_nodes(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -94,7 +94,7 @@ static void test_register_endpoint_three_nodes(void) {
     node_1.next = &list[1].node_management;
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
-                     .ressources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
+                     .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
 
     /* The second expected registered endpoint */
     node_2.location_nr = 2;
@@ -102,7 +102,7 @@ static void test_register_endpoint_three_nodes(void) {
     node_2.next = &list[2].node_management;
 
     Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 800, .et = "oic.r.glucose.medication", .name = "RIOT-098503495KJHK", .sector = "default",
-                     .ressources = "<resource-link-3>,<resource-link-4>", .node_management = node_2};
+                     .resources = "<resource-link-3>,<resource-link-4>", .node_management = node_2};
 
     /* The third expected registered endpoint */
     node_3.location_nr = 3;
@@ -110,31 +110,31 @@ static void test_register_endpoint_three_nodes(void) {
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
-                     .ressources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
+                     .resources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
     /* Equality conditions between the registered endpoints and the expected ones */
     bool condition_ep_1 = check_strings_equality(endpoint_ptr_1->base, ep_1.base) && check_strings_equality(endpoint_ptr_1->et, ep_1.et) && (endpoint_ptr_1->lt == ep_1.lt) &&
-                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->ressources, ep_1.ressources) && 
+                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->resources, ep_1.resources) && 
                         check_strings_equality(endpoint_ptr_1->sector, ep_1.sector) && (node_ptr_1 ->location_nr == node_1.location_nr)
                          && (node_ptr_1->previous == node_1.previous) && (node_ptr_1->next == node_1.next);
 
     bool condition_ep_2 = check_strings_equality(endpoint_ptr_2->base, ep_2.base) && check_strings_equality(endpoint_ptr_2->et, ep_2.et) && (endpoint_ptr_2->lt == ep_2.lt) &&
-                            check_strings_equality(endpoint_ptr_2->name, ep_2.name) && check_strings_equality(endpoint_ptr_2->ressources, ep_2.ressources) 
+                            check_strings_equality(endpoint_ptr_2->name, ep_2.name) && check_strings_equality(endpoint_ptr_2->resources, ep_2.resources) 
                             && check_strings_equality(endpoint_ptr_2->sector, ep_2.sector) && (node_ptr_2 ->location_nr == node_2.location_nr)
                              && (node_ptr_2->previous == node_2.previous) && (node_ptr_2->next == node_2.next);
 
     bool condition_ep_3 = check_strings_equality(endpoint_ptr_3->base, ep_3.base) && check_strings_equality(endpoint_ptr_3->et, ep_3.et) && (endpoint_ptr_3->lt == ep_3.lt) &&
-                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->ressources, ep_3.ressources) 
+                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->resources, ep_3.resources) 
                             && check_strings_equality(endpoint_ptr_3->sector, ep_3.sector) && (node_ptr_3 ->location_nr == node_3.location_nr)
                              && (node_ptr_3->previous == node_3.previous) && (node_ptr_3->next == node_3.next);
                         
@@ -344,7 +344,7 @@ static void test_delete_endpoint(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -352,7 +352,7 @@ static void test_delete_endpoint(void) {
     node_1.next = &list[2].node_management; //Since the second node is deleted
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
-                     .ressources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
+                     .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
 
     /* The second expected deleted node */
     node_2.location_nr = 0;
@@ -365,16 +365,16 @@ static void test_delete_endpoint(void) {
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
-                     .ressources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
+                     .resources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
     
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -384,7 +384,7 @@ static void test_delete_endpoint(void) {
 
     /* Equality conditions between the registered endpoints and the expected ones */
     bool condition_ep_1 = check_strings_equality(endpoint_ptr_1->base, ep_1.base) && check_strings_equality(endpoint_ptr_1->et, ep_1.et) && (endpoint_ptr_1->lt == ep_1.lt) &&
-                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->ressources, ep_1.ressources) && 
+                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->resources, ep_1.resources) && 
                         check_strings_equality(endpoint_ptr_1->sector, ep_1.sector) && (node_ptr_1 ->location_nr == node_1.location_nr)
                          && (node_ptr_1->previous == node_1.previous) && (node_ptr_1->next == node_1.next);
 
@@ -392,7 +392,7 @@ static void test_delete_endpoint(void) {
                             (node_ptr_2->next == node_2.next);
 
     bool condition_ep_3 = check_strings_equality(endpoint_ptr_3->base, ep_3.base) && check_strings_equality(endpoint_ptr_3->et, ep_3.et) && (endpoint_ptr_3->lt == ep_3.lt) &&
-                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->ressources, ep_3.ressources) 
+                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->resources, ep_3.resources) 
                             && check_strings_equality(endpoint_ptr_3->sector, ep_3.sector) && (node_ptr_3 ->location_nr == node_3.location_nr)
                              && (node_ptr_3->previous == node_3.previous) && (node_ptr_3->next == node_3.next);
 
@@ -455,7 +455,7 @@ static void test_update_node(void) {
     int location_third_endpoint = register_endpoint(addr_str_third_endpoint, query_buffer_third_endpoint, location_str_third_endpoint,
                                                     payload_third_endpoint, &payload_third_len);
 
-    intrusive_list_node node_1, node_2, node_3 = { 0 };
+    i_list_node node_1, node_2, node_3 = { 0 };
 
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
@@ -463,7 +463,7 @@ static void test_update_node(void) {
     node_1.next = &list[1].node_management;
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
-                    .ressources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
+                    .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
 
     /* The second expected updated endpoint */
     node_2.location_nr = 2;
@@ -471,7 +471,7 @@ static void test_update_node(void) {
     node_2.next = &list[2].node_management;
 
     Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 500, .et = "oic.r.glucose.medication", .name = "RIOT-CNOAOACSI7867", .sector = "updated",
-                    .ressources = "<resource-link-9>,<resource-link-10>", .node_management = node_2};
+                    .resources = "<resource-link-9>,<resource-link-10>", .node_management = node_2};
 
     /* The third expected registered endpoint */
     node_3.location_nr = 3;
@@ -479,16 +479,16 @@ static void test_update_node(void) {
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
-                    .ressources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
+                    .resources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    intrusive_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    intrusive_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -505,17 +505,17 @@ static void test_update_node(void) {
 
     /* Equality conditions between the registered endpoints and the expected ones */
     bool condition_ep_1 = check_strings_equality(endpoint_ptr_1->base, ep_1.base) && check_strings_equality(endpoint_ptr_1->et, ep_1.et) && (endpoint_ptr_1->lt == ep_1.lt) &&
-                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->ressources, ep_1.ressources) && 
+                        check_strings_equality(endpoint_ptr_1->name, ep_1.name) && check_strings_equality(endpoint_ptr_1->resources, ep_1.resources) && 
                         check_strings_equality(endpoint_ptr_1->sector, ep_1.sector) && (node_ptr_1 ->location_nr == node_1.location_nr)
                          && (node_ptr_1->previous == node_1.previous) && (node_ptr_1->next == node_1.next);
 
     bool condition_ep_2 = check_strings_equality(endpoint_ptr_2->base, ep_2.base) && check_strings_equality(endpoint_ptr_2->et, ep_2.et) && (endpoint_ptr_2->lt == ep_2.lt) &&
-                            check_strings_equality(endpoint_ptr_2->name, ep_2.name) && check_strings_equality(endpoint_ptr_2->ressources, ep_2.ressources) 
+                            check_strings_equality(endpoint_ptr_2->name, ep_2.name) && check_strings_equality(endpoint_ptr_2->resources, ep_2.resources) 
                             && check_strings_equality(endpoint_ptr_2->sector, ep_2.sector) && (node_ptr_2 ->location_nr == node_2.location_nr)
                              && (node_ptr_2->previous == node_2.previous) && (node_ptr_2->next == node_2.next);
 
     bool condition_ep_3 = check_strings_equality(endpoint_ptr_3->base, ep_3.base) && check_strings_equality(endpoint_ptr_3->et, ep_3.et) && (endpoint_ptr_3->lt == ep_3.lt) &&
-                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->ressources, ep_3.ressources) 
+                            check_strings_equality(endpoint_ptr_3->name, ep_3.name) && check_strings_equality(endpoint_ptr_3->resources, ep_3.resources) 
                             && check_strings_equality(endpoint_ptr_3->sector, ep_3.sector) && (node_ptr_3 ->location_nr == node_3.location_nr)
                              && (node_ptr_3->previous == node_3.previous) && (node_ptr_3->next == node_3.next);
 
@@ -595,9 +595,9 @@ static void test_resource_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
-        resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
+        resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
         build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
     }
 
@@ -618,7 +618,7 @@ static void test_resource_lookup(void) {
     char ep_name[ENDPOINT_NAME_MAX_LEN];
     extract_value_from_query((char*)uri_query, ep_name, "ep=");
     Endpoint *ep = find_endpoint_by_pattern(ep_name);
-    resource_number = extract_resource_uris(ep->ressources, relative_uris);
+    resource_number = extract_resource_uris(ep->resources, relative_uris);
     build_resource_string(resource_number, relative_uris, lookup_result, ep);
 
     if (strstr(lookup_result, "<resource-link-3>,<resource-link-4>") != NULL){
@@ -764,7 +764,7 @@ static void test_endpoint_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        intrusive_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
         build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
     }

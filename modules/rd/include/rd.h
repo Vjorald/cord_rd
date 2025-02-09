@@ -36,28 +36,23 @@
 #define LIFETIME_STR_MAX_LEN 10
 #define LOOKUP_RESULT_STR_MAX_LEN 1024
 
-typedef struct nodeelement{
+typedef struct rd{
     char base[BASE_URI_MAX_LEN];
     char name[ENDPOINT_NAME_MAX_LEN];
     int lt;
     char et[ENDPOINT_TYPE_MAX_LEN];
     char sector[SECTOR_NAME_MAX_LEN];
-    char ressources[RESOURCES_MAX_LEN];
+    char resources[RESOURCES_MAX_LEN];
     bool epsim;
     nanocoap_cache_entry_t *cache;
     sock_udp_ep_t *remote;
     coap_pkt_t epsim_pkt;
     sock_udp_t epsim_sock;
-    intrusive_list_node node_management;
+    i_list_node node_management;
 } Endpoint;
-/*
-typedef struct rd{
-    sock_udp_ep_t remote;
-    int location_epsim_endpoint;
-}epsim_callback_data;
-*/
 
-extern intrusive_list_node *head;
+
+extern i_list_node *head;
 
 extern Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
@@ -67,24 +62,11 @@ extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
 extern ztimer_t lifetime_expiries[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
-//extern ztimer_t epsim_request_before_lifetime_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-//extern ztimer_t epsim_request_cache_expiry[REGISTERED_ENDPOINTS_MAX_NUMBER];
-
-//extern epsim_callback_data callback_data_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
 extern int number_registered_endpoints;
 
 extern int number_deleted_registrations;
-/*
-extern u_int8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
 
-extern sock_udp_t sock;
-
-extern sock_udp_ep_t epsim_remote;
-
-extern int location_epsim_endpoint;
-*/
 
 void resource_directory_init(void);
 
@@ -104,7 +86,7 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
 int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len);
 
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, intrusive_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
+void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, i_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
 
 int get_next_empty_location(Endpoint* deleted_list);
 
@@ -129,11 +111,11 @@ void get_all_registered_endpoints(void);
 
 int printList(Endpoint* endpoint);
 
-void append_endpoint(intrusive_list_node *new_node);
+void append_endpoint(i_list_node *new_node);
 
-void connect_endpoint_with_the_rest(intrusive_list_node *node_ptr, int location_nr);
+void connect_endpoint_with_the_rest(i_list_node *node_ptr, int location_nr);
 
-void disconnect_endpoint_from_the_rest(int location_nr, intrusive_list_node *node_ptr);
+void disconnect_endpoint_from_the_rest(int location_nr, i_list_node *node_ptr);
 
 void delete_endpoint(int location_nr);
 
