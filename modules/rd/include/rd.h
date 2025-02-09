@@ -42,7 +42,7 @@ typedef struct rd{
     int lt;
     char et[ENDPOINT_TYPE_MAX_LEN];
     char sector[SECTOR_NAME_MAX_LEN];
-    char ressources[RESOURCES_MAX_LEN];
+    char resources[RESOURCES_MAX_LEN];
     bool epsim;
     nanocoap_cache_entry_t *cache;
     sock_udp_ep_t *remote;

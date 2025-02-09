@@ -145,7 +145,7 @@ int printList(Endpoint* endpoint)
 
     printf("Endpoint: %s\n", endpoint_ptr->name);
     printf("Lifetime: %d\n", endpoint_ptr->lt);
-    printf("Resources: %s\n", endpoint_ptr->ressources);
+    printf("Resources: %s\n", endpoint_ptr->resources);
     printf("Location: %s\n", location_str);
     printf("Base URI: %s\n", endpoint_ptr->base);
     puts("===\n");
@@ -161,7 +161,7 @@ int printList(Endpoint* endpoint)
 
             printf("Endpoint: %s\n", endpoint_ptr->name);
             printf("Lifetime: %d\n", endpoint_ptr->lt);
-            printf("Resources: %s\n", endpoint_ptr->ressources);
+            printf("Resources: %s\n", endpoint_ptr->resources);
             printf("Location: %s\n", location_str);
             printf("Base URI: %s\n", endpoint_ptr->base);
             puts("===\n"); 
@@ -454,8 +454,8 @@ void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint
     endpoint_ptr->lt = atoi(lifetime); 
 
     if (*payload_len > 0){
-        strncpy((char*)endpoint_ptr->ressources, payload, *payload_len);
-        endpoint_ptr->ressources[strlen((char*)endpoint_ptr->ressources)] = '\0';
+        strncpy((char*)endpoint_ptr->resources, payload, *payload_len);
+        endpoint_ptr->resources[strlen((char*)endpoint_ptr->resources)] = '\0';
     }
 
     strncpy((char*)endpoint_ptr->name, endpoint_name, sizeof(endpoint_ptr->name) - 1);
@@ -642,7 +642,7 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
             }
 
             if(relative_uris){
-                *resource_number = extract_resource_uris(lookup_result_list[i].ressources, relative_uris);
+                *resource_number = extract_resource_uris(lookup_result_list[i].resources, relative_uris);
                 build_resource_string(*resource_number, relative_uris, lookup_result, &lookup_result_list[i]);
             }
             else{
@@ -662,7 +662,7 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
             }
 
             if(relative_uris){
-                *resource_number = extract_resource_uris(lookup_result_list[i].ressources, relative_uris);
+                *resource_number = extract_resource_uris(lookup_result_list[i].resources, relative_uris);
                 build_resource_string(*resource_number, relative_uris, lookup_result, &lookup_result_list[i]);
             }
             else{
@@ -780,8 +780,8 @@ void _resp_handler(const gcoap_request_memo_t *memo,
 
     }
 
-    strncpy((char*)endpoint_ptr->ressources, (char*)pdu->payload, sizeof(endpoint_ptr->ressources) - 1);
-    endpoint_ptr->ressources[sizeof(endpoint_ptr->ressources) - 1] = '\0';
+    strncpy((char*)endpoint_ptr->resources, (char*)pdu->payload, sizeof(endpoint_ptr->resources) - 1);
+    endpoint_ptr->resources[sizeof(endpoint_ptr->resources) - 1] = '\0';
 
     printList(&list[number_registered_endpoints - 1]);
 
@@ -882,8 +882,8 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
     if (*payload_len > 0){
 
-        memset(endpoint_ptr->ressources, 0, RESOURCES_MAX_LEN);
-        strncpy(endpoint_ptr->ressources, resources, strlen(resources));
+        memset(endpoint_ptr->resources, 0, RESOURCES_MAX_LEN);
+        strncpy(endpoint_ptr->resources, resources, strlen(resources));
     }
 
     if (strlen(endpoint_type) > 0){
@@ -1159,7 +1159,7 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
         {
             i_list_node *node_ptr = &list[location_nr - 1].node_management;
             Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
-            resource_number = extract_resource_uris(endpoint_ptr->ressources, relative_uris);
+            resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
             build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
         }
 
@@ -1169,7 +1169,7 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
         char ep_name[ENDPOINT_NAME_MAX_LEN];
         extract_value_from_query((char*)uri_query, ep_name, "ep=");
         Endpoint *ep = find_endpoint_by_pattern(ep_name);
-        resource_number = extract_resource_uris(ep->ressources, relative_uris);
+        resource_number = extract_resource_uris(ep->resources, relative_uris);
         build_resource_string(resource_number, relative_uris, lookup_result, ep);
     }
     else if(strstr((char*)uri_query, "base") != NULL)
