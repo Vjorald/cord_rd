@@ -32,7 +32,7 @@ bool check_strings_equality(char* str_1, char* str_2){
 
 static void test_register_endpoint_three_nodes(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -91,35 +91,35 @@ static void test_register_endpoint_three_nodes(void) {
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
     node_1.previous = NULL;
-    node_1.next = &list[1].node_management;
+    node_1.next = &registered_endpoints_list[1].node_management;
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
                      .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
 
     /* The second expected registered endpoint */
     node_2.location_nr = 2;
-    node_2.previous = &list[0].node_management;
-    node_2.next = &list[2].node_management;
+    node_2.previous = &registered_endpoints_list[0].node_management;
+    node_2.next = &registered_endpoints_list[2].node_management;
 
     Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 800, .et = "oic.r.glucose.medication", .name = "RIOT-098503495KJHK", .sector = "default",
                      .resources = "<resource-link-3>,<resource-link-4>", .node_management = node_2};
 
     /* The third expected registered endpoint */
     node_3.location_nr = 3;
-    node_3.previous = &list[1].node_management;
+    node_3.previous = &registered_endpoints_list[1].node_management;
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
                      .resources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &registered_endpoints_list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &registered_endpoints_list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &registered_endpoints_list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
     /* Equality conditions between the registered endpoints and the expected ones */
@@ -143,7 +143,7 @@ static void test_register_endpoint_three_nodes(void) {
 
 static void test_lifetime_expiration(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -200,33 +200,33 @@ static void test_lifetime_expiration(void) {
     /* Wait till the lifetime of the second endpoint expires */
     ztimer_sleep(ZTIMER_SEC, 5); 
 
-    bool deleted_second_endpoint = (strlen(list[location_second_endpoint - 1].name) == 0) && 
-                                    (list[location_second_endpoint - 1].node_management.location_nr == 0) &&
-                                    (list[location_second_endpoint - 1].node_management.next == NULL) &&
-                                    (list[location_second_endpoint - 1].node_management.previous == NULL);
+    bool deleted_second_endpoint = (strlen(registered_endpoints_list[location_second_endpoint - 1].name) == 0) && 
+                                    (registered_endpoints_list[location_second_endpoint - 1].node_management.location_nr == 0) &&
+                                    (registered_endpoints_list[location_second_endpoint - 1].node_management.next == NULL) &&
+                                    (registered_endpoints_list[location_second_endpoint - 1].node_management.previous == NULL);
 
     /* Wait till the lifetime of the third endpoint  expires */
     ztimer_sleep(ZTIMER_SEC, 8);
 
-    bool deleted_third_endpoint = (strlen(list[location_third_endpoint - 1].name) == 0) && 
-                                    (list[location_third_endpoint - 1].node_management.location_nr == 0) &&
-                                    (list[location_third_endpoint - 1].node_management.next == NULL) &&
-                                    (list[location_third_endpoint - 1].node_management.previous == NULL);
+    bool deleted_third_endpoint = (strlen(registered_endpoints_list[location_third_endpoint - 1].name) == 0) && 
+                                    (registered_endpoints_list[location_third_endpoint - 1].node_management.location_nr == 0) &&
+                                    (registered_endpoints_list[location_third_endpoint - 1].node_management.next == NULL) &&
+                                    (registered_endpoints_list[location_third_endpoint - 1].node_management.previous == NULL);
 
      /* Wait till the lifetime of the third endpoint expires */
     ztimer_sleep(ZTIMER_SEC, 11);
 
-    bool deleted_first_endpoint = (strlen(list[location_first_endpoint - 1].name) == 0) && 
-                                    (list[location_first_endpoint - 1].node_management.location_nr == 0) &&
-                                    (list[location_first_endpoint - 1].node_management.next == NULL) &&
-                                    (list[location_first_endpoint - 1].node_management.previous == NULL);
+    bool deleted_first_endpoint = (strlen(registered_endpoints_list[location_first_endpoint - 1].name) == 0) && 
+                                    (registered_endpoints_list[location_first_endpoint - 1].node_management.location_nr == 0) &&
+                                    (registered_endpoints_list[location_first_endpoint - 1].node_management.next == NULL) &&
+                                    (registered_endpoints_list[location_first_endpoint - 1].node_management.previous == NULL);
 
     TEST_ASSERT(deleted_second_endpoint && deleted_third_endpoint && deleted_first_endpoint);
 }
 
 static void test_registration_idempotent(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -290,7 +290,7 @@ static void test_registration_idempotent(void) {
 
 static void test_delete_endpoint(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -349,7 +349,7 @@ static void test_delete_endpoint(void) {
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
     node_1.previous = NULL;
-    node_1.next = &list[2].node_management; //Since the second node is deleted
+    node_1.next = &registered_endpoints_list[2].node_management; //Since the second node is deleted
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
                      .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
@@ -361,7 +361,7 @@ static void test_delete_endpoint(void) {
 
     /* The third expected registered endpoint */
     node_3.location_nr = 3;
-    node_3.previous = &list[0].node_management; //Since the second node is deleted
+    node_3.previous = &registered_endpoints_list[0].node_management; //Since the second node is deleted
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
@@ -369,12 +369,12 @@ static void test_delete_endpoint(void) {
     
 
     /* Pointers to the registered endpoints */
-    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &registered_endpoints_list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &registered_endpoints_list[location_second_endpoint - 1].node_management;
 
-    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &registered_endpoints_list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -401,7 +401,7 @@ static void test_delete_endpoint(void) {
 
 static void test_update_node(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -460,35 +460,35 @@ static void test_update_node(void) {
     /* The first expected registered endpoint */
     node_1.location_nr = 1;
     node_1.previous = NULL;
-    node_1.next = &list[1].node_management;
+    node_1.next = &registered_endpoints_list[1].node_management;
 
     Endpoint ep_1 = { .base = "coap://[fe80::cafe:cafe:cafe:5]", .lt = 570, .et = "core.rd-ep", .name = "RIOT-1024239EKAJD98", .sector = "default",
                     .resources = "<resource-link-1>,<resource-link-2>", .node_management = node_1};
 
     /* The second expected updated endpoint */
     node_2.location_nr = 2;
-    node_2.previous = &list[0].node_management;
-    node_2.next = &list[2].node_management;
+    node_2.previous = &registered_endpoints_list[0].node_management;
+    node_2.next = &registered_endpoints_list[2].node_management;
 
     Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 500, .et = "oic.r.glucose.medication", .name = "RIOT-CNOAOACSI7867", .sector = "updated",
                     .resources = "<resource-link-9>,<resource-link-10>", .node_management = node_2};
 
     /* The third expected registered endpoint */
     node_3.location_nr = 3;
-    node_3.previous = &list[1].node_management;
+    node_3.previous = &registered_endpoints_list[1].node_management;
     node_3.next = NULL;
 
     Endpoint ep_3 = { .base = "coap://[fe80::cafe:cafe:cafe:7]", .lt = 1200, .et = "core.rd-ep", .name = "RIOT-89234738234238", .sector = "special",
                     .resources = "<resource-link-5>,<resource-link-6>", .node_management = node_3};
 
     /* Pointers to the registered endpoints */
-    i_list_node *node_ptr_1 = &list[location_first_endpoint - 1].node_management;
+    i_list_node *node_ptr_1 = &registered_endpoints_list[location_first_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_1 = container_of(node_ptr_1, Endpoint, node_management);
 
-    i_list_node *node_ptr_2 = &list[location_second_endpoint - 1].node_management;
+    i_list_node *node_ptr_2 = &registered_endpoints_list[location_second_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_2 = container_of(node_ptr_2, Endpoint, node_management);
 
-    i_list_node *node_ptr_3 = &list[location_third_endpoint - 1].node_management;
+    i_list_node *node_ptr_3 = &registered_endpoints_list[location_third_endpoint - 1].node_management;
     Endpoint *endpoint_ptr_3 = container_of(node_ptr_3, Endpoint, node_management);
 
 
@@ -524,7 +524,7 @@ static void test_update_node(void) {
 
 static void test_resource_lookup(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -595,7 +595,7 @@ static void test_resource_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        i_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &registered_endpoints_list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
         resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
         build_resource_string(resource_number, relative_uris, lookup_result, endpoint_ptr);
@@ -686,7 +686,7 @@ static void test_resource_lookup(void) {
 
 static void test_endpoint_lookup(void) {
 
-    memset(list, 0, sizeof(list));
+    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
     memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -764,7 +764,7 @@ static void test_endpoint_lookup(void) {
 
     if (location_nr <= number_registered_endpoints && location_nr > 0)
     {
-        i_list_node *node_ptr = &list[location_nr - 1].node_management;
+        i_list_node *node_ptr = &registered_endpoints_list[location_nr - 1].node_management;
         Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
         build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
     }

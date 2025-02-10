@@ -9,6 +9,7 @@
         "internet": "c",
         "sstream": "c",
         "cstring": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "list": "c"
     }
 }

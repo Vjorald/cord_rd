@@ -54,9 +54,9 @@ typedef struct rd{
 
 extern i_list_node *head;
 
-extern Endpoint list[REGISTERED_ENDPOINTS_MAX_NUMBER];
+extern Endpoint registered_endpoints_list[REGISTERED_ENDPOINTS_MAX_NUMBER];
 
-extern Endpoint deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
+extern int deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER];
 
 extern Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN];
 
@@ -89,7 +89,7 @@ int register_endpoint(char *addr_str, unsigned char *query_buffer, char *locatio
 
 void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, i_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
 
-int get_next_empty_location(Endpoint* deleted_list);
+int get_next_empty_location(void);
 
 int get_previous_endpoint_location(int actual_location);
 
