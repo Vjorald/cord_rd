@@ -46,9 +46,9 @@ static void test_register_endpoint_three_nodes(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -57,9 +57,9 @@ static void test_register_endpoint_three_nodes(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -68,9 +68,9 @@ static void test_register_endpoint_three_nodes(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
     
 
@@ -157,9 +157,9 @@ static void test_lifetime_expiration(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=11 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -168,9 +168,9 @@ static void test_lifetime_expiration(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=5 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -179,9 +179,9 @@ static void test_lifetime_expiration(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=8 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
     
 
@@ -200,7 +200,7 @@ static void test_lifetime_expiration(void) {
     /* Wait till the lifetime of the second endpoint expires */
     ztimer_sleep(ZTIMER_SEC, 5); 
 
-    bool deleted_second_endpoint = (strlen(registered_endpoints_list[location_second_endpoint - 1].name) == 0) && 
+    bool deleted_second_endpoint = (strlen((char *)registered_endpoints_list[location_second_endpoint - 1].name) == 0) && 
                                     (registered_endpoints_list[location_second_endpoint - 1].node_management.location_nr == 0) &&
                                     (registered_endpoints_list[location_second_endpoint - 1].node_management.next == NULL) &&
                                     (registered_endpoints_list[location_second_endpoint - 1].node_management.previous == NULL);
@@ -208,7 +208,7 @@ static void test_lifetime_expiration(void) {
     /* Wait till the lifetime of the third endpoint  expires */
     ztimer_sleep(ZTIMER_SEC, 8);
 
-    bool deleted_third_endpoint = (strlen(registered_endpoints_list[location_third_endpoint - 1].name) == 0) && 
+    bool deleted_third_endpoint = (strlen((char *)registered_endpoints_list[location_third_endpoint - 1].name) == 0) && 
                                     (registered_endpoints_list[location_third_endpoint - 1].node_management.location_nr == 0) &&
                                     (registered_endpoints_list[location_third_endpoint - 1].node_management.next == NULL) &&
                                     (registered_endpoints_list[location_third_endpoint - 1].node_management.previous == NULL);
@@ -216,7 +216,7 @@ static void test_lifetime_expiration(void) {
      /* Wait till the lifetime of the third endpoint expires */
     ztimer_sleep(ZTIMER_SEC, 11);
 
-    bool deleted_first_endpoint = (strlen(registered_endpoints_list[location_first_endpoint - 1].name) == 0) && 
+    bool deleted_first_endpoint = (strlen((char *)registered_endpoints_list[location_first_endpoint - 1].name) == 0) && 
                                     (registered_endpoints_list[location_first_endpoint - 1].node_management.location_nr == 0) &&
                                     (registered_endpoints_list[location_first_endpoint - 1].node_management.next == NULL) &&
                                     (registered_endpoints_list[location_first_endpoint - 1].node_management.previous == NULL);
@@ -240,9 +240,9 @@ static void test_registration_idempotent(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -251,9 +251,9 @@ static void test_registration_idempotent(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -262,9 +262,9 @@ static void test_registration_idempotent(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
 
     /* Register the first endpoint */
@@ -304,9 +304,9 @@ static void test_delete_endpoint(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -315,9 +315,9 @@ static void test_delete_endpoint(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -326,9 +326,9 @@ static void test_delete_endpoint(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
     
 
@@ -415,9 +415,9 @@ static void test_update_node(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -426,9 +426,9 @@ static void test_update_node(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -437,9 +437,9 @@ static void test_update_node(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
     
 
@@ -470,7 +470,7 @@ static void test_update_node(void) {
     node_2.previous = &registered_endpoints_list[0].node_management;
     node_2.next = &registered_endpoints_list[2].node_management;
 
-    Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 500, .et = "oic.r.glucose.medication", .name = "RIOT-CNOAOACSI7867", .sector = "updated",
+    Endpoint ep_2 = { .base = "coap://[fe80::cafe:cafe:cafe:6]", .lt = 90000, .et = "oic.r.glucose.medication", .name = "RIOT-CNOAOACSI7867", .sector = "updated",
                     .resources = "<resource-link-9>,<resource-link-10>", .node_management = node_2};
 
     /* The third expected registered endpoint */
@@ -498,7 +498,7 @@ static void test_update_node(void) {
 
     char payload[RESOURCES_MAX_LEN] = "<resource-link-9>,<resource-link-10>";
 
-    int payload_len = strlen(payload);
+    int payload_len = strlen((char *)payload);
 
     /* Update the second endpoint */
     update_endpoint(payload, &payload_len, query_buffer, endpoint_ptr_2, addr_str);
@@ -538,9 +538,9 @@ static void test_resource_lookup(void) {
 
    unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-   char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+   uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-   int payload_first_len = strlen(payload_first_endpoint);
+   uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
    /* Initial data structures for the second endpoint */
    char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -549,9 +549,9 @@ static void test_resource_lookup(void) {
 
    unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-   char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+   uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-   int payload_second_len = strlen(payload_second_endpoint);
+   uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
    /* Initial data structures for the third endpoint */
    char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -560,9 +560,9 @@ static void test_resource_lookup(void) {
 
    unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-   char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+   uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-   int payload_third_len = strlen(payload_third_endpoint);
+   uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
    
 
@@ -587,7 +587,7 @@ static void test_resource_lookup(void) {
     memset(relative_uris, 0, sizeof(relative_uris));
 
     /* Lookup using the location path as filter*/
-    memcpy(uri_query, "href=/reg/2/", strlen("href=/reg/2/"));
+    memcpy(uri_query, "href=/reg/2/", strlen((char *)"href=/reg/2/"));
 
     char path[LOCATION_STR_MAX_LEN];
     extract_value_from_query((char*)uri_query, path, "href=");
@@ -613,7 +613,7 @@ static void test_resource_lookup(void) {
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "ep=RIOT-098503495KJHK", strlen("ep=RIOT-098503495KJHK"));
+    memcpy(uri_query, "ep=RIOT-098503495KJHK", strlen((char *)"ep=RIOT-098503495KJHK"));
 
     char ep_name[ENDPOINT_NAME_MAX_LEN];
     extract_value_from_query((char*)uri_query, ep_name, "ep=");
@@ -631,7 +631,7 @@ static void test_resource_lookup(void) {
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "base=fe80::cafe:cafe:cafe:6", strlen("base=fe80::cafe:cafe:cafe:6"));
+    memcpy(uri_query, "base=fe80::cafe:cafe:cafe:6", strlen((char *)"base=fe80::cafe:cafe:cafe:6"));
 
     char base_value[BASE_URI_MAX_LEN];
     extract_value_from_query((char*)uri_query, base_value, "base=");
@@ -650,7 +650,7 @@ static void test_resource_lookup(void) {
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "et=oic.r.glucose.medication", strlen("et=oic.r.glucose.medication"));
+    memcpy(uri_query, "et=oic.r.glucose.medication", strlen((char *)"et=oic.r.glucose.medication"));
 
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     extract_value_from_query((char*)uri_query, endpoint_type, "et=");
@@ -700,9 +700,9 @@ static void test_endpoint_lookup(void) {
 
     unsigned char query_buffer_first_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=570 ep=RIOT-1024239EKAJD98 ";
 
-    char *payload_first_endpoint = "<resource-link-1>,<resource-link-2>";
+    uint8_t *payload_first_endpoint = (uint8_t *)"<resource-link-1>,<resource-link-2>";
 
-    int payload_first_len = strlen(payload_first_endpoint);
+    uint16_t payload_first_len = strlen((char *)payload_first_endpoint);
 
     /* Initial data structures for the second endpoint */
     char location_str_second_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -711,9 +711,9 @@ static void test_endpoint_lookup(void) {
 
     unsigned char query_buffer_second_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=800 ep=RIOT-098503495KJHK et=oic.r.glucose.medication ";
 
-    char *payload_second_endpoint = "<resource-link-3>,<resource-link-4>";
+    uint8_t *payload_second_endpoint = (uint8_t *)"<resource-link-3>,<resource-link-4>";
 
-    int payload_second_len = strlen(payload_second_endpoint);
+    uint16_t payload_second_len = strlen((char *)payload_second_endpoint);
 
     /* Initial data structures for the third endpoint */
     char location_str_third_endpoint[LOCATION_STR_MAX_LEN] = { 0 };
@@ -722,9 +722,9 @@ static void test_endpoint_lookup(void) {
 
     unsigned char query_buffer_third_endpoint[QUERY_BUFFER_MAX_LEN] = " lt=1200 ep=RIOT-89234738234238 d=special ";
 
-    char *payload_third_endpoint = "<resource-link-5>,<resource-link-6>";
+    uint8_t *payload_third_endpoint = (uint8_t *)"<resource-link-5>,<resource-link-6>";
 
-    int payload_third_len = strlen(payload_third_endpoint);
+    uint16_t payload_third_len = strlen((char *)payload_third_endpoint);
 
     
 
@@ -756,7 +756,7 @@ static void test_endpoint_lookup(void) {
     bool condition_1, condition_2, condition_3, condition_4, condition_5;
 
     /* Lookup using the location path as filter*/
-    memcpy(uri_query, "href=/reg/2/", strlen("href=/reg/2/"));
+    memcpy(uri_query, "href=/reg/2/", strlen((char *)"href=/reg/2/"));
 
     char path[LOCATION_STR_MAX_LEN];
     extract_value_from_query((char*)uri_query, path, "href=");
@@ -778,7 +778,7 @@ static void test_endpoint_lookup(void) {
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "ep=RIOT-098503495KJHK", strlen("ep=RIOT-098503495KJHK"));
+    memcpy(uri_query, "ep=RIOT-098503495KJHK", strlen((char *)"ep=RIOT-098503495KJHK"));
 
     char ep_name[ENDPOINT_NAME_MAX_LEN];
     extract_value_from_query((char*)uri_query, ep_name, "ep=");
@@ -794,7 +794,7 @@ static void test_endpoint_lookup(void) {
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "base=fe80::cafe:cafe:cafe:6", strlen("base=fe80::cafe:cafe:cafe:6"));
+    memcpy(uri_query, "base=fe80::cafe:cafe:cafe:6", strlen((char *)"base=fe80::cafe:cafe:cafe:6"));
 
     char base_value[BASE_URI_MAX_LEN];
     extract_value_from_query((char*)uri_query, base_value, "base=");
@@ -812,7 +812,7 @@ static void test_endpoint_lookup(void) {
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(uri_query, 0, sizeof(uri_query));
 
-    memcpy(uri_query, "et=oic.r.glucose.medication", strlen("et=oic.r.glucose.medication"));
+    memcpy(uri_query, "et=oic.r.glucose.medication", strlen((char *)"et=oic.r.glucose.medication"));
 
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     extract_value_from_query((char*)uri_query, endpoint_type, "et=");

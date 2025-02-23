@@ -13,14 +13,14 @@ USEMODULE += ztimer_sec
 #USEMODULE += cord_lc
 #USEMODULE += cord_common
 USEMODULE += gcoap      # RIOT's CoAP implementation
-#USEMODULE += netdev_default
+USEMODULE += netdev_default
 #USEMODULE += auto_init_saul  # For sensor/actuator abstraction
 #USEMODULE += saul_default    # For using sensors/actuators with SAUL
 #USEMODULE += saul
-#USEMODULE += gnrc_netif
-#USEMODULE += gnrc_ipv6
-#USEMODULE += gnrc_icmpv6
-#USEMODULE += gnrc_udp
+USEMODULE += gnrc_netif
+USEMODULE += gnrc_ipv6
+USEMODULE += gnrc_icmpv6
+USEMODULE += gnrc_udp
 
 USEMODULE += gnrc_sock_udp
 USEMODULE += sock_udp
@@ -28,7 +28,7 @@ USEMODULE += sock_util
 USEMODULE += sock_async_event
 USEMODULE += gnrc_ipv6_default
 
-USEMODULE += netdev_default
+#USEMODULE += netdev_default
 USEMODULE += auto_init_gnrc_netif
 # Activate ICMPv6 error messages
 USEMODULE += gnrc_icmpv6_error
@@ -49,13 +49,21 @@ USEMODULE += netstats_l2
 USEMODULE += netstats_ipv6
 USEMODULE += netstats_rpl
 
+FEATURES_REQUIRED += periph_gpio_irq
+
+# use the event module and the predefined high priority queue
+USEMODULE += event
+USEMODULE += event_thread_highest
+
+USEMODULE += event_thread
+
 #USEMODULE += usbus_cdc_ecm
 #USB_VID = ${USB_VID_TESTING}
 #USB_PID = ${USB_PID_TESTING}
 
-IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:2"'
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
+#IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:2"'
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
 
 
 DEVELHELP ?= 1

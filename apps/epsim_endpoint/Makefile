@@ -49,13 +49,21 @@ USEMODULE += netstats_l2
 USEMODULE += netstats_ipv6
 USEMODULE += netstats_rpl
 
+FEATURES_REQUIRED += periph_gpio_irq
+
+# use the event module and the predefined high priority queue
+USEMODULE += event
+USEMODULE += event_thread_highest
+
+USEMODULE += event_thread
+
 #USEMODULE += usbus_cdc_ecm
 #USB_VID = ${USB_VID_TESTING}
 #USB_PID = ${USB_PID_TESTING}
 
-IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:4"'
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
+#IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:4"'
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
 
 
 DEVELHELP ?= 1
@@ -64,7 +72,7 @@ DEVELHELP ?= 1
 
 #USEMODULE += nimble_riot
 
-#USEMODULE += netdev_tap
+USEMODULE += netdev_tap
 
 
 include $(RIOTBASE)/Makefile.include

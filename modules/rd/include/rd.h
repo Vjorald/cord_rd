@@ -1,18 +1,14 @@
 #include "i_list.h"
 #include <stdio.h>
- 
-#include "net/sock/udp.h"
-#include "net/ipv6.h"
-#include <netdev_tap.h>
-#include "net/sock/util.h"
-#include "net/gcoap.h"
+//#include <netdev_tap.h>
 #include <ctype.h>
-#include "net/cord/ep.h"
 #include "string.h"
 #include <math.h>
-
-#include "shell.h"
-#include "msg.h"
+#include "net/gcoap.h"
+#include "net/utils.h"
+#include "net/sock/util.h"
+#include "net/sock/udp.h"
+//#include "shell.h"
 
 #define BASE_URI_MAX_LEN 64
 #define ENDPOINT_NAME_MAX_LEN 63
@@ -20,9 +16,9 @@
 #define SECTOR_NAME_MAX_LEN 63
 #define MAX_PAGE_DIGIT_NUMBER 3
 #define MAX_COUNT_DIGIT_NUMBER 3
-#define REGISTERED_ENDPOINTS_MAX_NUMBER 100
-#define DELETED_ENDPOINTS_MAX_NUMBER 100
-#define LOOKUP_RESULTS_MAX_LEN 100
+#define REGISTERED_ENDPOINTS_MAX_NUMBER 5
+#define DELETED_ENDPOINTS_MAX_NUMBER 5
+#define LOOKUP_RESULTS_MAX_LEN 50
 #define ENDPOINT_TYPE_MAX_LEN 50
 #define INITIAL_NUMBER_REGISTERED_ENDPOINTS 0
 #define INITIAL_NUMBER_DELETED_ENDPOINTS 0
@@ -71,7 +67,7 @@ extern int number_deleted_registrations;
 
 void resource_directory_init(void);
 
-void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector, char *base);
+void parse_query_buffer(unsigned char *query_buffer, char *ep, char *lt, char *et, char *sector);
 
 void build_location_string(int location_nr, char* location_str);
 
@@ -85,9 +81,7 @@ int check_existing_endpoint(char *ep_name, char* sector);
 
 void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffer, Endpoint *endpoint_ptr, char *addr_str);
 
-int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, char *payload, int *payload_len);
-
-void initialize_endpoint(char *lifetime, char *endpoint_name, Endpoint *endpoint_ptr, i_list_node *node_ptr, char *base_uri, char *payload, int *payload_len, char* location_str, int location_nr, char *et, char *sector);
+int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, uint8_t *payload, uint16_t *payload_len);
 
 int get_next_empty_location(void);
 
@@ -104,9 +98,15 @@ void build_resource_string(int number_sensors, char extracted_sensor_uris[RESOUR
 void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *first_bracket, char *second_href_bracket, char *ep_key,
                                 char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number);
 
+void itoa(int num, char *str, int base);
+
 int extract_resource_uris(const char *input, char uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN]);
 
 void send_get_request(Endpoint *endpoint_ptr);
+
+void lifetime_callback(void *argument);
+
+void epsim_get_request_callback(void* argument);
 
 int printList(Endpoint* endpoint);
 

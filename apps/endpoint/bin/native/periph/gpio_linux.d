@@ -102,7 +102,8 @@
  /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
  /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h
 
 /usr/include/stdc-predef.h:
 
@@ -457,3 +458,5 @@
 /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
+
+/home/vjorald/cord_rd/RIOT/cpu/native/include/async_read.h:

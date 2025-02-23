@@ -7,7 +7,7 @@
 #include "net/sock/udp.h"
 #include "net/sock/util.h"
 #include "net/ipv6.h"
-//#include <netdev_tap.h>
+#include <netdev_tap.h>
 
 #include "shell.h"
 #include "msg.h"
@@ -16,6 +16,11 @@
 #include "net/cord/common.h"
 #include "net/cord/config.h"
 #include "ztimer.h"
+
+#include "thread.h"
+#include "event.h"
+#include "event/thread.h"
+#include "periph/gpio.h"
 
 
 static ssize_t _riot_board_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
@@ -161,6 +166,47 @@ static ssize_t _riot_board_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, co
     }
 }
 
+void event_handler(event_t *event)
+{
+    (void) event; 
+    
+    sock_udp_t sock;
+
+    sock_udp_ep_t local = SOCK_IPV6_EP_ANY;
+    local.port = 5683;
+    
+
+    if(sock_udp_create(&sock, &local, NULL, 0) < 0) {
+        printf("Sock creation unsuccessful!");
+    }
+
+
+    sock_udp_ep_t remote = { .family = AF_INET6 , .port = 5683 };
+
+    ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
+                                        IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
+
+
+    static char endpoint_buffer[10000];
+
+    int res = cord_epsim_register(&remote);
+
+    printf("%s, result: %d \n", endpoint_buffer, res);
+
+}
+
+
+event_t event = { .handler = event_handler };
+
+void button_callback(void *arg)
+{
+    (void) arg;    
+
+
+    event_post(EVENT_PRIO_HIGHEST, &event);
+}
+
+
 int main(void) {
 
 
@@ -168,36 +214,22 @@ int main(void) {
 
     sock_udp_t sock;
 
-    sock_udp_ep_t endpoint = { 0 };
+    sock_udp_ep_t endpoint = SOCK_IPV6_EP_ANY;
+    endpoint.port = 5683;
     
-
-    if (sock_udp_str2ep(&endpoint, "[fe80::cafe:cafe:cafe:4]:5683") < 0) {
-        puts("Unable to parse destination address");
-        return 1;
-    }
 
     if(sock_udp_create(&sock, &endpoint, NULL, 0) < 0) {
         printf("Sock creation unsuccessful!");
     }
 
 
-
-    sock_udp_ep_t remote = { .family = AF_INET6 };
-    remote.port = 5683;
+    sock_udp_ep_t remote = { .family = AF_INET6 , .port = 5683 };
 
     ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
-                                   IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
-    /*
-    puts("All up, running the shell now");
-    char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
-    */
+                                        IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
 
 
     static char endpoint_buffer[10000];
-    //printf("Initiated, result: %d", res);
-   // int res = cord_ep_discover_regif(&remote, endpoint_buffer, sizeof(endpoint_buffer) - 1);
-
 
     int res = cord_epsim_register(&remote);
 

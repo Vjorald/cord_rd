@@ -1,63 +1,23 @@
-#include <stdio.h>
- 
-#include "net/sock/udp.h"
-#include "net/ipv6.h"
-#include <netdev_tap.h>
-#include "net/sock/util.h"
-#include "net/gcoap.h"
-#include <ctype.h>
-#include "net/cord/ep.h"
-#include "string.h"
-#include <math.h>
- 
-#include "shell.h"
-#include "msg.h"
-
 #include "rd.h"
-/*
-void message_callback(void *argument)
-{
-    char *message = (char *)argument;
-    puts(message);
-}
-*/
+
+
+//#define MAIN_QUEUE_SIZE (4)
+//static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
 int main(void)
 { 
+
+    gnrc_netif_t *netif = gnrc_netif_iter(NULL);
+    if (netif) {
+
+        printf("Network interface initialized!\n");
+    }
 /*
-    ztimer_now_t first = ztimer_now(ZTIMER_SEC);
+    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
 
-    ztimer_sleep(ZTIMER_SEC, 2);
-
-    ztimer_now_t second = ztimer_now(ZTIMER_SEC);
-
-    ztimer_sleep(ZTIMER_SEC, 2);
-
-    ztimer_now_t third = ztimer_now(ZTIMER_SEC);
-
-    ztimer_t timeout;                    
-    timeout.callback = message_callback; 
-    timeout.arg = "Timeout!";             
-    ztimer_set(ZTIMER_SEC, &timeout, 2);
-
-
-    char str[20] = { 0 };   // Buffer to hold the resulting string
-
-    sprintf(str, "%d", second + first); // Convert integer to string
-
-    ztimer_t timeout_1;                    
-    timeout_1.callback = message_callback; 
-    timeout_1.arg = str;             
-    ztimer_set(ZTIMER_SEC, &timeout_1, 4);
-
-    char str1[20] = { 0 }; 
-
-    sprintf(str1, "%d", third + first);
-
-    ztimer_t timeout_2;                    
-    timeout_2.callback = message_callback; 
-    timeout_2.arg = str1;             
-    ztimer_set(ZTIMER_SEC, &timeout_2, 6);
+    puts("All up, running the shell now");
+    char line_buf[SHELL_DEFAULT_BUFSIZE];
+    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
 */
     resource_directory_init();
     

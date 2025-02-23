@@ -1,7 +1,7 @@
-/home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/fmt/fmt.o: \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/fmt/fmt.c \
- /home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/riotbuild/riotbuild.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/assert.h \
+/home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/fmt/fmt.o: \
+ /home/vjorald/cord_rd/RIOT/sys/fmt/fmt.c \
+ /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
  /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h \
  /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdarg.h \
  /usr/include/newlib/stdio.h /usr/include/newlib/_ansi.h \
@@ -18,16 +18,16 @@
  /usr/include/newlib/machine/types.h /usr/include/newlib/sys/stdio.h \
  /usr/include/newlib/string.h /usr/include/newlib/sys/string.h \
  /usr/include/newlib/unistd.h /usr/include/newlib/sys/unistd.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/modules.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/container.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/fmt.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/fmt.h
 
-/home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
 /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h:
 
@@ -81,14 +81,14 @@
 
 /usr/include/newlib/sys/unistd.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/fmt.h:
+/home/vjorald/cord_rd/RIOT/sys/include/fmt.h:

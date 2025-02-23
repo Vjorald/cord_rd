@@ -10,6 +10,11 @@
         "sstream": "c",
         "cstring": "c",
         "ctype.h": "c",
-        "list": "c"
+        "list": "c",
+        "rd.h": "c",
+        "socket": "c",
+        "udp.h": "c",
+        "util.h": "c",
+        "lc.h": "c"
     }
 }

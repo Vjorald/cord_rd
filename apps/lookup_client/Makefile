@@ -5,7 +5,7 @@ BOARD ?= native
 # Folder of the RIOT-Submodule
 RIOTBASE ?= $(CURDIR)/../../RIOT
 
-USEMODULE += cord_ep
+#USEMODULE += cord_ep
 USEMODULE += cord_lc
 #USEMODULE += cord_common
 USEMODULE += gcoap      # RIOT's CoAP implementation
@@ -45,12 +45,15 @@ USEMODULE += netstats_l2
 USEMODULE += netstats_ipv6
 USEMODULE += netstats_rpl
 
-IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:3"'
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
+USEMODULE += ztimer
+USEMODULE += ztimer_sec
+
+#IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:3"'
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
 
 
-USEMODULE += netdev_tap
+#USEMODULE += netdev_tap
 
 
 DEVELHELP ?= 1

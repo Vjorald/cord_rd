@@ -1,7 +1,7 @@
-/home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/ipv6_addr/ipv6_addr.o: \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/net/network_layer/ipv6/addr/ipv6_addr.c \
- /home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/riotbuild/riotbuild.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/assert.h \
+/home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/ipv6_addr/ipv6_addr.o: \
+ /home/vjorald/cord_rd/RIOT/sys/net/network_layer/ipv6/addr/ipv6_addr.c \
+ /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/assert.h \
  /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h \
  /usr/include/newlib/stdlib.h /usr/include/newlib/machine/ieeefp.h \
  /usr/include/newlib/_ansi.h /usr/include/newlib/nano/newlib.h \
@@ -18,33 +18,33 @@
  /usr/include/newlib/sys/types.h /usr/include/newlib/sys/_stdint.h \
  /usr/include/newlib/sys/_pthreadtypes.h \
  /usr/include/newlib/machine/types.h /usr/include/newlib/sys/stdio.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/fmt.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/bitarithm.h \
- /home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/cpu_conf.h \
- /home/vjorald/resource_dir/rd_server/RIOT/cpu/cortexm_common/include/cpu_conf_common.h \
- /home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840.h \
- /home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/core_cm4.h \
- /home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_version.h \
- /home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_compiler.h \
- /home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_gcc.h \
- /home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/mpu_armv7.h \
- /home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840_bitfields.h \
- /home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840_peripherals.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/kernel_defines.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/modules.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/riot_version.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/compiler_hints.h \
- /home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/container.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/net/ipv6/addr.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/fmt.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/bitarithm.h \
+ /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/cpu_conf.h \
+ /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/cpu_conf_common.h \
+ /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840.h \
+ /home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/core_cm4.h \
+ /home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_version.h \
+ /home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_compiler.h \
+ /home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_gcc.h \
+ /home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/mpu_armv7.h \
+ /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840_bitfields.h \
+ /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840_peripherals.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h \
+ /home/vjorald/cord_rd/RIOT/core/lib/include/container.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ipv6/addr.h \
  /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdbool.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/byteorder.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/endian.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/unaligned.h \
- /home/vjorald/resource_dir/rd_server/RIOT/sys/include/net/ipv4/addr.h
+ /home/vjorald/cord_rd/RIOT/sys/include/byteorder.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/endian.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/unaligned.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ipv4/addr.h
 
-/home/vjorald/resource_dir/rd_server/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
+/home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/assert.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/assert.h:
 
 /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdint.h:
 
@@ -98,48 +98,48 @@
 
 /usr/include/newlib/sys/stdio.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/fmt.h:
+/home/vjorald/cord_rd/RIOT/sys/include/fmt.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/bitarithm.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/bitarithm.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/cpu_conf.h:
+/home/vjorald/cord_rd/RIOT/cpu/nrf52/include/cpu_conf.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/cpu/cortexm_common/include/cpu_conf_common.h:
+/home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/cpu_conf_common.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840.h:
+/home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/core_cm4.h:
+/home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/core_cm4.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_version.h:
+/home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_version.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_compiler.h:
+/home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_compiler.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_gcc.h:
+/home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/cmsis_gcc.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/build/pkg/cmsis/CMSIS/Core/Include/mpu_armv7.h:
+/home/vjorald/cord_rd/RIOT/build/pkg/cmsis/CMSIS/Core/Include/mpu_armv7.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840_bitfields.h:
+/home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840_bitfields.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/cpu/nrf52/include/vendor/nrf52840_peripherals.h:
+/home/vjorald/cord_rd/RIOT/cpu/nrf52/include/vendor/nrf52840_peripherals.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/kernel_defines.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/modules.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/riot_version.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/riot_version.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/compiler_hints.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/compiler_hints.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/core/lib/include/container.h:
+/home/vjorald/cord_rd/RIOT/core/lib/include/container.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/net/ipv6/addr.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/ipv6/addr.h:
 
 /usr/lib/gcc/arm-none-eabi/9.2.1/include/stdbool.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/byteorder.h:
+/home/vjorald/cord_rd/RIOT/sys/include/byteorder.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/endian.h:
+/home/vjorald/cord_rd/RIOT/sys/include/endian.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/unaligned.h:
+/home/vjorald/cord_rd/RIOT/sys/include/unaligned.h:
 
-/home/vjorald/resource_dir/rd_server/RIOT/sys/include/net/ipv4/addr.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/ipv4/addr.h:

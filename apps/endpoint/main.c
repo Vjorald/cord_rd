@@ -18,6 +18,13 @@
 #include "net/cord/config.h"
 #include "ztimer.h"
 
+#include "thread.h"
+#include "event.h"
+#include "event/thread.h"
+#include "periph/gpio.h"
+
+//#define MAIN_QUEUE_SIZE (4)
+//static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
 static ssize_t _riot_board_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
@@ -176,67 +183,93 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     printf("Remote Addres: %s\n", addr_str);
 }
 
+void event_handler(event_t *event)
+{
+    (void) event; 
+    
+    sock_udp_t sock;
+
+    sock_udp_ep_t local = SOCK_IPV6_EP_ANY;
+    local.port = 5683;
+
+    if(sock_udp_create(&sock, &local, NULL, 0) < 0) {
+        printf("Sock creation unsuccessful!");
+    }
+
+
+    sock_udp_ep_t remote = { .family = AF_INET6 , .port = 5683 };
+
+    ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
+                                   IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
+
+    cord_ep_register(&remote, NULL);
+
+}
+
+
+event_t event = { .handler = event_handler };
+
+void button_callback(void *arg)
+{
+    (void) arg;    
+
+
+    event_post(EVENT_PRIO_HIGHEST, &event);
+}
+
 int main(void) {
 
+    gnrc_netif_t *netif = gnrc_netif_iter(NULL);
+    if (netif) {
+
+        printf("Network interface initialized!\n");
+    }
 
     gcoap_register_listener(&_listener);
 
-    sock_udp_t sock;
-
-    sock_udp_ep_t endpoint = { 0 };
-    
-
-    if (sock_udp_str2ep(&endpoint, "[fe80::cafe:cafe:cafe:2]:5683") < 0) {
-        puts("Unable to parse destination address");
+    puts("Hello I am an Endpoint!\n");
+/*
+    if (gpio_init_int(BTN0_PIN, BTN0_MODE, GPIO_FALLING, button_callback, NULL) < 0) {
+        puts("[FAILED] init BTN0!");
         return 1;
     }
+
+    while (1) {
+        puts("Main");
+        ztimer_sleep(ZTIMER_MSEC, 1000);
+    }
+*/
+/*
+    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
+
+    puts("All up, running the shell now");
+    char line_buf[SHELL_DEFAULT_BUFSIZE];
+    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
+*/
+
+    sock_udp_t sock;
+
+    sock_udp_ep_t endpoint = SOCK_IPV6_EP_ANY;
+    endpoint.port = 5683;
 
     if(sock_udp_create(&sock, &endpoint, NULL, 0) < 0) {
         printf("Sock creation unsuccessful!");
     }
 
+    sock_udp_ep_t remote = { .family = AF_INET6 , .port = 5683 };
 
-
-    sock_udp_ep_t remote = { .family = AF_INET6 };
-/*
-    if (sock_udp_str2ep(&remote, "[fe80::cafe:cafe:cafe:1]:5683") < 0) {
-        puts("Unable to parse destination address");
-        return 1;
-    }
-*/
-    remote.port = 5683;
+  //  ipv6_addr_from_str((ipv6_addr_t *)&remote.addr, "ff02::1");
 
     ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
                                    IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
-    /*
-    puts("All up, running the shell now");
-    char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
-    */
 
 
     static char endpoint_buffer[10000];
-    //printf("Initiated, result: %d", res);
-   // int res = cord_ep_discover_regif(&remote, endpoint_buffer, sizeof(endpoint_buffer) - 1);
 
     int res = cord_ep_register(&remote, NULL);
 
     printf("%s, result: %d \n", endpoint_buffer, res);
-/*
-    ssize_t len;
-    coap_pkt_t pdu = { 0 };
-    u_int8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE] = { 0 };
 
-
-    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/endpoint-lookup/");
-    coap_opt_add_format(&pdu, COAP_FORMAT_LINK);
-    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "base=coap://[fe80::cafe:cafe:cafe:2]", ' ');
-    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "page=2", ' ');
-    coap_opt_add_string(&pdu, COAP_OPT_URI_QUERY, "count=2", ' ');
-    len = coap_opt_finish(&pdu, COAP_OPT_FINISH_PAYLOAD);
-
-    int res = gcoap_req_send(buf, len, &remote, &endpoint, _resp_handler, NULL, GCOAP_SOCKET_TYPE_UNDEF);
-*/
     (void)res;
 
     return 0;

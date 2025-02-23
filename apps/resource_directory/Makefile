@@ -23,7 +23,7 @@ USEMODULE += gnrc_ipv6_router_default
 USEMODULE += gnrc_rpl
 USEMODULE += auto_init_gnrc_rpl
 
-USEMODULE += netdev_tap
+#USEMODULE += netdev_tap
 
 
 USEMODULE += shell
@@ -37,9 +37,10 @@ USEMODULE += netstats_l2
 USEMODULE += netstats_ipv6
 USEMODULE += netstats_rpl
 
-IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:1"'
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
-CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
+
+#IPV6_STATIC_LLADDR ?= '"fe80::cafe:cafe:cafe:1"'
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR=$(IPV6_STATIC_LLADDR)
+#CFLAGS += -DCONFIG_GNRC_IPV6_STATIC_LLADDR_IS_FIXED
 
 
 # add CoAP module
