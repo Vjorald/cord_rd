@@ -148,15 +148,41 @@ int main(void) {
 
     cord_lc_rd_t rd = { &remote, "/resource-lookup/", "/endpoint-lookup/", 0, 0};
 
+    clif_attr_t filter1 = { 0 };
 
-    static char lc_buffer[100] = { 0 };
+    filter1.value = "1";
+    filter1.value_len = strlen(filter1.value);
+    filter1.key = "page";
+    filter1.key_len = strlen(filter1.key);
+
+    clif_attr_t filter2 = { 0 };
+
+    filter2.value = "1";
+    filter2.value_len = strlen(filter2.value);
+    filter2.key = "count";
+    filter2.key_len = strlen(filter2.key);
+
+    clif_attr_t array_of_filters[4];
+
+    array_of_filters[0] = filter1;
+    array_of_filters[1] = filter2;
+
+    clif_attr_t *ptr_to_array_of_filters = array_of_filters;
+
+    cord_lc_filter_t filters;
+    filters.array = ptr_to_array_of_filters;
+    filters.len = 2;
+    filters.next = NULL;
+
+
+    static char lc_buffer[10000] = { 0 };
 
     memset(lc_buffer, 0, sizeof(lc_buffer));
 
-    cord_lc_raw(&rd, COAP_FORMAT_LINK, CORD_LC_EP, NULL, lc_buffer, sizeof(lc_buffer) - 1);
+    cord_lc_raw(&rd, COAP_FORMAT_LINK, CORD_LC_EP, &filters, lc_buffer, sizeof(lc_buffer) - 1);
 
     printf("Endpoints: %s\n", lc_buffer);
-
+/*
     memset(lc_buffer, 0, sizeof(lc_buffer));
 
     cord_lc_raw(&rd, COAP_FORMAT_LINK, CORD_LC_RES, NULL, lc_buffer, sizeof(lc_buffer) - 1);
@@ -165,6 +191,6 @@ int main(void) {
 
     memset(lc_buffer, 0, sizeof(lc_buffer));
 
-
+*/
     return 0;
 }

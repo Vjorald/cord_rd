@@ -176,7 +176,8 @@
  /home/vjorald/cord_rd/RIOT/drivers/include/periph/gpio.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/periph/gpio.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/cord/common.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/cord/config.h
+ /home/vjorald/cord_rd/RIOT/sys/include/net/cord/config.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/event/thread.h
 
 /usr/include/stdc-predef.h:
 
@@ -621,3 +622,5 @@
 /home/vjorald/cord_rd/RIOT/sys/include/net/cord/common.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/cord/config.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/event/thread.h:

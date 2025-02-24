@@ -1,4 +1,5 @@
 #include "rd.h"
+#include "rd_utilities.h"
 
 
 i_list_node *head;
@@ -7,11 +8,9 @@ Endpoint registered_endpoints_list[REGISTERED_ENDPOINTS_MAX_NUMBER] = { 0 };
 
 int deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER] = { 0 };
 
-Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN] = { 0 };
+//Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN] = { 0 };
 
-ztimer_t lifetime_expiry;
-
-ztimer_t epsim_get_request;
+ztimer_t lifetime_expiry, epsim_get_request;
 
 int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
 
@@ -51,7 +50,6 @@ void resource_directory_init(void){
 
     gcoap_register_listener(&_listener);
 
-    //puts("Hello! I am a RD!\n");
 
 }
 
@@ -110,7 +108,7 @@ void delete_endpoint(int location_nr) {
     }
 
 }
-
+/*
 int printlist(Endpoint* endpoint)
 {
 
@@ -118,7 +116,6 @@ int printlist(Endpoint* endpoint)
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return 0;
     }
     
@@ -161,13 +158,12 @@ int printlist(Endpoint* endpoint)
     return 0;
 
 }
-
+*/
 i_list_node* find_next_expiring_endpoint(void){
 
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return NULL;
     }
 
@@ -204,7 +200,6 @@ void update_registration_lifetimes(int expired_lifetime){
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return ;
     }
 
@@ -297,24 +292,34 @@ void build_base_uri_string(char* addr_str, char* base_uri){
     strcat(base_uri, addr_str);
     strcat(base_uri, ending);
 }
+/*
+void get_all_registered_endpoints(char *lookup_result, uint8_t *uri_query, char *first_bracket, char *second_href_bracket, char *ep_key,
+    char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number){
 
-void get_all_registered_endpoints(void){
-
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
-    int last_element_index = 0;
+    memset(lookup_result, 0, sizeof(lookup_result));
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return ;
     }
 
     i_list_node *actual = head;
     Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
 
+    
+    if(strlen(endpoint_ptr->name) == 0)
+    {
+        return ;
+    }
 
-    lookup_result_list[last_element_index] = *endpoint_ptr;
-    last_element_index++;
+    if(relative_uris){
+        *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+        build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+    }
+    else{
+        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+    }
+
     
     do
     {
@@ -323,8 +328,18 @@ void get_all_registered_endpoints(void){
             actual = actual->next;
             endpoint_ptr = container_of(actual, Endpoint, node_management);
            
-            lookup_result_list[last_element_index] = *endpoint_ptr;
-            last_element_index++;
+            if(strlen(endpoint_ptr->name) == 0)
+            {
+                return ;
+            }
+        
+            if(relative_uris){
+                *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+                build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+            }
+            else{
+                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+            }
             
         }
         else break; 
@@ -333,15 +348,16 @@ void get_all_registered_endpoints(void){
 
     return ;
 }
+*/
 
-void find_endpoints_by_pattern(char* pattern)
+void find_endpoints_by_pattern(char* pattern, char *lookup_result, char *first_bracket, char *second_href_bracket, char *ep_key,
+    char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number)
 {
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
-    int last_element_index = 0;
+   // memset(lookup_result_list, 0, sizeof(lookup_result_list));
+   // int last_element_index = 0;
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return ;
     }
 
@@ -350,8 +366,19 @@ void find_endpoints_by_pattern(char* pattern)
 
     if (strcmp(endpoint_ptr->base, pattern)  == 0 || strcmp(endpoint_ptr->et, pattern)  == 0)
     {
-        lookup_result_list[last_element_index] = *endpoint_ptr;
-        last_element_index++;
+
+        if(strlen(endpoint_ptr->name) == 0)
+        {
+            return ;
+        }
+
+        if(relative_uris){
+            *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+            build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+        }
+        else{
+            build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+        }
     }
     
     do
@@ -360,11 +387,18 @@ void find_endpoints_by_pattern(char* pattern)
         {
             actual = actual->next;
             endpoint_ptr = container_of(actual, Endpoint, node_management);
-           
-            if(strcmp(endpoint_ptr->base, pattern)  == 0 || strcmp(endpoint_ptr->et, pattern)  == 0)
+
+            if(strlen(endpoint_ptr->name) == 0)
             {
-                lookup_result_list[last_element_index] = *endpoint_ptr;
-                last_element_index++;
+                return ;
+            }
+
+            if(relative_uris){
+                *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+                build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+            }
+            else{
+                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
             }
         }
         else break; 
@@ -382,7 +416,6 @@ Endpoint *find_endpoint_by_pattern(char* pattern)
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return NULL;
     }
 
@@ -439,8 +472,6 @@ void lifetime_callback(void *argument)
     i_list_node *node_ptr = &registered_endpoints_list[*(int*)argument - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-    //printf("Location nummer: %d\n", *(int*)argument);
-
     disconnect_endpoint_from_the_rest(node_ptr->location_nr, node_ptr);
     delete_endpoint(node_ptr->location_nr);
 
@@ -455,7 +486,6 @@ void lifetime_callback(void *argument)
         ztimer_set(ZTIMER_SEC, &lifetime_expiry, next_expiring_endpoint->lt);
     }
 
-    //printlist(endpoint_ptr);
 }
 
 
@@ -515,7 +545,6 @@ int check_existing_endpoint(char *ep_name, char* sector){
 
     if (head == NULL)
     {
-        //puts("There are no registered endpoints.");
         return -1;
     }
 
@@ -599,11 +628,78 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
         int first_value = page_value * count_value;
         int last_value = count_value * (page_value + 1);
 
+        int iteration_value = 0;
+
+        if (head == NULL)
+        {
+            return ;
+        }
+
+        i_list_node *actual = head;
+        Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+        
+        if (iteration_value < first_value){
+
+            if (actual->next != NULL){
+                actual = actual->next;
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
+                iteration_value++;
+            }
+            
+        }
+        else if(iteration_value >= first_value && iteration_value < last_value){
+            if(strlen(endpoint_ptr->name) == 0){
+                    return ;
+                }
+
+            if(relative_uris){
+                *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+                build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+            }
+            else{
+                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+            }
+
+            if (actual->next != NULL){
+                actual = actual->next;
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
+                iteration_value++;
+            }
+        }
+        
+        do
+        {
+            if(actual->next != NULL)
+            {
+                if (iteration_value >= first_value && iteration_value < last_value){
+
+                    if(strlen(endpoint_ptr->name) == 0)
+                    {
+                        break;
+                    }
+
+                    if(relative_uris){
+                        *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+                        build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+                    }
+                    else{
+                        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+                    }
+                }
+
+                actual = actual->next;
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
+                
+            }
+            else return ;
+
+        }while(actual->next != NULL);
+
+/*
         for(int i = first_value; i < last_value; i++){
 
             if(strlen(lookup_result_list[i].name) == 0)
             {
-                //puts("Breaking...\n");
                 break;
             }
 
@@ -615,15 +711,62 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
                 build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, &lookup_result_list[i], lookup_result_list[i].et);
             }
            
-        }
+        }*/
     }
     else{
+
+        if (head == NULL)
+        {
+            return ;
+        }
+
+        i_list_node *actual = head;
+        Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
+        
+        if(strlen(endpoint_ptr->name) == 0)
+        {
+            return ;
+        }
+
+        if(relative_uris){
+            *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+            build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+        }
+        else{
+            build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+        }
+        
+        do
+        {
+            if(actual->next != NULL)
+            {
+                actual = actual->next;
+                endpoint_ptr = container_of(actual, Endpoint, node_management);
+
+                if(strlen(endpoint_ptr->name) == 0)
+                {
+                    return ;
+                }
+        
+                if(relative_uris){
+                    *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
+                    build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
+                }
+                else{
+                    build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
+                }
+                
+            }
+            else return ;
+
+        }while(actual->next != NULL);
+
+        /*
 
         for(unsigned int i = 0; i<sizeof(lookup_result_list); i++)
         {   
             if(strlen(lookup_result_list[i].name) == 0)
             {
-                //puts("Breaking...\n");
                 break;
             }
 
@@ -636,6 +779,7 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
             }
 
         }
+            */
     }
 
 }
@@ -727,17 +871,9 @@ void _resp_handler(const gcoap_request_memo_t *memo,
     char addr_str[IPV6_ADDR_MAX_STR_LEN] = { 0 };
     ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
-
-    //printf("Remote address %s\n", addr_str);
-
-    //printf("Received: %s\n", pdu->payload);
-
     Endpoint *endpoint_ptr = find_endpoint_by_pattern(addr_str);
 
     nanocoap_cache_entry_t *cache = nanocoap_cache_add_by_req(&endpoint_ptr->epsim_pkt, pdu, pdu->options_len + pdu->payload_len);
-
-    //printf("Cache buf: %s\n", cache->response_buf);
-
 
     endpoint_ptr->cache = cache;
 
@@ -757,11 +893,7 @@ void _resp_handler(const gcoap_request_memo_t *memo,
 
     strncpy((char*)endpoint_ptr->resources, (char*)pdu->payload, sizeof(endpoint_ptr->resources) - 1);
 
-    //printlist(&registered_endpoints_list[number_registered_endpoints - 1]);
-
     sock_udp_close(&endpoint_ptr->epsim_sock);
-
-    ztimer_sleep(ZTIMER_SEC, 1);
 
 }
 
@@ -776,7 +908,7 @@ void send_get_request(Endpoint *endpoint_ptr) {
     
 
     if(sock_udp_create(&endpoint_ptr->epsim_sock, &local, NULL, 0) < 0) {
-        //printf("Sock creation unsuccessful!");
+        printf("Sock creation unsuccessful!");
     }
 
 
@@ -786,19 +918,8 @@ void send_get_request(Endpoint *endpoint_ptr) {
 
     memset(endpoint_ptr->epsim_pkt.payload, 0, endpoint_ptr->epsim_pkt.payload_len);
     
-    int result = gcoap_req_send(_epsim_req_buf, len, endpoint_ptr->remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
+    gcoap_req_send(_epsim_req_buf, len, endpoint_ptr->remote, &local, _resp_handler, &ctx, GCOAP_SOCKET_TYPE_UDP);
     
-    if (result <= 0) {
-
-        //puts("Failed to send request");
-        //printf("Result: %d\n", result);
-    } else {
-        //puts("GET request sent successfully\n");
-        //printf("Result: %d\n", result);
-    }
-
-    ztimer_sleep(ZTIMER_SEC, 1);
-
 }
 
 void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffer, Endpoint *endpoint_ptr, char *addr_str){
@@ -881,6 +1002,12 @@ void update_endpoint(char *payload, int *payload_len, unsigned char *query_buffe
 
 int register_endpoint(char *addr_str, unsigned char *query_buffer, char *location_str, uint8_t *payload, u_int16_t *payload_len){
 
+
+    if(number_registered_endpoints == REGISTERED_ENDPOINTS_MAX_NUMBER && number_deleted_registrations == 0){
+
+        memcpy(location_str, "/reg/0/", sizeof("/reg/0/"));
+        return 0;
+    }
 
     i_list_node *node_ptr;
     Endpoint *endpoint_ptr; 
@@ -985,13 +1112,11 @@ ssize_t _registration_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_re
     unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
     coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
 
-    puts("1\n");
+    int location_value = register_endpoint(addr_str, query_buffer, location_str, pdu->payload, &pdu->payload_len);
 
-    register_endpoint(addr_str, query_buffer, location_str, pdu->payload, &pdu->payload_len);
-
-    puts("2\n");
-
-    printlist(&registered_endpoints_list[number_registered_endpoints - 1]);
+    if(location_value == 0){
+        return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
+    }
 
     gcoap_resp_init(pdu, buf, len, COAP_CODE_CREATED);
     coap_opt_add_string(pdu, COAP_OPT_LOCATION_PATH, location_str, ' ');
@@ -1013,14 +1138,13 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
     ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
     unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
-    int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
-    //printf("Options: %s\n", query_buffer);
-
-    (void) result;
-
-    //int payload_len = pdu->payload_len;
+    coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
 
     int location_nr = register_endpoint(addr_str, query_buffer, location_str, pdu->payload, &pdu->payload_len);
+
+    if (location_nr == 0){
+        return gcoap_response(pdu, buf, len, COAP_CODE_INTERNAL_SERVER_ERROR);
+    }
 
     i_list_node *node_ptr = &registered_endpoints_list[location_nr - 1].node_management;
     Endpoint *endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
@@ -1036,6 +1160,8 @@ ssize_t _simple_registration_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, 
 
     send_get_request(endpoint_ptr);
 
+    ztimer_sleep(ZTIMER_MSEC, 250);
+
     return resp_len;
 
 }
@@ -1046,8 +1172,6 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
 
     char uri[CONFIG_NANOCOAP_URI_MAX] = { 0 };
     coap_get_uri_path(pdu, (uint8_t *)uri);
-
-    //printf("Received: %s\n", uri);
 
     unsigned method = coap_method2flag(coap_get_code_detail(pdu));
     int location_nr = extract_number_from_location(uri);
@@ -1064,10 +1188,7 @@ ssize_t _update_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap_request_
             ipv6_addr_to_str(addr_str, (ipv6_addr_t *)remote->addr.ipv6, IPV6_ADDR_MAX_STR_LEN);
 
             unsigned char query_buffer[QUERY_BUFFER_MAX_LEN] = { 0 };
-            int result = coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
-            //printf("Options: %s\n", query_buffer);
-
-            (void) result;
+            coap_opt_get_string(pdu, COAP_OPT_URI_QUERY, query_buffer, QUERY_BUFFER_MAX_LEN, ' ');
 
             int payload_len = pdu->payload_len;
 
@@ -1163,10 +1284,8 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
     {
         char base_value[BASE_URI_MAX_LEN];
         extract_value_from_query((char*)uri_query, base_value, "base=");
-        find_endpoints_by_pattern(base_value);
-        
-        build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                    NULL, relative_uris, &resource_number);
+        find_endpoints_by_pattern(base_value, lookup_result, NULL, NULL, NULL, 
+                                    NULL, NULL, relative_uris, &resource_number);
 
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
         
@@ -1175,20 +1294,17 @@ ssize_t _resource_lookup_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap
     {
         char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
         extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-        find_endpoints_by_pattern(endpoint_type);
-
-        build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                    NULL, relative_uris, &resource_number);
+        find_endpoints_by_pattern(endpoint_type, lookup_result, NULL, NULL, NULL, 
+            NULL, NULL, relative_uris, &resource_number);
 
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
 
     }
     else
     {
-        get_all_registered_endpoints();
 
-        build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                    NULL, relative_uris, &resource_number);
+        build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL, NULL, relative_uris,
+                                    &resource_number);
  
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
 
@@ -1251,10 +1367,8 @@ ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap
     {
         char base_value[BASE_URI_MAX_LEN];
         extract_value_from_query((char*)uri_query, base_value, "base=");
-        find_endpoints_by_pattern(base_value);
-
-        build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
-                                    rt, NULL, NULL);
+        find_endpoints_by_pattern(base_value, lookup_result, first_bracket, second_href_bracket, ep_key, 
+                                    base, rt, NULL, NULL);
 
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
         
@@ -1263,22 +1377,17 @@ ssize_t _endpoint_lookup_handler(coap_pkt_t *pdu, uint8_t *buf, size_t len, coap
     {
         char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
         extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-        find_endpoints_by_pattern(endpoint_type);
-
-        build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
-                                    rt, NULL, NULL);
+        find_endpoints_by_pattern(endpoint_type, lookup_result, first_bracket, second_href_bracket, ep_key, 
+            base, rt, NULL, NULL);
 
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
 
     }
     else
     {
-        
-        get_all_registered_endpoints();
-
-        build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
-                                    rt, NULL, NULL);
            
+        build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, 
+                                    NULL, NULL);
 
         return send_blockwise_response(pdu, buf, len, ctx, lookup_result);
 

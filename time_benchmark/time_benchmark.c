@@ -35,7 +35,6 @@ void benchmark_sequential_registrations(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -78,7 +77,6 @@ void benchmark_idempotent_last_registration_existing(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -117,7 +115,6 @@ void benchmark_registration_deleted_middle_elements(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -243,7 +240,6 @@ void benchmark_sequential_epsim_registrations(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -267,17 +263,13 @@ void benchmark_sequential_epsim_registrations(void){
 
         /* Fetching the resources */
 
-        endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[i]);
+        ztimer_sleep(ZTIMER_MSEC, 250);
 
-     //   next_expiring_node = find_next_expiring_endpoint();
+        endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[i]);
 
 
         if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
-/*
-            epsim_get_request.callback = epsim_get_request_callback; 
-            epsim_get_request.arg = &endpoint_ptr->node_management.location_nr;      
-            ztimer_set(ZTIMER_SEC, &epsim_get_request, 0.75*endpoint_ptr->lt);
-*/
+
             lifetime_expiry.callback = lifetime_callback;
             lifetime_expiry.arg      = &endpoint_ptr->node_management.location_nr;
             ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->lt);
@@ -311,7 +303,6 @@ void benchmark_idempotent_last_epsim_registration_existing(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -347,16 +338,14 @@ void benchmark_idempotent_last_epsim_registration_existing(void){
 
         /* Fetching the resources */
 
+        ztimer_sleep(ZTIMER_MSEC, 250);
+
         endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1]);
 
         next_expiring_node = find_next_expiring_endpoint();
 
         if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
-/*
-            epsim_get_request.callback = epsim_get_request_callback; 
-            epsim_get_request.arg = &endpoint_ptr->node_management.location_nr;      
-            ztimer_set(ZTIMER_SEC, &epsim_get_request, 0.75*endpoint_ptr->lt);
-*/
+
             lifetime_expiry.callback = lifetime_callback;
             lifetime_expiry.arg      = &endpoint_ptr->node_management.location_nr;
             ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->lt);
@@ -380,7 +369,6 @@ void benchmark_epsim_registration_deleted_middle_elements(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -455,16 +443,14 @@ void benchmark_epsim_registration_deleted_middle_elements(void){
 
         location_value = register_endpoint(IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1], query_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1], location_str, payload, &payload_len);
 
+        ztimer_sleep(ZTIMER_MSEC, 250);
+
         endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1]);
 
         next_expiring_node = find_next_expiring_endpoint();
 
         if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
-/*
-            epsim_get_request.callback = epsim_get_request_callback; 
-            epsim_get_request.arg = &endpoint_ptr->node_management.location_nr;      
-            ztimer_set(ZTIMER_SEC, &epsim_get_request, 0.75*endpoint_ptr->lt);
-*/
+
             lifetime_expiry.callback = lifetime_callback;
             lifetime_expiry.arg      = &endpoint_ptr->node_management.location_nr;
             ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->lt);
@@ -529,7 +515,6 @@ void benchmark_update_last_element(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -588,7 +573,6 @@ void benchmark_delete_last_element(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -682,7 +666,6 @@ void benchmark_resource_lookup_href(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -749,7 +732,6 @@ void benchmark_resource_lookup_ep_name(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -776,10 +758,11 @@ void benchmark_resource_lookup_ep_name(void){
     node_ptr = &registered_endpoints_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1].node_management;
     endpoint_ptr = container_of(node_ptr, Endpoint, node_management);
 
-    uint8_t uri_query[CONFIG_NANOCOAP_URI_MAX] = " ep= ";
+    uint8_t uri_query[CONFIG_NANOCOAP_URI_MAX] = " ep=";
 
-    memcpy(uri_query, endpoint_ptr->name, strlen(endpoint_ptr->name));
-    memcpy(uri_query, " ", sizeof(" "));
+    strcat((char *)uri_query, endpoint_ptr->name);
+    strcat((char *)uri_query, " ");
+
 
     int resource_number;
 
@@ -816,7 +799,6 @@ void benchmark_resource_lookup_base_uri(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -839,10 +821,11 @@ void benchmark_resource_lookup_base_uri(void){
     }
 
 
-    uint8_t uri_query[CONFIG_NANOCOAP_URI_MAX] = " base= ";
+    uint8_t uri_query[CONFIG_NANOCOAP_URI_MAX] = " base=";
 
-    memcpy(uri_query, IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1], strlen(IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1]));
-    memcpy(uri_query, " ", sizeof(" "));
+    strcat((char *)uri_query, IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1]);
+    strcat((char *)uri_query, " ");
+
 
     int resource_number;
 
@@ -861,10 +844,8 @@ void benchmark_resource_lookup_base_uri(void){
         {
             char base_value[BASE_URI_MAX_LEN];
             extract_value_from_query((char*)uri_query, base_value, "base=");
-            find_endpoints_by_pattern(base_value);
-            
-            build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                        NULL, relative_uris, &resource_number);
+            find_endpoints_by_pattern(base_value, lookup_result, NULL, NULL, NULL, NULL,
+                NULL, relative_uris, &resource_number);
             
         }
 
@@ -881,7 +862,6 @@ void benchmark_resource_lookup_et(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -923,10 +903,8 @@ void benchmark_resource_lookup_et(void){
         {
             char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
             extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-            find_endpoints_by_pattern(endpoint_type);
-    
-            build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                        NULL, relative_uris, &resource_number);
+            find_endpoints_by_pattern(endpoint_type, lookup_result, NULL, NULL, NULL, NULL,
+                NULL, relative_uris, &resource_number);
 
         }
 
@@ -943,7 +921,6 @@ void benchmark_resource_lookup_default(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -981,8 +958,6 @@ void benchmark_resource_lookup_default(void){
         memset(relative_uris, 0, sizeof(relative_uris));
 
 
-        get_all_registered_endpoints();
-
         build_whole_result_string(uri_query, lookup_result, NULL, NULL, NULL, NULL,
                                     NULL, relative_uris, &resource_number);
 
@@ -999,7 +974,6 @@ void benchmark_ep_lookup_href(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -1069,7 +1043,6 @@ void benchmark_ep_lookup_ep_name(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -1135,7 +1108,6 @@ void benchmark_ep_lookup_base_uri(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -1183,11 +1155,9 @@ void benchmark_ep_lookup_base_uri(void){
         {
             char base_value[BASE_URI_MAX_LEN];
             extract_value_from_query((char*)uri_query, base_value, "base=");
-            find_endpoints_by_pattern(base_value);
-
-            build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
+            find_endpoints_by_pattern(base_value, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                         rt, NULL, NULL);
-            
+
         }
 
         end   = ztimer_now(ZTIMER_USEC);
@@ -1203,7 +1173,6 @@ void benchmark_ep_lookup_et(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -1248,11 +1217,9 @@ void benchmark_ep_lookup_et(void){
         {
             char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
             extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-            find_endpoints_by_pattern(endpoint_type);
-    
-            build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
+            find_endpoints_by_pattern(endpoint_type, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                         rt, NULL, NULL);
-    
+   
     
         }
 
@@ -1269,7 +1236,6 @@ void benchmark_ep_lookup_default(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(query_list, 0, sizeof(query_list));
@@ -1308,8 +1274,6 @@ void benchmark_ep_lookup_default(void){
         start = ztimer_now(ZTIMER_USEC);
 
         memset(lookup_result, 0, sizeof(lookup_result));
-
-        get_all_registered_endpoints();
 
         build_whole_result_string(uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                     rt, NULL, NULL);

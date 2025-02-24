@@ -12,6 +12,8 @@
 
 #include "rd.h"
 
+#include "rd_utilities.h"
+
 #include "tests-rd.h"
 
 
@@ -34,7 +36,6 @@ static void test_register_endpoint_three_nodes(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -145,7 +146,6 @@ static void test_lifetime_expiration(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -228,7 +228,6 @@ static void test_registration_idempotent(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -292,7 +291,6 @@ static void test_delete_endpoint(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -403,7 +401,6 @@ static void test_update_node(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -526,7 +523,6 @@ static void test_resource_lookup(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -635,10 +631,9 @@ static void test_resource_lookup(void) {
 
     char base_value[BASE_URI_MAX_LEN];
     extract_value_from_query((char*)uri_query, base_value, "base=");
-    find_endpoints_by_pattern(base_value);
-    
-    build_whole_result_string((uint8_t*)uri_query, lookup_result, NULL, NULL, NULL, NULL,
+    find_endpoints_by_pattern(base_value, lookup_result, NULL, NULL, NULL, NULL,
                                 NULL, relative_uris, &resource_number);
+    
 
     if (strstr(lookup_result, "<resource-link-3>,<resource-link-4>") != NULL){
 
@@ -654,10 +649,8 @@ static void test_resource_lookup(void) {
 
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-    find_endpoints_by_pattern(endpoint_type);
-
-    build_whole_result_string((uint8_t*)uri_query, lookup_result, NULL, NULL, NULL, NULL,
-                                NULL, relative_uris, &resource_number);
+    find_endpoints_by_pattern(endpoint_type, lookup_result, NULL, NULL, NULL, NULL,
+        NULL, relative_uris, &resource_number);
 
     if (strstr(lookup_result, "<resource-link-3>,<resource-link-4>") != NULL){
 
@@ -668,8 +661,6 @@ static void test_resource_lookup(void) {
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(relative_uris, 0, sizeof(relative_uris));
     memset(uri_query, 0, sizeof(uri_query));
-    
-    get_all_registered_endpoints();
 
     build_whole_result_string((uint8_t*)uri_query, lookup_result, NULL, NULL, NULL, NULL,
                                 NULL, relative_uris, &resource_number);
@@ -688,7 +679,6 @@ static void test_endpoint_lookup(void) {
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
     memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result_list, 0, sizeof(lookup_result_list));
     number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
     number_deleted_registrations = INITIAL_NUMBER_DELETED_ENDPOINTS;
     head = NULL;
@@ -798,9 +788,7 @@ static void test_endpoint_lookup(void) {
 
     char base_value[BASE_URI_MAX_LEN];
     extract_value_from_query((char*)uri_query, base_value, "base=");
-    find_endpoints_by_pattern(base_value);
-
-    build_whole_result_string((uint8_t*)uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
+    find_endpoints_by_pattern(base_value, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                 rt, NULL, NULL);
 
     if (strstr(lookup_result, "ep=RIOT-098503495KJHK") != NULL){
@@ -816,9 +804,7 @@ static void test_endpoint_lookup(void) {
 
     char endpoint_type[ENDPOINT_TYPE_MAX_LEN] = { 0 };
     extract_value_from_query((char*)uri_query, endpoint_type, "et=");
-    find_endpoints_by_pattern(endpoint_type);
-
-    build_whole_result_string((uint8_t*)uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
+    find_endpoints_by_pattern(endpoint_type, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                 rt, NULL, NULL);
 
     if (strstr(lookup_result, "ep=RIOT-098503495KJHK") != NULL){
@@ -829,8 +815,6 @@ static void test_endpoint_lookup(void) {
     /*Lookup using no filtering*/
     memset(lookup_result, 0, sizeof(lookup_result));
     memset(uri_query, 0, sizeof(uri_query));
-    
-    get_all_registered_endpoints();
 
     build_whole_result_string((uint8_t*)uri_query, lookup_result, first_bracket, second_href_bracket, ep_key, base,
                                 rt, NULL, NULL);

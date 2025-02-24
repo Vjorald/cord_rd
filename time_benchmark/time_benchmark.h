@@ -3,20 +3,21 @@
 #include <string.h>
 #include "random.h"
 #include "rd.h"
+#include "rd_utilities.h"
 
-#define EP_NAME_LEN 15 // Length of the random part after "RIOT-"
-#define QUERY_LIST_SIZE 100 // Number of generated strings
+#define EP_NAME_LEN 15 
+#define QUERY_LIST_SIZE 100 
 #define IPV6_LIST_SIZE 100
 #define NUMBER_CYCLES_BENCHMARK 100
 
 void generate_random_ep_name(char *buffer, size_t length) {
     const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    strcpy(buffer, "RIOT-"); // Start with "RIOT-"
+    strcpy(buffer, "RIOT-"); 
     
-    for (size_t i = 5; i < length - 1; i++) { // Start filling after "RIOT-"
+    for (size_t i = 5; i < length - 1; i++) { 
         buffer[i] = charset[random_uint32() % (sizeof(charset) - 1)];
     }
-    buffer[length - 1] = '\0'; // Null-terminate the string
+    buffer[length - 1] = '\0'; 
 }
 
 void generate_query_list(unsigned char list[QUERY_LIST_SIZE][QUERY_BUFFER_MAX_LEN], const char *base_strings[], size_t base_count) {
