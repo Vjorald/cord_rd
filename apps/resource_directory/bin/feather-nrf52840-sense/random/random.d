@@ -62,10 +62,7 @@
  /home/vjorald/cord_rd/RIOT/core/include/sched.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h \
  /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h \
- /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/thread_arch.h \
- /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
- /usr/lib/gcc/arm-none-eabi/9.2.1/include-fixed/limits.h \
- /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/architecture_arch.h
+ /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/thread_arch.h
 
 /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
@@ -216,9 +213,3 @@
 /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/thread_arch.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
-
-/usr/lib/gcc/arm-none-eabi/9.2.1/include-fixed/limits.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/architecture_arch.h:

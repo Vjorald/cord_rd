@@ -53,9 +53,7 @@
  /home/vjorald/cord_rd/RIOT/core/lib/include/kernel_defines.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/periph/pm.h \
  /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/periph_cpu.h \
- /home/vjorald/cord_rd/RIOT/cpu/nrf5x_common/include/periph_cpu_common.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ps.h \
- /home/vjorald/cord_rd/RIOT/sys/include/usb_board_reset.h
+ /home/vjorald/cord_rd/RIOT/cpu/nrf5x_common/include/periph_cpu_common.h
 
 /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
@@ -182,7 +180,3 @@
 /home/vjorald/cord_rd/RIOT/cpu/nrf52/include/periph_cpu.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/nrf5x_common/include/periph_cpu_common.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ps.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/usb_board_reset.h:

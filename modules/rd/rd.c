@@ -8,8 +8,6 @@ Endpoint registered_endpoints_list[REGISTERED_ENDPOINTS_MAX_NUMBER] = { 0 };
 
 int deleted_registrations_list[DELETED_ENDPOINTS_MAX_NUMBER] = { 0 };
 
-//Endpoint lookup_result_list[LOOKUP_RESULTS_MAX_LEN] = { 0 };
-
 ztimer_t lifetime_expiry, epsim_get_request;
 
 int number_registered_endpoints = INITIAL_NUMBER_REGISTERED_ENDPOINTS;
@@ -108,57 +106,7 @@ void delete_endpoint(int location_nr) {
     }
 
 }
-/*
-int printlist(Endpoint* endpoint)
-{
 
-    (void) endpoint;
-
-    if (head == NULL)
-    {
-        return 0;
-    }
-    
-    puts("\n");
-    puts("======= Registered Endpoints: ===========\n");
-
-    i_list_node *actual = head;
-    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
-    char location_str[LOCATION_STR_MAX_LEN] = "";
-    build_location_string(actual->location_nr, location_str);
-
-    printf("Endpoint: %s\n", endpoint_ptr->name);
-    printf("Lifetime: %d\n", endpoint_ptr->lt);
-    printf("Resources: %s\n", endpoint_ptr->resources);
-    printf("Location: %s\n", location_str);
-    printf("Base URI: %s\n", endpoint_ptr->base);
-    puts("===\n");
-    
-    do
-    {
-        if(actual->next != NULL)
-        {
-            actual = actual->next;
-            endpoint_ptr = container_of(actual, Endpoint, node_management);
-            memset(location_str, 0, sizeof(location_str));
-            build_location_string(actual->location_nr, location_str);
-
-            printf("Endpoint: %s\n", endpoint_ptr->name);
-            printf("Lifetime: %d\n", endpoint_ptr->lt);
-            printf("Resources: %s\n", endpoint_ptr->resources);
-            printf("Location: %s\n", location_str);
-            printf("Base URI: %s\n", endpoint_ptr->base);
-            puts("===\n"); 
-            
-        }
-        else return 0;
-
-    }while(actual->next != NULL);
-
-    return 0;
-
-}
-*/
 i_list_node* find_next_expiring_endpoint(void){
 
 
@@ -228,25 +176,24 @@ void itoa(int num, char *str, int base) {
     int i = 0;
     int isNegative = 0;
 
-    // Handle negative numbers for base 10
     if (num < 0 && base == 10) {
         isNegative = 1;
         num = -num;
     }
 
-    // Convert number to string
+
     do {
         str[i++] = "0123456789ABCDEF"[num % base];
         num /= base;
     } while (num > 0);
 
-    // Add negative sign if needed
+    
     if (isNegative)
         str[i++] = '-';
 
     str[i] = '\0';
 
-    // Reverse the string
+    
     for (int j = 0, k = i - 1; j < k; j++, k--) {
         char temp = str[j];
         str[j] = str[k];
@@ -292,69 +239,12 @@ void build_base_uri_string(char* addr_str, char* base_uri){
     strcat(base_uri, addr_str);
     strcat(base_uri, ending);
 }
-/*
-void get_all_registered_endpoints(char *lookup_result, uint8_t *uri_query, char *first_bracket, char *second_href_bracket, char *ep_key,
-    char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number){
 
-    memset(lookup_result, 0, sizeof(lookup_result));
-
-    if (head == NULL)
-    {
-        return ;
-    }
-
-    i_list_node *actual = head;
-    Endpoint *endpoint_ptr = container_of(actual, Endpoint, node_management);
-
-    
-    if(strlen(endpoint_ptr->name) == 0)
-    {
-        return ;
-    }
-
-    if(relative_uris){
-        *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
-        build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
-    }
-    else{
-        build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
-    }
-
-    
-    do
-    {
-        if(actual->next != NULL)
-        {
-            actual = actual->next;
-            endpoint_ptr = container_of(actual, Endpoint, node_management);
-           
-            if(strlen(endpoint_ptr->name) == 0)
-            {
-                return ;
-            }
-        
-            if(relative_uris){
-                *resource_number = extract_resource_uris(endpoint_ptr->resources, relative_uris);
-                build_resource_string(*resource_number, relative_uris, lookup_result, endpoint_ptr);
-            }
-            else{
-                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, endpoint_ptr, endpoint_ptr->et);
-            }
-            
-        }
-        else break; 
-
-    }while(actual->next != NULL);
-
-    return ;
-}
-*/
 
 void find_endpoints_by_pattern(char* pattern, char *lookup_result, char *first_bracket, char *second_href_bracket, char *ep_key,
     char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number)
 {
-   // memset(lookup_result_list, 0, sizeof(lookup_result_list));
-   // int last_element_index = 0;
+
 
     if (head == NULL)
     {
@@ -694,24 +584,6 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
             else return ;
 
         }while(actual->next != NULL);
-
-/*
-        for(int i = first_value; i < last_value; i++){
-
-            if(strlen(lookup_result_list[i].name) == 0)
-            {
-                break;
-            }
-
-            if(relative_uris){
-                *resource_number = extract_resource_uris(lookup_result_list[i].resources, relative_uris);
-                build_resource_string(*resource_number, relative_uris, lookup_result, &lookup_result_list[i]);
-            }
-            else{
-                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, &lookup_result_list[i], lookup_result_list[i].et);
-            }
-           
-        }*/
     }
     else{
 
@@ -761,25 +633,6 @@ void build_whole_result_string(uint8_t *uri_query, char *lookup_result, char *fi
 
         }while(actual->next != NULL);
 
-        /*
-
-        for(unsigned int i = 0; i<sizeof(lookup_result_list); i++)
-        {   
-            if(strlen(lookup_result_list[i].name) == 0)
-            {
-                break;
-            }
-
-            if(relative_uris){
-                *resource_number = extract_resource_uris(lookup_result_list[i].resources, relative_uris);
-                build_resource_string(*resource_number, relative_uris, lookup_result, &lookup_result_list[i]);
-            }
-            else{
-                build_result_string(lookup_result, first_bracket, second_href_bracket, ep_key, base, rt, &lookup_result_list[i], lookup_result_list[i].et);
-            }
-
-        }
-            */
     }
 
 }

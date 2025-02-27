@@ -105,20 +105,17 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ipv6.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/pktq/type.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pktqueue.h \
  /home/vjorald/cord_rd/RIOT/sys/include/utlist.h \
  /home/vjorald/cord_rd/RIOT/sys/include/xtimer.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
  /home/vjorald/cord_rd/RIOT/sys/include/time_units.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h \
- /home/vjorald/cord_rd/RIOT/sys/include/div.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
  /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/netif.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/ipv6.h \
@@ -374,12 +371,6 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h:
-
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/pktq/type.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pktqueue.h:
@@ -392,15 +383,15 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/time_units.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/div.h:
+/home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/timex.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h:
 
 /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h:
 

@@ -102,15 +102,12 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ipv6.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/pktq/type.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pktqueue.h \
  /home/vjorald/cord_rd/RIOT/sys/include/utlist.h \
  /home/vjorald/cord_rd/RIOT/sys/include/xtimer.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h \
  /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h \
  /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/cpu.h \
  /usr/include/newlib/stdio.h \
@@ -126,9 +123,9 @@
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_clock_32_0.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_rtt_default.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h \
- /home/vjorald/cord_rd/RIOT/sys/include/div.h \
  /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
  /home/vjorald/cord_rd/RIOT/sys/include/iolist.h \
  /usr/include/newlib/unistd.h /usr/include/newlib/sys/unistd.h \
@@ -373,12 +370,6 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h:
-
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/pktq/type.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/pktqueue.h:
@@ -389,7 +380,7 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/timex.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h:
+/home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h:
 
 /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h:
 
@@ -425,11 +416,11 @@
 
 /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/div.h:
-
 /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h:
+/home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h:
 
 /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h:
 

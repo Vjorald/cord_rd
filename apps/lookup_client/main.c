@@ -182,15 +182,6 @@ int main(void) {
     cord_lc_raw(&rd, COAP_FORMAT_LINK, CORD_LC_EP, &filters, lc_buffer, sizeof(lc_buffer) - 1);
 
     printf("Endpoints: %s\n", lc_buffer);
-/*
-    memset(lc_buffer, 0, sizeof(lc_buffer));
 
-    cord_lc_raw(&rd, COAP_FORMAT_LINK, CORD_LC_RES, NULL, lc_buffer, sizeof(lc_buffer) - 1);
-
-    printf("Resources: %s\n", lc_buffer);
-
-    memset(lc_buffer, 0, sizeof(lc_buffer));
-
-*/
     return 0;
 }

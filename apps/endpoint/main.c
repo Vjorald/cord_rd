@@ -23,8 +23,6 @@
 #include "event/thread.h"
 #include "periph/gpio.h"
 
-//#define MAIN_QUEUE_SIZE (4)
-//static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
 static ssize_t _riot_board_handler(coap_pkt_t* pdu, uint8_t *buf, size_t len, coap_request_ctx_t *ctx);
 
@@ -61,7 +59,6 @@ char * configure_network(sock_udp_ep_t * remote, char *addr, char *port) {
      strcat(full_addr, "]:");
      strcat(full_addr, port);
 
-     //printf("%s", full_addr);
 
      if (sock_udp_str2ep(remote, full_addr) < 0) {
         puts("Unable to parse destination address");
@@ -228,24 +225,6 @@ int main(void) {
     gcoap_register_listener(&_listener);
 
     puts("Hello I am an Endpoint!\n");
-/*
-    if (gpio_init_int(BTN0_PIN, BTN0_MODE, GPIO_FALLING, button_callback, NULL) < 0) {
-        puts("[FAILED] init BTN0!");
-        return 1;
-    }
-
-    while (1) {
-        puts("Main");
-        ztimer_sleep(ZTIMER_MSEC, 1000);
-    }
-*/
-/*
-    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
-
-    puts("All up, running the shell now");
-    char line_buf[SHELL_DEFAULT_BUFSIZE];
-    shell_run(NULL, line_buf, SHELL_DEFAULT_BUFSIZE);
-*/
 
     sock_udp_t sock;
 
@@ -257,8 +236,6 @@ int main(void) {
     }
 
     sock_udp_ep_t remote = { .family = AF_INET6 , .port = 5683 };
-
-  //  ipv6_addr_from_str((ipv6_addr_t *)&remote.addr, "ff02::1");
 
     ipv6_addr_set_all_nodes_multicast((ipv6_addr_t *)&remote.addr.ipv6,
                                    IPV6_ADDR_MCAST_SCP_LINK_LOCAL);

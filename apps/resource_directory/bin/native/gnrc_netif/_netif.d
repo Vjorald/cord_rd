@@ -97,7 +97,6 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ipv6.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
@@ -371,8 +370,6 @@
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
 

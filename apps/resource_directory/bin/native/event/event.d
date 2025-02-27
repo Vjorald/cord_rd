@@ -53,32 +53,7 @@
  /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/list.h \
  /home/vjorald/cord_rd/RIOT/core/include/thread.h \
- /home/vjorald/cord_rd/RIOT/core/lib/include/rmutex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/xtimer.h \
- /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
- /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/time_units.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h \
- /home/vjorald/cord_rd/RIOT/boards/native/include/board.h \
- /home/vjorald/cord_rd/RIOT/drivers/include/motor_driver.h \
- /home/vjorald/cord_rd/RIOT/drivers/include/periph/pwm.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h \
- /usr/include/linux/gpio.h /usr/include/linux/ioctl.h \
- /usr/include/asm/ioctl.h /usr/include/asm-generic/ioctl.h \
- /usr/include/linux/types.h /usr/include/asm/types.h \
- /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
- /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
- /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
- /usr/include/asm/posix_types.h /usr/include/asm/posix_types_32.h \
- /usr/include/asm-generic/posix_types.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h \
- /home/vjorald/cord_rd/RIOT/drivers/include/periph/gpio.h \
- /home/vjorald/cord_rd/RIOT/sys/include/div.h \
- /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/rmutex.h
 
 /usr/include/stdc-predef.h:
 
@@ -227,67 +202,3 @@
 /home/vjorald/cord_rd/RIOT/core/include/thread.h:
 
 /home/vjorald/cord_rd/RIOT/core/lib/include/rmutex.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/xtimer.h:
-
-/home/vjorald/cord_rd/RIOT/core/lib/include/modules.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/timex.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/time_units.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h:
-
-/home/vjorald/cord_rd/RIOT/boards/native/include/board.h:
-
-/home/vjorald/cord_rd/RIOT/drivers/include/motor_driver.h:
-
-/home/vjorald/cord_rd/RIOT/drivers/include/periph/pwm.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_cpu.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
-
-/home/vjorald/cord_rd/RIOT/core/lib/include/macros/units.h:
-
-/usr/include/linux/gpio.h:
-
-/usr/include/linux/ioctl.h:
-
-/usr/include/asm/ioctl.h:
-
-/usr/include/asm-generic/ioctl.h:
-
-/usr/include/linux/types.h:
-
-/usr/include/asm/types.h:
-
-/usr/include/asm-generic/types.h:
-
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/include/asm/bitsperlong.h:
-
-/usr/include/asm-generic/bitsperlong.h:
-
-/usr/include/linux/posix_types.h:
-
-/usr/include/linux/stddef.h:
-
-/usr/include/asm/posix_types.h:
-
-/usr/include/asm/posix_types_32.h:
-
-/usr/include/asm-generic/posix_types.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/periph_conf.h:
-
-/home/vjorald/cord_rd/RIOT/drivers/include/periph/gpio.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/div.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/timex.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h:

@@ -92,12 +92,7 @@
  /home/vjorald/cord_rd/RIOT/core/include/sched.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/thread_config.h \
  /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h \
- /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix2_lim.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h
 
 /usr/include/stdc-predef.h:
 
@@ -410,15 +405,3 @@
 /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
-
-/usr/include/limits.h:
-
-/usr/include/bits/posix2_lim.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h:

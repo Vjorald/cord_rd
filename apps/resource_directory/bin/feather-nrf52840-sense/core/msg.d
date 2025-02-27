@@ -52,10 +52,7 @@
  /usr/include/newlib/sys/lock.h /usr/include/newlib/sys/types.h \
  /usr/include/newlib/sys/_stdint.h \
  /usr/include/newlib/sys/_pthreadtypes.h \
- /usr/include/newlib/machine/types.h /usr/include/newlib/sys/stdio.h \
- /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
- /usr/lib/gcc/arm-none-eabi/9.2.1/include-fixed/limits.h \
- /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/architecture_arch.h
+ /usr/include/newlib/machine/types.h /usr/include/newlib/sys/stdio.h
 
 /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
@@ -180,9 +177,3 @@
 /usr/include/newlib/machine/types.h:
 
 /usr/include/newlib/sys/stdio.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
-
-/usr/lib/gcc/arm-none-eabi/9.2.1/include-fixed/limits.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/architecture_arch.h:

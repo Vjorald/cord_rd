@@ -113,9 +113,7 @@
  /usr/include/bits/waitstatus.h /usr/include/bits/floatn.h \
  /usr/include/bits/floatn-common.h /usr/include/alloca.h \
  /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /home/vjorald/cord_rd/RIOT/core/lib/include/debug.h \
- /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h
+ /home/vjorald/cord_rd/RIOT/core/lib/include/debug.h
 
 /usr/include/stdc-predef.h:
 
@@ -496,7 +494,3 @@
 /usr/include/bits/stdlib-float.h:
 
 /home/vjorald/cord_rd/RIOT/core/lib/include/debug.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h:

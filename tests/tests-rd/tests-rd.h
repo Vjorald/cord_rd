@@ -11,9 +11,9 @@
  * @{
  *
  * @file
- * @brief       Unittests for the ``module`` module
+ * @brief       Unittests for the ``rd`` module
  *
- * @author      <author>
+ * @author      <Vjorald Vlusha>
  */
 #ifndef TESTS_RD_H
 #define TESTS_RD_H

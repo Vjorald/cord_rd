@@ -61,7 +61,7 @@
  /home/vjorald/cord_rd/RIOT/core/lib/include/modules.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
  /home/vjorald/cord_rd/RIOT/sys/include/time_units.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h \
  /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h \
  /home/vjorald/cord_rd/RIOT/cpu/cortexm_common/include/cpu.h \
  /usr/include/newlib/stdio.h \
@@ -77,10 +77,8 @@
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_clock_32_0.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_rtt_default.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h \
- /home/vjorald/cord_rd/RIOT/sys/include/div.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h
+ /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h
 
 /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
 
@@ -218,7 +216,7 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/time_units.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h:
+/home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h:
 
 /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h:
 
@@ -254,10 +252,6 @@
 
 /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/div.h:
-
 /home/vjorald/cord_rd/RIOT/sys/include/timex.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h:

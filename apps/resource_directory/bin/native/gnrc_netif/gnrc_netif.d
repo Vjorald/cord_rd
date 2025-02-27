@@ -105,7 +105,6 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ipv6.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
@@ -136,6 +135,7 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/ipv6/ext.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/ipv6/hdr.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/sixlowpan/ctx.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/netstats/neighbor.h \
  /home/vjorald/cord_rd/RIOT/sys/include/fmt.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/log.h \
@@ -415,8 +415,6 @@
 
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
-
 /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h:
@@ -490,6 +488,8 @@
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/ipv6/hdr.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/sixlowpan/ctx.h:
+
+/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/netstats/neighbor.h:
 

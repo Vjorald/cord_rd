@@ -79,7 +79,7 @@
  /home/vjorald/cord_rd/RIOT/sys/include/time_units.h \
  /home/vjorald/cord_rd/RIOT/core/include/msg.h \
  /home/vjorald/cord_rd/RIOT/core/lib/include/rmutex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h \
  /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/board_common.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/periph/gpio.h \
@@ -88,8 +88,6 @@
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_rtt_default.h \
  /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h \
  /home/vjorald/cord_rd/RIOT/sys/include/timex.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h \
  /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h
 
 /home/vjorald/cord_rd/apps/resource_directory/bin/feather-nrf52840-sense/riotbuild/riotbuild.h:
@@ -282,7 +280,7 @@
 
 /home/vjorald/cord_rd/RIOT/core/lib/include/rmutex.h:
 
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64/xtimer_compat.h:
+/home/vjorald/cord_rd/RIOT/sys/include/ztimer/xtimer_compat.h:
 
 /home/vjorald/cord_rd/RIOT/boards/feather-nrf52840-sense/include/board.h:
 
@@ -299,9 +297,5 @@
 /home/vjorald/cord_rd/RIOT/boards/common/nrf52/include/cfg_timer_default.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/timex.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/ztimer64.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/ztimer.h:

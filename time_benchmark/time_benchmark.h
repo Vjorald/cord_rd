@@ -6,9 +6,9 @@
 #include "rd_utilities.h"
 
 #define EP_NAME_LEN 15 
-#define QUERY_LIST_SIZE 100 
-#define IPV6_LIST_SIZE 100
-#define NUMBER_CYCLES_BENCHMARK 100
+#define QUERY_LIST_SIZE 1000
+#define IPV6_LIST_SIZE 1000
+#define NUMBER_CYCLES_BENCHMARK 1000
 
 void generate_random_ep_name(char *buffer, size_t length) {
     const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";

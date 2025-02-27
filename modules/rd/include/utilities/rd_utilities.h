@@ -9,11 +9,11 @@
 #include "net/sock/udp.h"
 
 #ifndef REGISTERED_ENDPOINTS_MAX_NUMBER
-#define REGISTERED_ENDPOINTS_MAX_NUMBER 100
+#define REGISTERED_ENDPOINTS_MAX_NUMBER 50
 #endif
 
 #ifndef DELETED_ENDPOINTS_MAX_NUMBER
-#define DELETED_ENDPOINTS_MAX_NUMBER 100
+#define DELETED_ENDPOINTS_MAX_NUMBER 50
 #endif
 
 #define BASE_URI_MAX_LEN 64
@@ -111,10 +111,7 @@ void lifetime_callback(void *argument);
 void epsim_get_request_callback(void* argument);
 
 int printList(Endpoint* endpoint);
-/*
-void get_all_registered_endpoints(char *lookup_result, uint8_t *uri_query, char *first_bracket, char *second_href_bracket, char *ep_key,
-    char *base, char *rt, char relative_uris[RESOURCE_URI_MAX_NUMBER][RESOURCE_URI_MAX_LEN], int *resource_number);
-*/
+
 void append_endpoint(i_list_node *new_node);
 
 void connect_endpoint_with_the_rest(i_list_node *node_ptr, int location_nr);

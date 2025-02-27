@@ -95,6 +95,7 @@ void benchmark_idempotent_last_registration_existing(void){
         memset(location_str, 0, sizeof(location_str));
     }
 
+    total_time = 0;
 
     for (int i = 0; i < runs; i++) {
         
@@ -180,6 +181,8 @@ void benchmark_registration_deleted_middle_elements(void){
 
     int location_value = 0;
 
+    total_time = 0;
+    
     for (int i = 0; i < runs; i++) {
         
         start = ztimer_now(ZTIMER_USEC);
@@ -236,69 +239,6 @@ void benchmark_registration_deleted_middle_elements(void){
 
 }
 
-void benchmark_sequential_epsim_registrations(void){
-
-    memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
-    memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-    memset(lookup_result, 0, sizeof(lookup_result));
-    memset(relative_uris, 0, sizeof(relative_uris));
-    memset(query_list, 0, sizeof(query_list));
-    memset(location_str, 0, sizeof(location_str));
-    head = NULL;
-    number_registered_endpoints = 0;
-    number_deleted_registrations = 0;
-
-    random_init(0); // Initialize RIOT's random system
-    generate_query_list(query_list, base_strings, base_count);
-
-    generate_ipv6_list(IPv6_address_list);
-
-    total_time = 0;
-
-    for (int i = 0; i < runs; i++) {
-        
-        start = ztimer_now(ZTIMER_USEC);
-
-        register_endpoint(IPv6_address_list[i], query_list[i], location_str, payload, &payload_len);
-
-        /* Fetching the resources */
-
-        ztimer_sleep(ZTIMER_MSEC, 250);
-
-        endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[i]);
-
-
-        if (next_expiring_node->location_nr == endpoint_ptr->node_management.location_nr){
-
-            lifetime_expiry.callback = lifetime_callback;
-            lifetime_expiry.arg      = &endpoint_ptr->node_management.location_nr;
-            ztimer_set(ZTIMER_SEC, &lifetime_expiry, endpoint_ptr->lt);
-
-        }
-
-        memcpy((char*)endpoint_ptr->resources, "<resource-link-1>,<resource-link-2>", sizeof("<resource-link-1>,<resource-link-2>"));
-
-        endpoint_ptr->epsim = true;
-
-        end   = ztimer_now(ZTIMER_USEC);
-
-        if (runs % (REGISTERED_ENDPOINTS_MAX_NUMBER - 1) == 0){
-            memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
-            memset(deleted_registrations_list, 0, sizeof(deleted_registrations_list));
-            head = NULL;
-            number_registered_endpoints = 0;
-            number_deleted_registrations = 0;
-        }
-
-        memset(location_str, 0, sizeof(location_str));
-
-        total_time += (end - start);
-    }
-
-    printf("Average execution time sequential epsim: %d microseconds\n", total_time / runs);
-
-}
-
 void benchmark_idempotent_last_epsim_registration_existing(void){
 
     memset(registered_endpoints_list, 0, sizeof(registered_endpoints_list));
@@ -341,6 +281,10 @@ void benchmark_idempotent_last_epsim_registration_existing(void){
         ztimer_sleep(ZTIMER_MSEC, 250);
 
         endpoint_ptr = find_endpoint_by_pattern(IPv6_address_list[REGISTERED_ENDPOINTS_MAX_NUMBER - 1]);
+
+        if (endpoint_ptr == NULL){
+            continue;
+        }
 
         next_expiring_node = find_next_expiring_endpoint();
 
@@ -551,6 +495,7 @@ void benchmark_update_last_element(void){
 
     }
 
+    total_time = 0;
 
     int payload_len_update = strlen((char *)payload);
 
@@ -1166,7 +1111,7 @@ void benchmark_ep_lookup_base_uri(void){
 
     }
 
-    printf("Average execution time: %d microseconds\n", total_time / runs);
+    printf("Average execution time base URI: %d microseconds\n", total_time / runs);
 }
 
 void benchmark_ep_lookup_et(void){
@@ -1296,8 +1241,6 @@ int main(void) {
     benchmark_idempotent_last_registration_existing();
 
     benchmark_registration_deleted_middle_elements();
-
-    benchmark_sequential_epsim_registrations();
 
     benchmark_idempotent_last_epsim_registration_existing();
 

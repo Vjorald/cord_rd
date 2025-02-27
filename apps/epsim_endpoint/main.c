@@ -229,7 +229,7 @@ int main(void) {
                                         IPV6_ADDR_MCAST_SCP_LINK_LOCAL);
 
 
-    static char endpoint_buffer[10000];
+    static char endpoint_buffer[1000];
 
     int res = cord_epsim_register(&remote);
 

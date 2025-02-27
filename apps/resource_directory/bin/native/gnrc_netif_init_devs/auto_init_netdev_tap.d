@@ -40,13 +40,6 @@
  /home/vjorald/cord_rd/RIOT/cpu/native/include/cpu_conf.h \
  /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h \
  /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h \
- /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
- /usr/include/limits.h /usr/include/bits/posix1_lim.h \
- /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
- /usr/include/bits/posix2_lim.h \
- /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h \
  /home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap_params.h \
  /home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap.h \
  /home/vjorald/cord_rd/RIOT/drivers/include/net/netdev.h \
@@ -84,6 +77,13 @@
  /usr/include/alloca.h /usr/include/bits/stdlib-bsearch.h \
  /usr/include/bits/stdlib-float.h /usr/include/sys/uio.h \
  /usr/include/bits/types/struct_iovec.h /usr/include/bits/uio_lim.h \
+ /home/vjorald/cord_rd/RIOT/sys/include/architecture.h \
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/posix2_lim.h \
+ /home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/af.h \
  /home/vjorald/cord_rd/RIOT/sys/posix/include/sys/bytes.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ethernet.h \
@@ -114,7 +114,6 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/gnrc/netif/ipv6.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h \
  /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h \
- /home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/ndp.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/netif.h \
@@ -232,24 +231,6 @@
 /home/vjorald/cord_rd/RIOT/core/include/thread_flags.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/native/include/thread_arch.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
-
-/usr/include/limits.h:
-
-/usr/include/bits/posix1_lim.h:
-
-/usr/include/bits/local_lim.h:
-
-/usr/include/linux/limits.h:
-
-/usr/include/bits/posix2_lim.h:
-
-/home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h:
 
 /home/vjorald/cord_rd/RIOT/cpu/native/include/netdev_tap_params.h:
 
@@ -375,6 +356,24 @@
 
 /usr/include/bits/uio_lim.h:
 
+/home/vjorald/cord_rd/RIOT/sys/include/architecture.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/home/vjorald/cord_rd/RIOT/cpu/native/include/architecture_arch.h:
+
 /home/vjorald/cord_rd/RIOT/sys/include/net/af.h:
 
 /home/vjorald/cord_rd/RIOT/sys/posix/include/sys/bytes.h:
@@ -434,8 +433,6 @@
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer_msg.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/evtimer.h:
-
-/home/vjorald/cord_rd/RIOT/sys/include/net/netstats.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/l2util.h:
 

@@ -22,8 +22,6 @@
  /home/vjorald/cord_rd/RIOT/sys/include/random.h \
  /usr/include/newlib/inttypes.h /usr/include/newlib/sys/_intsup.h \
  /home/vjorald/cord_rd/modules/rd/include/rd.h \
- /home/vjorald/cord_rd/modules/i_list/include/i_list.h \
- /usr/include/newlib/ctype.h /usr/include/newlib/math.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/gcoap.h \
  /home/vjorald/cord_rd/RIOT/sys/include/event/callback.h \
  /home/vjorald/cord_rd/RIOT/sys/include/event.h \
@@ -151,6 +149,9 @@
  /home/vjorald/cord_rd/RIOT/sys/include/net/nanocoap/cache.h \
  /home/vjorald/cord_rd/RIOT/sys/include/hashes/sha256.h \
  /home/vjorald/cord_rd/RIOT/sys/include/hashes/sha2xx_common.h \
+ /home/vjorald/cord_rd/modules/rd/include/utilities/rd_utilities.h \
+ /home/vjorald/cord_rd/modules/i_list/include/i_list.h \
+ /usr/include/newlib/ctype.h /usr/include/newlib/math.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/utils.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/sock/util.h \
  /home/vjorald/cord_rd/RIOT/sys/include/net/sock/config.h
@@ -220,12 +221,6 @@
 /usr/include/newlib/sys/_intsup.h:
 
 /home/vjorald/cord_rd/modules/rd/include/rd.h:
-
-/home/vjorald/cord_rd/modules/i_list/include/i_list.h:
-
-/usr/include/newlib/ctype.h:
-
-/usr/include/newlib/math.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/gcoap.h:
 
@@ -484,6 +479,14 @@
 /home/vjorald/cord_rd/RIOT/sys/include/hashes/sha256.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/hashes/sha2xx_common.h:
+
+/home/vjorald/cord_rd/modules/rd/include/utilities/rd_utilities.h:
+
+/home/vjorald/cord_rd/modules/i_list/include/i_list.h:
+
+/usr/include/newlib/ctype.h:
+
+/usr/include/newlib/math.h:
 
 /home/vjorald/cord_rd/RIOT/sys/include/net/utils.h:
 
