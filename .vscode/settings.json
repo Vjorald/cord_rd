@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "array": "c",
+        "string_view": "c",
+        "type_traits": "c",
+        "i_list.h": "c",
+        "cache.h": "c",
+        "internet": "c",
+        "sstream": "c",
+        "cstring": "c",
+        "ctype.h": "c",
+        "list": "c",
+        "rd.h": "c",
+        "socket": "c",
+        "udp.h": "c",
+        "util.h": "c",
+        "lc.h": "c"
+    }
+}
